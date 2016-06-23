@@ -7,14 +7,58 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0832E35DE0A8F5F872401821 /* Pods_CycleOmics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 970859AF2835716EF0CC4F13 /* Pods_CycleOmics.framework */; };
+		234594D51F4AF06C9C104ECF /* Pods_CycleOmicsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAB3064C3315C23E1017E63C /* Pods_CycleOmicsTests.framework */; };
 		623FFD681CFB9A8E006EA0E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD671CFB9A8E006EA0E0 /* AppDelegate.swift */; };
 		623FFD6A1CFB9A8E006EA0E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD691CFB9A8E006EA0E0 /* ViewController.swift */; };
-		623FFD6D1CFB9A8E006EA0E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 623FFD6B1CFB9A8E006EA0E0 /* Main.storyboard */; };
 		623FFD701CFB9A8E006EA0E0 /* CycleOmics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD6E1CFB9A8E006EA0E0 /* CycleOmics.xcdatamodeld */; };
 		623FFD721CFB9A8E006EA0E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 623FFD711CFB9A8E006EA0E0 /* Assets.xcassets */; };
 		623FFD751CFB9A8E006EA0E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 623FFD731CFB9A8E006EA0E0 /* LaunchScreen.storyboard */; };
 		623FFD801CFB9A8E006EA0E0 /* CycleOmicsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD7F1CFB9A8E006EA0E0 /* CycleOmicsTests.swift */; };
 		623FFD8B1CFB9A8E006EA0E0 /* CycleOmicsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD8A1CFB9A8E006EA0E0 /* CycleOmicsUITests.swift */; };
+		62EB415E1D1B75E0002D67DE /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62EB415D1D1B75E0002D67DE /* HealthKit.framework */; };
+		62EB41621D1B7A85002D67DE /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41601D1B7A85002D67DE /* OnboardingViewController.swift */; };
+		62EB41631D1B7A85002D67DE /* IntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41611D1B7A85002D67DE /* IntroductionViewController.swift */; };
+		62EB41711D1B8394002D67DE /* ResearchContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB416F1D1B8394002D67DE /* ResearchContainerViewController.swift */; };
+		62EB41721D1B8394002D67DE /* ResearchContainerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41701D1B8394002D67DE /* ResearchContainerSegue.swift */; };
+		62EB41771D1B83DF002D67DE /* DashboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41731D1B83DF002D67DE /* DashboardTableViewController.swift */; };
+		62EB41781D1B83DF002D67DE /* PieChartDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41741D1B83DF002D67DE /* PieChartDataSource.swift */; };
+		62EB41791D1B83DF002D67DE /* DiscreteGraphDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41751D1B83DF002D67DE /* DiscreteGraphDataSource.swift */; };
+		62EB417A1D1B83DF002D67DE /* LineGraphDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41761D1B83DF002D67DE /* LineGraphDataSource.swift */; };
+		62EB417D1D1B83FF002D67DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62EB417C1D1B83FF002D67DE /* Main.storyboard */; };
+		62EB41801D1B8429002D67DE /* HealthClientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB417E1D1B8429002D67DE /* HealthClientType.swift */; };
+		62EB41811D1B8429002D67DE /* AnimatableChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB417F1D1B8429002D67DE /* AnimatableChart.swift */; };
+		62EB41861D1B8440002D67DE /* HealthDataStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41831D1B8440002D67DE /* HealthDataStep.swift */; };
+		62EB41871D1B8440002D67DE /* HealthDataStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41841D1B8440002D67DE /* HealthDataStepViewController.swift */; };
+		62EB41881D1B8440002D67DE /* ConsentDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41851D1B8440002D67DE /* ConsentDocument.swift */; };
+		62EB418B1D1B845A002D67DE /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB418A1D1B845A002D67DE /* WithdrawViewController.swift */; };
+		62EB41901D1B8473002D67DE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB418D1D1B8473002D67DE /* ProfileViewController.swift */; };
+		62EB41911D1B8473002D67DE /* ProfileStaticTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB418E1D1B8473002D67DE /* ProfileStaticTableViewCell.swift */; };
+		62EB41921D1B8473002D67DE /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB418F1D1B8473002D67DE /* ProfileHeaderView.swift */; };
+		62EB41961D1B8489002D67DE /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41941D1B8489002D67DE /* ActivityViewController.swift */; };
+		62EB41971D1B8489002D67DE /* StudyTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41951D1B8489002D67DE /* StudyTasks.swift */; };
+		62EB419A1D1B84C6002D67DE /* HKHealthStore+Queries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41991D1B84C6002D67DE /* HKHealthStore+Queries.swift */; };
+		62EB41A21D1BF91E002D67DE /* Assessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB419C1D1BF91E002D67DE /* Assessment.swift */; };
+		62EB41A31D1BF91E002D67DE /* HealthSampleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB419D1D1BF91E002D67DE /* HealthSampleBuilder.swift */; };
+		62EB41A41D1BF91E002D67DE /* BackPain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB419E1D1BF91E002D67DE /* BackPain.swift */; };
+		62EB41A51D1BF91E002D67DE /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB419F1D1BF91E002D67DE /* Mood.swift */; };
+		62EB41A61D1BF91E002D67DE /* BloodGlucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41A01D1BF91E002D67DE /* BloodGlucose.swift */; };
+		62EB41A71D1BF91E002D67DE /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41A11D1BF91E002D67DE /* Weight.swift */; };
+		62EB41AA1D1BF96A002D67DE /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41A91D1BF96A002D67DE /* Colors.swift */; };
+		62EB41AF1D1BF9CE002D67DE /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41AB1D1BF9CE002D67DE /* Activity.swift */; };
+		62EB41B01D1BF9CE002D67DE /* OutdoorWalk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41AC1D1BF9CE002D67DE /* OutdoorWalk.swift */; };
+		62EB41B11D1BF9CE002D67DE /* HamstringStretch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41AD1D1BF9CE002D67DE /* HamstringStretch.swift */; };
+		62EB41B21D1BF9CE002D67DE /* TakeMedication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41AE1D1BF9CE002D67DE /* TakeMedication.swift */; };
+		62EB41B51D1C4FA2002D67DE /* CarePlanStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41B41D1C4FA2002D67DE /* CarePlanStoreManager.swift */; };
+		62EB41B91D1C4FCF002D67DE /* InsightsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41B61D1C4FCF002D67DE /* InsightsBuilder.swift */; };
+		62EB41BA1D1C4FCF002D67DE /* QueryActivityEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41B71D1C4FCF002D67DE /* QueryActivityEventsOperation.swift */; };
+		62EB41BB1D1C4FCF002D67DE /* BuildInsightsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41B81D1C4FCF002D67DE /* BuildInsightsOperation.swift */; };
+		62EB41BF1D1C5009002D67DE /* NSCalendar+Dates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41BD1D1C5009002D67DE /* NSCalendar+Dates.swift */; };
+		62EB41C01D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41BE1D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift */; };
+		62EB41C31D1C5093002D67DE /* SymptomTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41C21D1C5093002D67DE /* SymptomTrackerViewController.swift */; };
+		62EB41C51D1C536A002D67DE /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41C41D1C536A002D67DE /* SampleData.swift */; };
+		62EB41C91D1C5E8F002D67DE /* Stress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41C81D1C5E8F002D67DE /* Stress.swift */; };
+		7EAA0F01CCB0451C7922B932 /* Pods_CycleOmicsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C076BFE79D8517733B75F082 /* Pods_CycleOmicsUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,10 +79,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B284847ACE23B7EACCB0285 /* Pods-CycleOmicsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmicsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmicsUITests/Pods-CycleOmicsUITests.release.xcconfig"; sourceTree = "<group>"; };
+		45D919E8F101563A84221CE2 /* Pods-CycleOmics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmics/Pods-CycleOmics.debug.xcconfig"; sourceTree = "<group>"; };
+		590DCA2686982E424AB64D68 /* Pods-CycleOmicsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmicsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmicsUITests/Pods-CycleOmicsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		623FFD641CFB9A8E006EA0E0 /* CycleOmics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CycleOmics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		623FFD671CFB9A8E006EA0E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		623FFD691CFB9A8E006EA0E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		623FFD6C1CFB9A8E006EA0E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		623FFD6F1CFB9A8E006EA0E0 /* CycleOmics.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CycleOmics.xcdatamodel; sourceTree = "<group>"; };
 		623FFD711CFB9A8E006EA0E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		623FFD741CFB9A8E006EA0E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +95,55 @@
 		623FFD861CFB9A8E006EA0E0 /* CycleOmicsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CycleOmicsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		623FFD8A1CFB9A8E006EA0E0 /* CycleOmicsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleOmicsUITests.swift; sourceTree = "<group>"; };
 		623FFD8C1CFB9A8E006EA0E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		62EB415D1D1B75E0002D67DE /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		62EB415F1D1B7871002D67DE /* CycleOmics.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CycleOmics.entitlements; sourceTree = "<group>"; };
+		62EB41601D1B7A85002D67DE /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		62EB41611D1B7A85002D67DE /* IntroductionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroductionViewController.swift; sourceTree = "<group>"; };
+		62EB416F1D1B8394002D67DE /* ResearchContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResearchContainerViewController.swift; sourceTree = "<group>"; };
+		62EB41701D1B8394002D67DE /* ResearchContainerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResearchContainerSegue.swift; sourceTree = "<group>"; };
+		62EB41731D1B83DF002D67DE /* DashboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTableViewController.swift; sourceTree = "<group>"; };
+		62EB41741D1B83DF002D67DE /* PieChartDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartDataSource.swift; sourceTree = "<group>"; };
+		62EB41751D1B83DF002D67DE /* DiscreteGraphDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscreteGraphDataSource.swift; sourceTree = "<group>"; };
+		62EB41761D1B83DF002D67DE /* LineGraphDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineGraphDataSource.swift; sourceTree = "<group>"; };
+		62EB417C1D1B83FF002D67DE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		62EB417E1D1B8429002D67DE /* HealthClientType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthClientType.swift; sourceTree = "<group>"; };
+		62EB417F1D1B8429002D67DE /* AnimatableChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatableChart.swift; sourceTree = "<group>"; };
+		62EB41831D1B8440002D67DE /* HealthDataStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataStep.swift; sourceTree = "<group>"; };
+		62EB41841D1B8440002D67DE /* HealthDataStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataStepViewController.swift; sourceTree = "<group>"; };
+		62EB41851D1B8440002D67DE /* ConsentDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentDocument.swift; sourceTree = "<group>"; };
+		62EB418A1D1B845A002D67DE /* WithdrawViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
+		62EB418D1D1B8473002D67DE /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		62EB418E1D1B8473002D67DE /* ProfileStaticTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileStaticTableViewCell.swift; sourceTree = "<group>"; };
+		62EB418F1D1B8473002D67DE /* ProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		62EB41941D1B8489002D67DE /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		62EB41951D1B8489002D67DE /* StudyTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyTasks.swift; sourceTree = "<group>"; };
+		62EB41991D1B84C6002D67DE /* HKHealthStore+Queries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HKHealthStore+Queries.swift"; sourceTree = "<group>"; };
+		62EB419C1D1BF91E002D67DE /* Assessment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assessment.swift; sourceTree = "<group>"; };
+		62EB419D1D1BF91E002D67DE /* HealthSampleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthSampleBuilder.swift; sourceTree = "<group>"; };
+		62EB419E1D1BF91E002D67DE /* BackPain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackPain.swift; sourceTree = "<group>"; };
+		62EB419F1D1BF91E002D67DE /* Mood.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
+		62EB41A01D1BF91E002D67DE /* BloodGlucose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BloodGlucose.swift; sourceTree = "<group>"; };
+		62EB41A11D1BF91E002D67DE /* Weight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
+		62EB41A91D1BF96A002D67DE /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		62EB41AB1D1BF9CE002D67DE /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		62EB41AC1D1BF9CE002D67DE /* OutdoorWalk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutdoorWalk.swift; sourceTree = "<group>"; };
+		62EB41AD1D1BF9CE002D67DE /* HamstringStretch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamstringStretch.swift; sourceTree = "<group>"; };
+		62EB41AE1D1BF9CE002D67DE /* TakeMedication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakeMedication.swift; sourceTree = "<group>"; };
+		62EB41B41D1C4FA2002D67DE /* CarePlanStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarePlanStoreManager.swift; sourceTree = "<group>"; };
+		62EB41B61D1C4FCF002D67DE /* InsightsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsightsBuilder.swift; sourceTree = "<group>"; };
+		62EB41B71D1C4FCF002D67DE /* QueryActivityEventsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryActivityEventsOperation.swift; sourceTree = "<group>"; };
+		62EB41B81D1C4FCF002D67DE /* BuildInsightsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildInsightsOperation.swift; sourceTree = "<group>"; };
+		62EB41BD1D1C5009002D67DE /* NSCalendar+Dates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+Dates.swift"; sourceTree = "<group>"; };
+		62EB41BE1D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OCKInsightItem+EmptyMessage.swift"; sourceTree = "<group>"; };
+		62EB41C21D1C5093002D67DE /* SymptomTrackerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymptomTrackerViewController.swift; sourceTree = "<group>"; };
+		62EB41C41D1C536A002D67DE /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		62EB41C81D1C5E8F002D67DE /* Stress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stress.swift; sourceTree = "<group>"; };
+		970859AF2835716EF0CC4F13 /* Pods_CycleOmics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CycleOmics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4250DEE775E006439A5735C /* Pods-CycleOmicsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmicsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmicsTests/Pods-CycleOmicsTests.release.xcconfig"; sourceTree = "<group>"; };
+		BAB3064C3315C23E1017E63C /* Pods_CycleOmicsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CycleOmicsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C076BFE79D8517733B75F082 /* Pods_CycleOmicsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CycleOmicsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBE13D62785D2587754E44C7 /* Pods-CycleOmicsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmicsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmicsTests/Pods-CycleOmicsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DCB97518A846B7A8ECB86600 /* Pods-CycleOmics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmics.release.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmics/Pods-CycleOmics.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +151,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62EB415E1D1B75E0002D67DE /* HealthKit.framework in Frameworks */,
+				0832E35DE0A8F5F872401821 /* Pods_CycleOmics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				234594D51F4AF06C9C104ECF /* Pods_CycleOmicsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EAA0F01CCB0451C7922B932 /* Pods_CycleOmicsUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,10 +178,12 @@
 		623FFD5B1CFB9A8E006EA0E0 = {
 			isa = PBXGroup;
 			children = (
+				62EB415C1D1B75C6002D67DE /* Frameworks */,
 				623FFD661CFB9A8E006EA0E0 /* CycleOmics */,
 				623FFD7E1CFB9A8E006EA0E0 /* CycleOmicsTests */,
 				623FFD891CFB9A8E006EA0E0 /* CycleOmicsUITests */,
 				623FFD651CFB9A8E006EA0E0 /* Products */,
+				E211721C1E79B4705FC7650F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,11 +201,27 @@
 			isa = PBXGroup;
 			children = (
 				623FFD671CFB9A8E006EA0E0 /* AppDelegate.swift */,
+				62EB416F1D1B8394002D67DE /* ResearchContainerViewController.swift */,
+				62EB41701D1B8394002D67DE /* ResearchContainerSegue.swift */,
 				623FFD691CFB9A8E006EA0E0 /* ViewController.swift */,
-				623FFD6B1CFB9A8E006EA0E0 /* Main.storyboard */,
-				623FFD711CFB9A8E006EA0E0 /* Assets.xcassets */,
+				62EB41B41D1C4FA2002D67DE /* CarePlanStoreManager.swift */,
+				62EB41C41D1C536A002D67DE /* SampleData.swift */,
+				62EB41BC1D1C4FD5002D67DE /* Insights */,
+				62EB41641D1B7A92002D67DE /* Onboarding */,
+				62EB41891D1B844D002D67DE /* Steps */,
+				62EB41B31D1BF9D2002D67DE /* Activity */,
+				62EB41A81D1BF926002D67DE /* Assesments */,
+				62EB417B1D1B83E5002D67DE /* Dashboard */,
+				62EB41981D1B8490002D67DE /* Activity */,
+				62EB41931D1B8478002D67DE /* Profile */,
+				62EB418C1D1B845D002D67DE /* Withdrawal */,
+				62EB41C11D1C500E002D67DE /* Extenstion */,
+				62EB41821D1B842D002D67DE /* Protocols */,
+				62EB41A91D1BF96A002D67DE /* Colors.swift */,
+				62EB41991D1B84C6002D67DE /* HKHealthStore+Queries.swift */,
+				62EB417C1D1B83FF002D67DE /* Main.storyboard */,
 				623FFD731CFB9A8E006EA0E0 /* LaunchScreen.storyboard */,
-				623FFD761CFB9A8E006EA0E0 /* Info.plist */,
+				62EB419B1D1B8511002D67DE /* Supporting Files */,
 				623FFD6E1CFB9A8E006EA0E0 /* CycleOmics.xcdatamodeld */,
 			);
 			path = CycleOmics;
@@ -128,6 +245,151 @@
 			path = CycleOmicsUITests;
 			sourceTree = "<group>";
 		};
+		62EB415C1D1B75C6002D67DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				62EB415D1D1B75E0002D67DE /* HealthKit.framework */,
+				970859AF2835716EF0CC4F13 /* Pods_CycleOmics.framework */,
+				BAB3064C3315C23E1017E63C /* Pods_CycleOmicsTests.framework */,
+				C076BFE79D8517733B75F082 /* Pods_CycleOmicsUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		62EB41641D1B7A92002D67DE /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				62EB41601D1B7A85002D67DE /* OnboardingViewController.swift */,
+				62EB41611D1B7A85002D67DE /* IntroductionViewController.swift */,
+			);
+			name = Onboarding;
+			sourceTree = "<group>";
+		};
+		62EB417B1D1B83E5002D67DE /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				62EB41731D1B83DF002D67DE /* DashboardTableViewController.swift */,
+				62EB41741D1B83DF002D67DE /* PieChartDataSource.swift */,
+				62EB41751D1B83DF002D67DE /* DiscreteGraphDataSource.swift */,
+				62EB41761D1B83DF002D67DE /* LineGraphDataSource.swift */,
+			);
+			name = Dashboard;
+			sourceTree = "<group>";
+		};
+		62EB41821D1B842D002D67DE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				62EB417E1D1B8429002D67DE /* HealthClientType.swift */,
+				62EB417F1D1B8429002D67DE /* AnimatableChart.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		62EB41891D1B844D002D67DE /* Steps */ = {
+			isa = PBXGroup;
+			children = (
+				62EB41831D1B8440002D67DE /* HealthDataStep.swift */,
+				62EB41841D1B8440002D67DE /* HealthDataStepViewController.swift */,
+				62EB41851D1B8440002D67DE /* ConsentDocument.swift */,
+			);
+			name = Steps;
+			sourceTree = "<group>";
+		};
+		62EB418C1D1B845D002D67DE /* Withdrawal */ = {
+			isa = PBXGroup;
+			children = (
+				62EB418A1D1B845A002D67DE /* WithdrawViewController.swift */,
+			);
+			name = Withdrawal;
+			sourceTree = "<group>";
+		};
+		62EB41931D1B8478002D67DE /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				62EB418D1D1B8473002D67DE /* ProfileViewController.swift */,
+				62EB418E1D1B8473002D67DE /* ProfileStaticTableViewCell.swift */,
+				62EB418F1D1B8473002D67DE /* ProfileHeaderView.swift */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		62EB41981D1B8490002D67DE /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				62EB41941D1B8489002D67DE /* ActivityViewController.swift */,
+				62EB41951D1B8489002D67DE /* StudyTasks.swift */,
+			);
+			name = Activity;
+			sourceTree = "<group>";
+		};
+		62EB419B1D1B8511002D67DE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				623FFD711CFB9A8E006EA0E0 /* Assets.xcassets */,
+				62EB415F1D1B7871002D67DE /* CycleOmics.entitlements */,
+				623FFD761CFB9A8E006EA0E0 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		62EB41A81D1BF926002D67DE /* Assesments */ = {
+			isa = PBXGroup;
+			children = (
+				62EB41C81D1C5E8F002D67DE /* Stress.swift */,
+				62EB41C21D1C5093002D67DE /* SymptomTrackerViewController.swift */,
+				62EB419C1D1BF91E002D67DE /* Assessment.swift */,
+				62EB419D1D1BF91E002D67DE /* HealthSampleBuilder.swift */,
+				62EB419E1D1BF91E002D67DE /* BackPain.swift */,
+				62EB419F1D1BF91E002D67DE /* Mood.swift */,
+				62EB41A01D1BF91E002D67DE /* BloodGlucose.swift */,
+				62EB41A11D1BF91E002D67DE /* Weight.swift */,
+			);
+			name = Assesments;
+			sourceTree = "<group>";
+		};
+		62EB41B31D1BF9D2002D67DE /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				62EB41AB1D1BF9CE002D67DE /* Activity.swift */,
+				62EB41AC1D1BF9CE002D67DE /* OutdoorWalk.swift */,
+				62EB41AD1D1BF9CE002D67DE /* HamstringStretch.swift */,
+				62EB41AE1D1BF9CE002D67DE /* TakeMedication.swift */,
+			);
+			name = Activity;
+			sourceTree = "<group>";
+		};
+		62EB41BC1D1C4FD5002D67DE /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				62EB41B61D1C4FCF002D67DE /* InsightsBuilder.swift */,
+				62EB41B71D1C4FCF002D67DE /* QueryActivityEventsOperation.swift */,
+				62EB41B81D1C4FCF002D67DE /* BuildInsightsOperation.swift */,
+			);
+			name = Insights;
+			sourceTree = "<group>";
+		};
+		62EB41C11D1C500E002D67DE /* Extenstion */ = {
+			isa = PBXGroup;
+			children = (
+				62EB41BD1D1C5009002D67DE /* NSCalendar+Dates.swift */,
+				62EB41BE1D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift */,
+			);
+			name = Extenstion;
+			sourceTree = "<group>";
+		};
+		E211721C1E79B4705FC7650F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				45D919E8F101563A84221CE2 /* Pods-CycleOmics.debug.xcconfig */,
+				DCB97518A846B7A8ECB86600 /* Pods-CycleOmics.release.xcconfig */,
+				CBE13D62785D2587754E44C7 /* Pods-CycleOmicsTests.debug.xcconfig */,
+				A4250DEE775E006439A5735C /* Pods-CycleOmicsTests.release.xcconfig */,
+				590DCA2686982E424AB64D68 /* Pods-CycleOmicsUITests.debug.xcconfig */,
+				2B284847ACE23B7EACCB0285 /* Pods-CycleOmicsUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +397,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 623FFD8F1CFB9A8E006EA0E0 /* Build configuration list for PBXNativeTarget "CycleOmics" */;
 			buildPhases = (
+				5EF01C785B8391388205F544 /* [CP] Check Pods Manifest.lock */,
 				623FFD601CFB9A8E006EA0E0 /* Sources */,
 				623FFD611CFB9A8E006EA0E0 /* Frameworks */,
 				623FFD621CFB9A8E006EA0E0 /* Resources */,
+				976C028680A200679720F962 /* [CP] Embed Pods Frameworks */,
+				69E51282AA321CECDF7E491D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -152,9 +417,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 623FFD921CFB9A8E006EA0E0 /* Build configuration list for PBXNativeTarget "CycleOmicsTests" */;
 			buildPhases = (
+				22F94B1D00A8771F88DC583A /* [CP] Check Pods Manifest.lock */,
 				623FFD771CFB9A8E006EA0E0 /* Sources */,
 				623FFD781CFB9A8E006EA0E0 /* Frameworks */,
 				623FFD791CFB9A8E006EA0E0 /* Resources */,
+				B806CA1045901E541B29971A /* [CP] Embed Pods Frameworks */,
+				AB9AA525F98761B8D378B119 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -170,9 +438,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 623FFD951CFB9A8E006EA0E0 /* Build configuration list for PBXNativeTarget "CycleOmicsUITests" */;
 			buildPhases = (
+				39A3428049333B9171776A7B /* [CP] Check Pods Manifest.lock */,
 				623FFD821CFB9A8E006EA0E0 /* Sources */,
 				623FFD831CFB9A8E006EA0E0 /* Frameworks */,
 				623FFD841CFB9A8E006EA0E0 /* Resources */,
+				6E556759EFAF08B259743ECF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -196,6 +466,12 @@
 				TargetAttributes = {
 					623FFD631CFB9A8E006EA0E0 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 675WBNZAJJ;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 					623FFD7A1CFB9A8E006EA0E0 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -234,7 +510,7 @@
 			files = (
 				623FFD751CFB9A8E006EA0E0 /* LaunchScreen.storyboard in Resources */,
 				623FFD721CFB9A8E006EA0E0 /* Assets.xcassets in Resources */,
-				623FFD6D1CFB9A8E006EA0E0 /* Main.storyboard in Resources */,
+				62EB417D1D1B83FF002D67DE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,14 +530,177 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		22F94B1D00A8771F88DC583A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		39A3428049333B9171776A7B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5EF01C785B8391388205F544 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		69E51282AA321CECDF7E491D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CycleOmics/Pods-CycleOmics-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6E556759EFAF08B259743ECF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CycleOmicsUITests/Pods-CycleOmicsUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		976C028680A200679720F962 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CycleOmics/Pods-CycleOmics-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB9AA525F98761B8D378B119 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CycleOmicsTests/Pods-CycleOmicsTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B806CA1045901E541B29971A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CycleOmicsTests/Pods-CycleOmicsTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		623FFD601CFB9A8E006EA0E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62EB41971D1B8489002D67DE /* StudyTasks.swift in Sources */,
+				62EB41C51D1C536A002D67DE /* SampleData.swift in Sources */,
+				62EB41BA1D1C4FCF002D67DE /* QueryActivityEventsOperation.swift in Sources */,
+				62EB41BF1D1C5009002D67DE /* NSCalendar+Dates.swift in Sources */,
+				62EB41AA1D1BF96A002D67DE /* Colors.swift in Sources */,
+				62EB41AF1D1BF9CE002D67DE /* Activity.swift in Sources */,
+				62EB41B21D1BF9CE002D67DE /* TakeMedication.swift in Sources */,
+				62EB41801D1B8429002D67DE /* HealthClientType.swift in Sources */,
 				623FFD6A1CFB9A8E006EA0E0 /* ViewController.swift in Sources */,
+				62EB41711D1B8394002D67DE /* ResearchContainerViewController.swift in Sources */,
+				62EB41631D1B7A85002D67DE /* IntroductionViewController.swift in Sources */,
+				62EB41B01D1BF9CE002D67DE /* OutdoorWalk.swift in Sources */,
+				62EB41961D1B8489002D67DE /* ActivityViewController.swift in Sources */,
 				623FFD681CFB9A8E006EA0E0 /* AppDelegate.swift in Sources */,
+				62EB41771D1B83DF002D67DE /* DashboardTableViewController.swift in Sources */,
+				62EB41A41D1BF91E002D67DE /* BackPain.swift in Sources */,
+				62EB41C01D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift in Sources */,
+				62EB41B11D1BF9CE002D67DE /* HamstringStretch.swift in Sources */,
+				62EB41A71D1BF91E002D67DE /* Weight.swift in Sources */,
+				62EB41901D1B8473002D67DE /* ProfileViewController.swift in Sources */,
+				62EB41A51D1BF91E002D67DE /* Mood.swift in Sources */,
+				62EB41A21D1BF91E002D67DE /* Assessment.swift in Sources */,
+				62EB41921D1B8473002D67DE /* ProfileHeaderView.swift in Sources */,
+				62EB419A1D1B84C6002D67DE /* HKHealthStore+Queries.swift in Sources */,
+				62EB41C31D1C5093002D67DE /* SymptomTrackerViewController.swift in Sources */,
+				62EB41B91D1C4FCF002D67DE /* InsightsBuilder.swift in Sources */,
+				62EB41811D1B8429002D67DE /* AnimatableChart.swift in Sources */,
+				62EB41721D1B8394002D67DE /* ResearchContainerSegue.swift in Sources */,
+				62EB41791D1B83DF002D67DE /* DiscreteGraphDataSource.swift in Sources */,
+				62EB41881D1B8440002D67DE /* ConsentDocument.swift in Sources */,
+				62EB41861D1B8440002D67DE /* HealthDataStep.swift in Sources */,
 				623FFD701CFB9A8E006EA0E0 /* CycleOmics.xcdatamodeld in Sources */,
+				62EB41871D1B8440002D67DE /* HealthDataStepViewController.swift in Sources */,
+				62EB41BB1D1C4FCF002D67DE /* BuildInsightsOperation.swift in Sources */,
+				62EB418B1D1B845A002D67DE /* WithdrawViewController.swift in Sources */,
+				62EB417A1D1B83DF002D67DE /* LineGraphDataSource.swift in Sources */,
+				62EB41911D1B8473002D67DE /* ProfileStaticTableViewCell.swift in Sources */,
+				62EB41A31D1BF91E002D67DE /* HealthSampleBuilder.swift in Sources */,
+				62EB41B51D1C4FA2002D67DE /* CarePlanStoreManager.swift in Sources */,
+				62EB41621D1B7A85002D67DE /* OnboardingViewController.swift in Sources */,
+				62EB41781D1B83DF002D67DE /* PieChartDataSource.swift in Sources */,
+				62EB41A61D1BF91E002D67DE /* BloodGlucose.swift in Sources */,
+				62EB41C91D1C5E8F002D67DE /* Stress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +736,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		623FFD6B1CFB9A8E006EA0E0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				623FFD6C1CFB9A8E006EA0E0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		623FFD731CFB9A8E006EA0E0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -403,8 +834,10 @@
 		};
 		623FFD901CFB9A8E006EA0E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45D919E8F101563A84221CE2 /* Pods-CycleOmics.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CycleOmics/CycleOmics.entitlements;
 				INFOPLIST_FILE = CycleOmics/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = curio.CycleOmics;
@@ -414,8 +847,10 @@
 		};
 		623FFD911CFB9A8E006EA0E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DCB97518A846B7A8ECB86600 /* Pods-CycleOmics.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CycleOmics/CycleOmics.entitlements;
 				INFOPLIST_FILE = CycleOmics/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = curio.CycleOmics;
@@ -425,6 +860,7 @@
 		};
 		623FFD931CFB9A8E006EA0E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CBE13D62785D2587754E44C7 /* Pods-CycleOmicsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CycleOmicsTests/Info.plist;
@@ -437,6 +873,7 @@
 		};
 		623FFD941CFB9A8E006EA0E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4250DEE775E006439A5735C /* Pods-CycleOmicsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CycleOmicsTests/Info.plist;
@@ -449,6 +886,7 @@
 		};
 		623FFD961CFB9A8E006EA0E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 590DCA2686982E424AB64D68 /* Pods-CycleOmicsUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = CycleOmicsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -460,6 +898,7 @@
 		};
 		623FFD971CFB9A8E006EA0E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B284847ACE23B7EACCB0285 /* Pods-CycleOmicsUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = CycleOmicsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -488,6 +927,7 @@
 				623FFD911CFB9A8E006EA0E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		623FFD921CFB9A8E006EA0E0 /* Build configuration list for PBXNativeTarget "CycleOmicsTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +936,7 @@
 				623FFD941CFB9A8E006EA0E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		623FFD951CFB9A8E006EA0E0 /* Build configuration list for PBXNativeTarget "CycleOmicsUITests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +945,7 @@
 				623FFD971CFB9A8E006EA0E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
