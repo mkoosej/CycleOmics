@@ -67,7 +67,7 @@ struct Stress: Assessment {
     func task() -> ORKTask {
         // Get the localized strings to use for the task.
         let question = NSLocalizedString("On a scale from 1 to 10, how much do you feel stressed today?", comment: "")
-        let maximumValueDescription = NSLocalizedString("Hight", comment: "")
+        let maximumValueDescription = NSLocalizedString("High", comment: "")
         let minimumValueDescription = NSLocalizedString("Low", comment: "")
         
         // Create a question and answer format.

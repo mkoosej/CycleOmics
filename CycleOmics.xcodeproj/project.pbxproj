@@ -55,9 +55,11 @@
 		62EB41BB1D1C4FCF002D67DE /* BuildInsightsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41B81D1C4FCF002D67DE /* BuildInsightsOperation.swift */; };
 		62EB41BF1D1C5009002D67DE /* NSCalendar+Dates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41BD1D1C5009002D67DE /* NSCalendar+Dates.swift */; };
 		62EB41C01D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41BE1D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift */; };
-		62EB41C31D1C5093002D67DE /* SymptomTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41C21D1C5093002D67DE /* SymptomTrackerViewController.swift */; };
 		62EB41C51D1C536A002D67DE /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41C41D1C536A002D67DE /* SampleData.swift */; };
 		62EB41C91D1C5E8F002D67DE /* Stress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41C81D1C5E8F002D67DE /* Stress.swift */; };
+		62EB41CB1D1C659E002D67DE /* SymptomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41CA1D1C659E002D67DE /* SymptomNavigationController.swift */; };
+		62EB41CD1D1C6B77002D67DE /* Sleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41CC1D1C6B77002D67DE /* Sleep.swift */; };
+		62EB41CF1D1C6CE0002D67DE /* BasalBodyTemperature .swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41CE1D1C6CE0002D67DE /* BasalBodyTemperature .swift */; };
 		7EAA0F01CCB0451C7922B932 /* Pods_CycleOmicsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C076BFE79D8517733B75F082 /* Pods_CycleOmicsUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -135,9 +137,11 @@
 		62EB41B81D1C4FCF002D67DE /* BuildInsightsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildInsightsOperation.swift; sourceTree = "<group>"; };
 		62EB41BD1D1C5009002D67DE /* NSCalendar+Dates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+Dates.swift"; sourceTree = "<group>"; };
 		62EB41BE1D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OCKInsightItem+EmptyMessage.swift"; sourceTree = "<group>"; };
-		62EB41C21D1C5093002D67DE /* SymptomTrackerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymptomTrackerViewController.swift; sourceTree = "<group>"; };
 		62EB41C41D1C536A002D67DE /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		62EB41C81D1C5E8F002D67DE /* Stress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stress.swift; sourceTree = "<group>"; };
+		62EB41CA1D1C659E002D67DE /* SymptomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymptomNavigationController.swift; sourceTree = "<group>"; };
+		62EB41CC1D1C6B77002D67DE /* Sleep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sleep.swift; sourceTree = "<group>"; };
+		62EB41CE1D1C6CE0002D67DE /* BasalBodyTemperature .swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BasalBodyTemperature .swift"; sourceTree = "<group>"; };
 		970859AF2835716EF0CC4F13 /* Pods_CycleOmics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CycleOmics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4250DEE775E006439A5735C /* Pods-CycleOmicsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmicsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmicsTests/Pods-CycleOmicsTests.release.xcconfig"; sourceTree = "<group>"; };
 		BAB3064C3315C23E1017E63C /* Pods_CycleOmicsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CycleOmicsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -335,14 +339,16 @@
 		62EB41A81D1BF926002D67DE /* Assesments */ = {
 			isa = PBXGroup;
 			children = (
-				62EB41C81D1C5E8F002D67DE /* Stress.swift */,
-				62EB41C21D1C5093002D67DE /* SymptomTrackerViewController.swift */,
 				62EB419C1D1BF91E002D67DE /* Assessment.swift */,
+				62EB41C81D1C5E8F002D67DE /* Stress.swift */,
+				62EB41CA1D1C659E002D67DE /* SymptomNavigationController.swift */,
 				62EB419D1D1BF91E002D67DE /* HealthSampleBuilder.swift */,
 				62EB419E1D1BF91E002D67DE /* BackPain.swift */,
 				62EB419F1D1BF91E002D67DE /* Mood.swift */,
 				62EB41A01D1BF91E002D67DE /* BloodGlucose.swift */,
 				62EB41A11D1BF91E002D67DE /* Weight.swift */,
+				62EB41CC1D1C6B77002D67DE /* Sleep.swift */,
+				62EB41CE1D1C6CE0002D67DE /* BasalBodyTemperature .swift */,
 			);
 			name = Assesments;
 			sourceTree = "<group>";
@@ -669,6 +675,7 @@
 				623FFD6A1CFB9A8E006EA0E0 /* ViewController.swift in Sources */,
 				62EB41711D1B8394002D67DE /* ResearchContainerViewController.swift in Sources */,
 				62EB41631D1B7A85002D67DE /* IntroductionViewController.swift in Sources */,
+				62EB41CD1D1C6B77002D67DE /* Sleep.swift in Sources */,
 				62EB41B01D1BF9CE002D67DE /* OutdoorWalk.swift in Sources */,
 				62EB41961D1B8489002D67DE /* ActivityViewController.swift in Sources */,
 				623FFD681CFB9A8E006EA0E0 /* AppDelegate.swift in Sources */,
@@ -677,14 +684,15 @@
 				62EB41C01D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift in Sources */,
 				62EB41B11D1BF9CE002D67DE /* HamstringStretch.swift in Sources */,
 				62EB41A71D1BF91E002D67DE /* Weight.swift in Sources */,
+				62EB41CB1D1C659E002D67DE /* SymptomNavigationController.swift in Sources */,
 				62EB41901D1B8473002D67DE /* ProfileViewController.swift in Sources */,
 				62EB41A51D1BF91E002D67DE /* Mood.swift in Sources */,
 				62EB41A21D1BF91E002D67DE /* Assessment.swift in Sources */,
 				62EB41921D1B8473002D67DE /* ProfileHeaderView.swift in Sources */,
 				62EB419A1D1B84C6002D67DE /* HKHealthStore+Queries.swift in Sources */,
-				62EB41C31D1C5093002D67DE /* SymptomTrackerViewController.swift in Sources */,
 				62EB41B91D1C4FCF002D67DE /* InsightsBuilder.swift in Sources */,
 				62EB41811D1B8429002D67DE /* AnimatableChart.swift in Sources */,
+				62EB41CF1D1C6CE0002D67DE /* BasalBodyTemperature .swift in Sources */,
 				62EB41721D1B8394002D67DE /* ResearchContainerSegue.swift in Sources */,
 				62EB41791D1B83DF002D67DE /* DiscreteGraphDataSource.swift in Sources */,
 				62EB41881D1B8440002D67DE /* ConsentDocument.swift in Sources */,

@@ -32,11 +32,11 @@ import UIKit
 import ResearchKit
 
 enum ActivityTypes: Int {
-    case Survey, Microphone, Tapping
+    case Survey, Microphone, Tapping, BloodSample
     
     static var allValues: [ActivityTypes] {
         var idx = 0
-        return Array(AnyGenerator{ return self.init(rawValue: idx++)})
+        return Array( AnyGenerator{ return self.init(rawValue: idx++) })
     }
     
     var title: String {
@@ -47,6 +47,8 @@ enum ActivityTypes: Int {
                 return "Microphone"
             case .Tapping:
                 return "Tapping"
+        case .BloodSample:
+            return "Blood Sample"
         }
     }
     
@@ -58,6 +60,8 @@ enum ActivityTypes: Int {
                 return "Voice evaluation"
             case .Tapping:
                 return "Test tapping speed"
+            case .BloodSample:
+                return "Take a blood Sample"
         }
     }
 }
@@ -112,6 +116,9 @@ class ActivityViewController: UITableViewController {
                 }
                 
             case .Tapping:
+                taskViewController = ORKTaskViewController(task: StudyTasks.tappingTask, taskRunUUID: NSUUID())
+            
+            case .BloodSample:
                 taskViewController = ORKTaskViewController(task: StudyTasks.tappingTask, taskRunUUID: NSUUID())
         }
 

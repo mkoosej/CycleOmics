@@ -42,7 +42,7 @@ class SampleData: NSObject {
         TakeMedication(),
         Mood(),
         Stress(),
-        BloodGlucose(),
+        BasalBodyTemprature(),
     ]
     
     /**
