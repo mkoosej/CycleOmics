@@ -10,7 +10,6 @@
 		0832E35DE0A8F5F872401821 /* Pods_CycleOmics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 970859AF2835716EF0CC4F13 /* Pods_CycleOmics.framework */; };
 		234594D51F4AF06C9C104ECF /* Pods_CycleOmicsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAB3064C3315C23E1017E63C /* Pods_CycleOmicsTests.framework */; };
 		623FFD681CFB9A8E006EA0E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD671CFB9A8E006EA0E0 /* AppDelegate.swift */; };
-		623FFD6A1CFB9A8E006EA0E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD691CFB9A8E006EA0E0 /* ViewController.swift */; };
 		623FFD701CFB9A8E006EA0E0 /* CycleOmics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD6E1CFB9A8E006EA0E0 /* CycleOmics.xcdatamodeld */; };
 		623FFD721CFB9A8E006EA0E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 623FFD711CFB9A8E006EA0E0 /* Assets.xcassets */; };
 		623FFD751CFB9A8E006EA0E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 623FFD731CFB9A8E006EA0E0 /* LaunchScreen.storyboard */; };
@@ -40,10 +39,7 @@
 		62EB419A1D1B84C6002D67DE /* HKHealthStore+Queries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41991D1B84C6002D67DE /* HKHealthStore+Queries.swift */; };
 		62EB41A21D1BF91E002D67DE /* Assessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB419C1D1BF91E002D67DE /* Assessment.swift */; };
 		62EB41A31D1BF91E002D67DE /* HealthSampleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB419D1D1BF91E002D67DE /* HealthSampleBuilder.swift */; };
-		62EB41A41D1BF91E002D67DE /* BackPain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB419E1D1BF91E002D67DE /* BackPain.swift */; };
 		62EB41A51D1BF91E002D67DE /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB419F1D1BF91E002D67DE /* Mood.swift */; };
-		62EB41A61D1BF91E002D67DE /* BloodGlucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41A01D1BF91E002D67DE /* BloodGlucose.swift */; };
-		62EB41A71D1BF91E002D67DE /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41A11D1BF91E002D67DE /* Weight.swift */; };
 		62EB41AA1D1BF96A002D67DE /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41A91D1BF96A002D67DE /* Colors.swift */; };
 		62EB41AF1D1BF9CE002D67DE /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41AB1D1BF9CE002D67DE /* Activity.swift */; };
 		62EB41B01D1BF9CE002D67DE /* OutdoorWalk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41AC1D1BF9CE002D67DE /* OutdoorWalk.swift */; };
@@ -86,7 +82,6 @@
 		590DCA2686982E424AB64D68 /* Pods-CycleOmicsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmicsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmicsUITests/Pods-CycleOmicsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		623FFD641CFB9A8E006EA0E0 /* CycleOmics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CycleOmics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		623FFD671CFB9A8E006EA0E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		623FFD691CFB9A8E006EA0E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		623FFD6F1CFB9A8E006EA0E0 /* CycleOmics.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CycleOmics.xcdatamodel; sourceTree = "<group>"; };
 		623FFD711CFB9A8E006EA0E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		623FFD741CFB9A8E006EA0E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -122,10 +117,7 @@
 		62EB41991D1B84C6002D67DE /* HKHealthStore+Queries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HKHealthStore+Queries.swift"; sourceTree = "<group>"; };
 		62EB419C1D1BF91E002D67DE /* Assessment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assessment.swift; sourceTree = "<group>"; };
 		62EB419D1D1BF91E002D67DE /* HealthSampleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthSampleBuilder.swift; sourceTree = "<group>"; };
-		62EB419E1D1BF91E002D67DE /* BackPain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackPain.swift; sourceTree = "<group>"; };
 		62EB419F1D1BF91E002D67DE /* Mood.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
-		62EB41A01D1BF91E002D67DE /* BloodGlucose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BloodGlucose.swift; sourceTree = "<group>"; };
-		62EB41A11D1BF91E002D67DE /* Weight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
 		62EB41A91D1BF96A002D67DE /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		62EB41AB1D1BF9CE002D67DE /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		62EB41AC1D1BF9CE002D67DE /* OutdoorWalk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutdoorWalk.swift; sourceTree = "<group>"; };
@@ -207,19 +199,17 @@
 				623FFD671CFB9A8E006EA0E0 /* AppDelegate.swift */,
 				62EB416F1D1B8394002D67DE /* ResearchContainerViewController.swift */,
 				62EB41701D1B8394002D67DE /* ResearchContainerSegue.swift */,
-				623FFD691CFB9A8E006EA0E0 /* ViewController.swift */,
-				62EB41B41D1C4FA2002D67DE /* CarePlanStoreManager.swift */,
-				62EB41C41D1C536A002D67DE /* SampleData.swift */,
-				62EB41BC1D1C4FD5002D67DE /* Insights */,
+				624567871D22011E00EEF04E /* Symptoms */,
 				62EB41641D1B7A92002D67DE /* Onboarding */,
-				62EB41891D1B844D002D67DE /* Steps */,
-				62EB41B31D1BF9D2002D67DE /* Activity */,
 				62EB41A81D1BF926002D67DE /* Assesments */,
+				624567861D22004D00EEF04E /* StoreManager */,
+				62EB41BC1D1C4FD5002D67DE /* Insights */,
+				62EB41B31D1BF9D2002D67DE /* Activity */,
 				62EB417B1D1B83E5002D67DE /* Dashboard */,
 				62EB41981D1B8490002D67DE /* Activity */,
-				62EB41931D1B8478002D67DE /* Profile */,
 				62EB418C1D1B845D002D67DE /* Withdrawal */,
 				62EB41C11D1C500E002D67DE /* Extenstion */,
+				62EB41931D1B8478002D67DE /* Profile */,
 				62EB41821D1B842D002D67DE /* Protocols */,
 				62EB41A91D1BF96A002D67DE /* Colors.swift */,
 				62EB41991D1B84C6002D67DE /* HKHealthStore+Queries.swift */,
@@ -249,6 +239,23 @@
 			path = CycleOmicsUITests;
 			sourceTree = "<group>";
 		};
+		624567861D22004D00EEF04E /* StoreManager */ = {
+			isa = PBXGroup;
+			children = (
+				62EB41B41D1C4FA2002D67DE /* CarePlanStoreManager.swift */,
+				62EB41C41D1C536A002D67DE /* SampleData.swift */,
+			);
+			name = StoreManager;
+			sourceTree = "<group>";
+		};
+		624567871D22011E00EEF04E /* Symptoms */ = {
+			isa = PBXGroup;
+			children = (
+				62EB41CA1D1C659E002D67DE /* SymptomNavigationController.swift */,
+			);
+			name = Symptoms;
+			sourceTree = "<group>";
+		};
 		62EB415C1D1B75C6002D67DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,6 +270,7 @@
 		62EB41641D1B7A92002D67DE /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				62EB41891D1B844D002D67DE /* Steps */,
 				62EB41601D1B7A85002D67DE /* OnboardingViewController.swift */,
 				62EB41611D1B7A85002D67DE /* IntroductionViewController.swift */,
 			);
@@ -341,12 +349,8 @@
 			children = (
 				62EB419C1D1BF91E002D67DE /* Assessment.swift */,
 				62EB41C81D1C5E8F002D67DE /* Stress.swift */,
-				62EB41CA1D1C659E002D67DE /* SymptomNavigationController.swift */,
 				62EB419D1D1BF91E002D67DE /* HealthSampleBuilder.swift */,
-				62EB419E1D1BF91E002D67DE /* BackPain.swift */,
 				62EB419F1D1BF91E002D67DE /* Mood.swift */,
-				62EB41A01D1BF91E002D67DE /* BloodGlucose.swift */,
-				62EB41A11D1BF91E002D67DE /* Weight.swift */,
 				62EB41CC1D1C6B77002D67DE /* Sleep.swift */,
 				62EB41CE1D1C6CE0002D67DE /* BasalBodyTemperature .swift */,
 			);
@@ -672,7 +676,6 @@
 				62EB41AF1D1BF9CE002D67DE /* Activity.swift in Sources */,
 				62EB41B21D1BF9CE002D67DE /* TakeMedication.swift in Sources */,
 				62EB41801D1B8429002D67DE /* HealthClientType.swift in Sources */,
-				623FFD6A1CFB9A8E006EA0E0 /* ViewController.swift in Sources */,
 				62EB41711D1B8394002D67DE /* ResearchContainerViewController.swift in Sources */,
 				62EB41631D1B7A85002D67DE /* IntroductionViewController.swift in Sources */,
 				62EB41CD1D1C6B77002D67DE /* Sleep.swift in Sources */,
@@ -680,10 +683,8 @@
 				62EB41961D1B8489002D67DE /* ActivityViewController.swift in Sources */,
 				623FFD681CFB9A8E006EA0E0 /* AppDelegate.swift in Sources */,
 				62EB41771D1B83DF002D67DE /* DashboardTableViewController.swift in Sources */,
-				62EB41A41D1BF91E002D67DE /* BackPain.swift in Sources */,
 				62EB41C01D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift in Sources */,
 				62EB41B11D1BF9CE002D67DE /* HamstringStretch.swift in Sources */,
-				62EB41A71D1BF91E002D67DE /* Weight.swift in Sources */,
 				62EB41CB1D1C659E002D67DE /* SymptomNavigationController.swift in Sources */,
 				62EB41901D1B8473002D67DE /* ProfileViewController.swift in Sources */,
 				62EB41A51D1BF91E002D67DE /* Mood.swift in Sources */,
@@ -707,7 +708,6 @@
 				62EB41B51D1C4FA2002D67DE /* CarePlanStoreManager.swift in Sources */,
 				62EB41621D1B7A85002D67DE /* OnboardingViewController.swift in Sources */,
 				62EB41781D1B83DF002D67DE /* PieChartDataSource.swift in Sources */,
-				62EB41A61D1BF91E002D67DE /* BloodGlucose.swift in Sources */,
 				62EB41C91D1C5E8F002D67DE /* Stress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

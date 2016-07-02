@@ -149,7 +149,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <exit id="Ttc-o1-O2a" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="375" y="-1086"/>
+            <point key="canvasLocation" x="375" y="-1142"/>
         </scene>
         <!--Introduction View Controller-->
         <scene sceneID="nNl-Be-RZr">
@@ -157,7 +157,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Pi4-gj-BRZ" customClass="IntroductionViewController" customModule="CycleOmics" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NJo-0E-OTa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1145" y="-1086.5"/>
+            <point key="canvasLocation" x="1145" y="-1142.5"/>
         </scene>
         <!--Dashboard-->
         <scene sceneID="brc-di-7T4">
@@ -174,7 +174,7 @@
                                         <rect key="frame" x="0.0" y="64" width="600" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FaG-WB-dgL" id="lZo-t3-Gmk">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="249.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pie Chart" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4Y-s4-kek">
@@ -206,7 +206,7 @@
                                         <rect key="frame" x="0.0" y="314" width="600" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Py6-MC-VuO" id="K6e-O5-O9n">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="249.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discrete Graph" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XtH-8y-OQZ">
@@ -238,7 +238,7 @@
                                         <rect key="frame" x="0.0" y="564" width="600" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="weU-PY-XeW" id="oJP-u1-xIe">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="249.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Line Graph" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ysh-4a-8jA">
@@ -404,7 +404,7 @@
                                 <rect key="frame" x="0.0" y="256" width="600" height="49"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l1j-hP-NgK" id="gSL-84-VI9">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="48.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="add weight (lbs.)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1WS-QE-f8O">
@@ -457,25 +457,6 @@
             </objects>
             <point key="canvasLocation" x="1145" y="1410"/>
         </scene>
-        <!--Symptom Tracker-->
-        <scene sceneID="w4T-Or-JV5">
-            <objects>
-                <viewController id="7Cd-sN-v4a" customClass="SymptomTrackerViewController" customModule="CycleOmics" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="qmW-lh-daJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="SxB-rZ-J93"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="xEi-rU-cHs">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Symptom Tracker" id="tG2-yo-V08"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bv2-rn-NiJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1939" y="1371"/>
-        </scene>
         <!--Research Container View Controller-->
         <scene sceneID="uQZ-jk-mfU">
             <objects>
@@ -517,11 +498,12 @@
                         <segue destination="vbw-aT-6o7" kind="relationship" relationship="viewControllers" id="VX7-wi-R5H"/>
                         <segue destination="XGP-CC-8Nf" kind="relationship" relationship="viewControllers" id="s0j-hQ-cwM"/>
                         <segue destination="oao-sT-3LQ" kind="relationship" relationship="viewControllers" id="Dhy-4Q-P9I"/>
+                        <segue destination="768-eD-Jxk" kind="relationship" relationship="viewControllers" id="1Ks-xZ-AZI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5wd-Mh-FLP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="375" y="-423"/>
+            <point key="canvasLocation" x="719" y="-447"/>
         </scene>
         <!--Dashboard-->
         <scene sceneID="cfr-Qg-YFV">
@@ -578,7 +560,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ngH-CR-mcH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="931" y="573"/>
+            <point key="canvasLocation" x="919" y="581"/>
         </scene>
         <!--Symptom Tracker-->
         <scene sceneID="EEV-cL-Qk0">
@@ -594,7 +576,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7GN-gA-J1I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1761" y="533"/>
+            <point key="canvasLocation" x="1649" y="597"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="bNl-EH-rGv">
+            <objects>
+                <viewController id="768-eD-Jxk" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0TJ-Po-tKu"/>
+                        <viewControllerLayoutGuide type="bottom" id="fp0-n2-BRf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zq5-38-64P">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="C19-AB-8lZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qGl-X4-mJM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2319" y="576"/>
         </scene>
     </scenes>
     <resources>

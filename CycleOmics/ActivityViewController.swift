@@ -36,7 +36,7 @@ enum ActivityTypes: Int {
     
     static var allValues: [ActivityTypes] {
         var idx = 0
-        return Array( AnyGenerator{ return self.init(rawValue: idx++) })
+        return Array( AnyGenerator{ return self.init(rawValue: idx++)})
     }
     
     var title: String {
@@ -70,9 +70,11 @@ class ActivityViewController: UITableViewController {
     // MARK: UITableViewDataSource
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard section == 0 else { return 0 }
-        
-        return ActivityTypes.allValues.count
+
+        return 0
+//        guard section == 0 else { return 0 }
+//        
+//        return ActivityTypes.allValues.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

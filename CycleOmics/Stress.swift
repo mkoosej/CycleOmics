@@ -53,7 +53,7 @@ struct Stress: Assessment {
             groupIdentifier: nil,
             title: title,
             text: nil,
-            tintColor: Colors.Green.color,
+            tintColor: Colors.Red.color,
             resultResettable: false,
             schedule: schedule,
             userInfo: nil

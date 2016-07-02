@@ -17,7 +17,6 @@ class SymptomNavigationController: UINavigationController {
     private let sampleData: SampleData
     private var symptomTrackerViewController: OCKSymptomTrackerViewController!
 
-
     required init?(coder aDecoder: NSCoder) {
 
         sampleData = SampleData(carePlanStore: storeManager.store)
@@ -29,7 +28,6 @@ class SymptomNavigationController: UINavigationController {
         storeManager.delegate = self
         
     }
-    
     
     private func createSymptomTrackerViewController() -> OCKSymptomTrackerViewController {
         let viewController = OCKSymptomTrackerViewController(carePlanStore: storeManager.store)
@@ -44,21 +42,12 @@ class SymptomNavigationController: UINavigationController {
     
 }
 
-extension SymptomNavigationController: CarePlanStoreManagerDelegate {
-    
-    /// Called when the `CarePlanStoreManager`'s insights are updated.
-    func carePlanStoreManager(manager: CarePlanStoreManager, didUpdateInsights insights: [OCKInsightItem]) {
-        // Update the insights view controller with the new insights.
-        
-        //TODO: fix this
-//        insightsViewController.items = insights
-    }
-}
 
 extension SymptomNavigationController: OCKSymptomTrackerViewControllerDelegate {
     
     /// Called when the user taps an assessment on the `OCKSymptomTrackerViewController`.
     func symptomTrackerViewController(viewController: OCKSymptomTrackerViewController, didSelectRowWithAssessmentEvent assessmentEvent: OCKCarePlanEvent) {
+        
         // Lookup the assessment the row represents.
         guard let activityType = ActivityType(rawValue: assessmentEvent.activity.identifier) else { return }
         guard let sampleAssessment = sampleData.activityWithType(activityType) as? Assessment else { return }
@@ -80,11 +69,11 @@ extension SymptomNavigationController: OCKSymptomTrackerViewControllerDelegate {
 }
 
 
-
 extension SymptomNavigationController: ORKTaskViewControllerDelegate {
     
     /// Called with then user completes a presented `ORKTaskViewController`.
     func taskViewController(taskViewController: ORKTaskViewController, didFinishWithReason reason: ORKTaskViewControllerFinishReason, error: NSError?) {
+        
         defer {
             dismissViewControllerAnimated(true, completion: nil)
         }
@@ -162,5 +151,19 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
                 print(error?.localizedDescription)
             }
         }
+    }
+}
+
+
+// MARK: insight delegate - didUpdateInsights
+
+extension SymptomNavigationController: CarePlanStoreManagerDelegate {
+    
+    /// Called when the `CarePlanStoreManager`'s insights are updated.
+    func carePlanStoreManager(manager: CarePlanStoreManager, didUpdateInsights insights: [OCKInsightItem]) {
+        // Update the insights view controller with the new insights.
+                
+        //TODO: fix this
+        //        insightsViewController.items = insights
     }
 }

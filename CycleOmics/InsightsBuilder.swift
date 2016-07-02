@@ -68,10 +68,10 @@ class InsightsBuilder {
             Create an operation to query for events for the previous week and
             current weeks' `BackPain` assessment.
          */
-        let backPainEventsOperation = QueryActivityEventsOperation(store: carePlanStore,
-                                                                   activityIdentifier: ActivityType.BackPain.rawValue,
-                                                                   startDate: queryDateRange.start,
-                                                                   endDate: queryDateRange.end)
+//        let backPainEventsOperation = QueryActivityEventsOperation(store: carePlanStore,
+//                                                                   activityIdentifier: ActivityType.BackPain.rawValue,
+//                                                                   startDate: queryDateRange.start,
+//                                                                   endDate: queryDateRange.end)
 
         /*
             Create a `BuildInsightsOperation` to create insights from the data
@@ -82,12 +82,12 @@ class InsightsBuilder {
         /*
             Create an operation to aggregate the data from query operations into
             the `BuildInsightsOperation`.
-        */
-        let aggregateDataOperation = NSBlockOperation {
-            // Copy the queried data from the query operations to the `BuildInsightsOperation`.
-            buildInsightsOperation.medicationEvents = medicationEventsOperation.dailyEvents
-            buildInsightsOperation.backPainEvents = backPainEventsOperation.dailyEvents
-        }
+//        */
+//        let aggregateDataOperation = NSBlockOperation {
+//            // Copy the queried data from the query operations to the `BuildInsightsOperation`.
+//            buildInsightsOperation.medicationEvents = medicationEventsOperation.dailyEvents
+//            buildInsightsOperation.backPainEvents = backPainEventsOperation.dailyEvents
+//        }
         
         /*
             Use the completion block of the `BuildInsightsOperation` to store the
@@ -109,19 +109,19 @@ class InsightsBuilder {
         }
         
         // The aggregate operation is dependent on the query operations.
-        aggregateDataOperation.addDependency(medicationEventsOperation)
-        aggregateDataOperation.addDependency(backPainEventsOperation)
-        
-        // The `BuildInsightsOperation` is dependent on the aggregate operation.
-        buildInsightsOperation.addDependency(aggregateDataOperation)
-        
-        // Add all the operations to the operation queue.
-        updateOperationQueue.addOperations([
-            medicationEventsOperation,
-            backPainEventsOperation,
-            aggregateDataOperation,
-            buildInsightsOperation
-        ], waitUntilFinished: false)
+//        aggregateDataOperation.addDependency(medicationEventsOperation)
+//        aggregateDataOperation.addDependency(backPainEventsOperation)
+//        
+//        // The `BuildInsightsOperation` is dependent on the aggregate operation.
+//        buildInsightsOperation.addDependency(aggregateDataOperation)
+//        
+//        // Add all the operations to the operation queue.
+//        updateOperationQueue.addOperations([
+//            medicationEventsOperation,
+//            backPainEventsOperation,
+//            aggregateDataOperation,
+//            buildInsightsOperation
+//        ], waitUntilFinished: false)
     }
     
     private func calculateQueryDateRange() -> (start: NSDateComponents, end: NSDateComponents) {

@@ -60,6 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    
+    // MARK: Handling passcode states
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         lockApp()
         return true
@@ -85,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.makeKeyAndVisible()
         
-        let passcodeViewController = ORKPasscodeViewController.passcodeAuthenticationViewControllerWithText("Welcome back to ResearchKit Sample App", delegate: self) as! ORKPasscodeViewController
+        let passcodeViewController = ORKPasscodeViewController.passcodeAuthenticationViewControllerWithText("Welcome back to CycleOmics", delegate: self) as! ORKPasscodeViewController
         containerViewController?.presentViewController(passcodeViewController, animated: false, completion: nil)
     }
 }
@@ -96,7 +99,6 @@ extension AppDelegate: ORKPasscodeDelegate {
         viewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func passcodeViewControllerDidFailAuthentication(viewController: UIViewController) {
-    }
+    func passcodeViewControllerDidFailAuthentication(viewController: UIViewController) {}
 }
 

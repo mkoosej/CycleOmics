@@ -49,11 +49,9 @@ enum ActivityType: String {
     case HamstringStretch
     case TakeMedication
     
-    case BackPain
+
     case BasalBodyTemp
     case Mood
     case Stress
-    case BloodGlucose
-    case Weight
     case Sleep
 }

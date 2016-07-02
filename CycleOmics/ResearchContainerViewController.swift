@@ -36,7 +36,7 @@ class ResearchContainerViewController: UIViewController, HealthClientType {
     
     var healthStore: HKHealthStore?
     
-    // MARK: Propertues
+    // MARK: Properties
     
     var contentHidden = false {
         didSet {
