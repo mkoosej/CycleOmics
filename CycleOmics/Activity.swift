@@ -45,13 +45,19 @@ protocol Activity {
  the app.
  */
 enum ActivityType: String {
-    case OutdoorWalk
-    case HamstringStretch
-    case TakeMedication
+        
+    // Samples
+    case Saliva
+    case Urine
+    case FingerBloodSpot
+    case VaginalSwab
+    case Stool
     
-
+    // Symptom & measurement
     case BasalBodyTemp
     case Mood
     case Stress
     case Sleep
+    case SexualActivities
+    case CervicalMucus
 }
