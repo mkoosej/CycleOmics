@@ -86,59 +86,47 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
             activityType = ActivityType(rawValue: event.activity.identifier),
             sampleAssessment = sampleData.activityWithType(activityType) as? Assessment else { return }
         
-        // Build an `OCKCarePlanEventResult` that can be saved into the `OCKCarePlanStore`.
-        let carePlanResult = sampleAssessment.buildResultForCarePlanEvent(event, taskResult: taskViewController.result)
-        
         // Check assessment can be associated with a HealthKit sample.
-        if let healthSampleBuilder = sampleAssessment as? HealthSampleBuilder {
+        if let healthSampleBuilder = sampleAssessment as? HealthQuantitySampleBuilder {
             // Build the sample to save in the HealthKit store.
             let sample = healthSampleBuilder.buildSampleWithTaskResult(taskViewController.result)
             let sampleTypes: Set<HKSampleType> = [sample.sampleType]
             
-            // Requst authorization to store the HealthKit sample.
-            let healthStore = HKHealthStore()
-            healthStore.requestAuthorizationToShareTypes(sampleTypes, readTypes: sampleTypes, completion: { success, _ in
-                // Check if authorization was granted.
-                if !success {
-                    /*
-                     Fall back to saving the simple `OCKCarePlanEventResult`
-                     in the `OCKCarePlanStore`.
-                     */
-                    self.completeEvent(event, inStore: self.storeManager.store, withResult: carePlanResult)
-                    return
-                }
+            let carePlanResult = sampleAssessment.buildResultForCarePlanEvent(event, taskResult: taskViewController.result)
+            
+            //Save the quantity sample to HKStore
+            saveSampleHealthStore(sampleTypes, sample: sample, event: event, carePlanResult: carePlanResult, completionBlock: {
                 
-                // Save the HealthKit sample in the HealthKit store.
-                healthStore.saveObject(sample, withCompletion: { success, _ in
-                    if success {
-                        /*
-                         The sample was saved to the HealthKit store. Use it
-                         to create an `OCKCarePlanEventResult` and save that
-                         to the `OCKCarePlanStore`.
-                         */
-                        let healthKitAssociatedResult = OCKCarePlanEventResult(
-                            quantitySample: sample,
-                            quantityStringFormatter: nil,
-                            displayUnit: healthSampleBuilder.unit,
-                            displayUnitStringKey: healthSampleBuilder.localizedUnitForSample(sample),
-                            userInfo: nil
-                        )
-                        
-                        self.completeEvent(event, inStore: self.storeManager.store, withResult: healthKitAssociatedResult)
-                    }
-                    else {
-                        /*
-                         Fall back to saving the simple `OCKCarePlanEventResult`
-                         in the `OCKCarePlanStore`.
-                         */
-                        self.completeEvent(event, inStore: self.storeManager.store, withResult: carePlanResult)
-                    }
-                    
-                })
+                //Save the quantity sample to CarePlanStore
+                let healthKitAssociatedResult = OCKCarePlanEventResult(
+                    quantitySample: sample,
+                    quantityStringFormatter: nil,
+                    displayUnit: healthSampleBuilder.unit,
+                    displayUnitStringKey: healthSampleBuilder.localizedUnitForSample(sample),
+                    userInfo: nil
+                )
+                
+                self.completeEvent(event, inStore: self.storeManager.store, withResult: healthKitAssociatedResult)
+            })
+        }
+        else if let healthSampleBuilder = sampleAssessment as? HealthCategorySampleBuilder {
+            // Build the sample to save in the HealthKit store.
+            let sample = healthSampleBuilder.buildSampleWithTaskResult(taskViewController.result)
+            let sampleTypes: Set<HKSampleType> = [sample.sampleType]
+            
+            let carePlanResult = sampleAssessment.buildResultForCarePlanEvent(event, taskResult: taskViewController.result)
+            
+            //Save the category sample to HKStore
+            saveSampleHealthStore(sampleTypes, sample: sample, event: event, carePlanResult: carePlanResult, completionBlock: {
+                
+                self.completeEvent(event, inStore: self.storeManager.store, withResult: carePlanResult)
             })
         }
         else {
             // Update the event with the result.
+            
+            // Build an `OCKCarePlanEventResult` that can be saved into the `OCKCarePlanStore`.
+            let carePlanResult = sampleAssessment.buildResultForCarePlanEvent(event, taskResult: taskViewController.result)
             completeEvent(event, inStore: storeManager.store, withResult: carePlanResult)
         }
     }
@@ -151,6 +139,37 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
                 print(error?.localizedDescription)
             }
         }
+    }
+    
+    private func saveSampleHealthStore(sampleTypes: Set<HKSampleType>, sample: HKSample, event: OCKCarePlanEvent , carePlanResult: OCKCarePlanEventResult , completionBlock: (Void)->Void ) {
+        
+        // Requst authorization to store the HealthKit sample.
+        let healthStore = HKHealthStore()
+        healthStore.requestAuthorizationToShareTypes(sampleTypes, readTypes: sampleTypes, completion: { success, _ in
+            // Check if authorization was granted.
+            if !success {
+                /*
+                 Fall back to saving the simple `OCKCarePlanEventResult`
+                 in the `OCKCarePlanStore`.
+                 */
+                self.completeEvent(event, inStore: self.storeManager.store, withResult: carePlanResult)
+                return
+            }
+            
+            // Save the HealthKit sample in the HealthKit store.
+            healthStore.saveObject(sample, withCompletion: { success, _ in
+                if success {
+                    completionBlock()
+                }
+                else {
+                    /*
+                     Fall back to saving the simple `OCKCarePlanEventResult`
+                     in the `OCKCarePlanStore`.
+                     */
+                    self.completeEvent(event, inStore: self.storeManager.store, withResult: carePlanResult)
+                }
+            })
+        })
     }
 }
 

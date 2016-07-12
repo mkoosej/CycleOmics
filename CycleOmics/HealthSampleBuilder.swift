@@ -34,12 +34,10 @@ import ResearchKit
  A protocol that defines the methods and properties required to be able to save
  an `ORKTaskResult` to a `ORKCarePlanStore` with an associated `HKQuantitySample`.
  */
-protocol HealthSampleBuilder {
+protocol HealthQuantitySampleBuilder {
+    
     var quantityType: HKQuantityType { get }
-    
     var unit: HKUnit { get }
-    
     func buildSampleWithTaskResult(result: ORKTaskResult) -> HKQuantitySample
-    
     func localizedUnitForSample(sample: HKQuantitySample) -> String
 }
