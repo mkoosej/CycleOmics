@@ -1,84 +1,106 @@
-///*
-// Copyright (c) 2016, Apple Inc. All rights reserved.
-// 
-// Redistribution and use in source and binary forms, with or without modification,
-// are permitted provided that the following conditions are met:
-// 
-// 1.  Redistributions of source code must retain the above copyright notice, this
-// list of conditions and the following disclaimer.
-// 
-// 2.  Redistributions in binary form must reproduce the above copyright notice,
-// this list of conditions and the following disclaimer in the documentation and/or
-// other materials provided with the distribution.
-// 
-// 3.  Neither the name of the copyright holder(s) nor the names of any contributors
-// may be used to endorse or promote products derived from this software without
-// specific prior written permission. No license is granted to the trademarks of
-// the copyright holders even if such marks are included in this software.
-// 
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-// */
 //
-//import ResearchKit
-//import CareKit
+//  SexualActivities.swift
+//  CycleOmics
 //
-///**
-// Struct that conforms to the `Assessment` protocol to define a sleep tracking
-//assessment.
-// */
-//struct Sleep: Assessment {
-//    // MARK: Activity
-//    
-//    let activityType: ActivityType = .Sleep
-//    
-//    func carePlanActivity() -> OCKCarePlanActivity {
-//        // Create a weekly schedule.
-//        let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
-//        let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
-//        
-//        // Get the localized strings to use for the assessment.
-//        let title = NSLocalizedString("Sleep Time", comment: "")
-//        let summary = NSLocalizedString("", comment: "")
-//        
-//        let activity = OCKCarePlanActivity.assessmentWithIdentifier(
-//            activityType.rawValue,
-//            groupIdentifier: nil,
-//            title: title,
-//            text: summary,
-//            tintColor: Colors.Purple.color,
-//            resultResettable: false,
-//            schedule: schedule,
-//            userInfo: nil
-//        )
-//        
-//        return activity
-//    }
-//    
-//    // MARK: Assessment
-//    
-//    func task() -> ORKTask {
-//        // Get the localized strings to use for the task.
-//        let categoryType = HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis)!
-//        let unit = HKUnit(fromString: "mg/dL")
-//        let answerFormat = ORKHealthKit
-//        
-//        // Create a question.
-//        let title = NSLocalizedString("Input your blood glucose", comment: "")
-//        let questionStep = ORKQuestionStep(identifier: activityType.rawValue, title: title, answer: answerFormat)
-//        questionStep.optional = false
-//        
-//        // Create an ordered task with a single question.
-//        let task = ORKOrderedTask(identifier: activityType.rawValue, steps: [questionStep])
-//        
-//        return task
-//    }
-//}
+//  Created by Mojtaba Koosej on 7/5/16.
+//  Copyright © 2016 Curio. All rights reserved.
+//
+
+import ResearchKit
+import CareKit
+
+/**
+ Struct that conforms to the `Assessment` protocol to define a sleep tracking
+assessment.
+ */
+struct Sleep: Assessment, HealthCategorySampleBuilder {
+    // MARK: Activity
+    
+    let activityType: ActivityType = .Sleep
+    
+    // MARK: HealthSampleBuilder Properties
+    let categotyType: HKCategoryType = HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis)!
+    
+    let value: Int = HKCategoryValueSleepAnalysis.Asleep.rawValue
+    
+    func carePlanActivity() -> OCKCarePlanActivity {
+        // Create a weekly schedule.
+        let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
+        let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
+        
+        // Get the localized strings to use for the assessment.
+        let title = NSLocalizedString("Sleep Time", comment: "")
+        let summary = NSLocalizedString("Log the times you were asleep after you went to bed", comment: "")
+        
+        let activity = OCKCarePlanActivity.assessmentWithIdentifier(
+            activityType.rawValue,
+            groupIdentifier: nil,
+            title: title,
+            text: summary,
+            tintColor: Colors.Purple.color,
+            resultResettable: false,
+            schedule: schedule,
+            userInfo: nil
+        )
+        
+        return activity
+    }
+    
+    // MARK: Assessment
+    
+    func task() -> ORKTask {
+        // Get the localized strings to use for the task.
+        
+        // Create a question.
+        let title = NSLocalizedString("Log the times you were asleep after you went to bed", comment: "")
+        
+        let formStep = ORKFormStep(identifier: "sleep_miniform", title: "Sleep Analysis", text: title)
+        formStep.optional = false
+        
+        var steps = [ORKFormItem]()
+        let start = ORKFormItem(identifier: "sleep_starts", text: "Starts", answerFormat: ORKAnswerFormat.dateTimeAnswerFormat())
+        
+        let end = ORKFormItem(identifier: "sleep_end", text: "Ends", answerFormat: ORKAnswerFormat.dateTimeAnswerFormat())
+        
+        steps.append(start)
+        steps.append(end)
+        
+        formStep.formItems = steps
+        
+        // Create an ordered task with a single question.
+        let task = ORKOrderedTask(identifier: activityType.rawValue, steps: [formStep])
+    
+        return task
+    }
+
+    // MARK: HealthSampleBuilder
+    
+    /// Builds a `HKCategorySample` from the information in the supplied `ORKTaskResult`.
+    func buildSampleWithTaskResult(result: ORKTaskResult) -> HKCategorySample {
+        
+        // Get the start time and end time of the sleep event
+        guard let firstResult = result.firstResult as? ORKStepResult,
+            start = firstResult.results?.first as? ORKDateQuestionResult,
+            end = firstResult.results?[1] as? ORKDateQuestionResult
+            else { fatalError("Unexepected task results") }
+        
+        return HKCategorySample(
+            type: self.categotyType,
+            value: self.value, startDate:
+            start.dateAnswer!,
+            endDate: end.dateAnswer!
+        )
+    }
+    
+    func buildCategoricalResultForCarePlanEvent(sample: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
+        
+        let categorySample = self.buildSampleWithTaskResult(taskResult)
+        
+        // Build the result should be saved.
+        return OCKCarePlanEventResult(
+            categorySample: categorySample,
+            categoryValueStringKeys: [ 1: "✔️" ],
+            userInfo: nil
+        )
+    }
+}
