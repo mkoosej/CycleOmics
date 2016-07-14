@@ -71,7 +71,7 @@ struct VaginalSwab: TubeSample {
         // Get the localized strings to use for the task.
         let question = NSLocalizedString("Please enter the tube number you are using for sampling", comment: "")
         
-        let questionStep = ORKQuestionStep(identifier: activityType.rawValue, title: title, text: question, answer: ORKAnswerFormat.textAnswerFormat())
+        let questionStep = ORKQuestionStep(identifier: activityType.rawValue, title: title, text: question, answer: ORKAnswerFormat.integerAnswerFormatWithUnit(nil) )
         questionStep.optional = false
         
         // Create an ordered task with a single question.
