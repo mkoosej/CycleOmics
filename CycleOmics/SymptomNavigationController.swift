@@ -111,9 +111,16 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
         }
         else if let healthSampleBuilder = sampleAssessment as? HealthCategorySampleBuilder {
             // Build the sample to save in the HealthKit store.
+            
+            if(healthSampleBuilder.shouldIgnoreSample(taskViewController.result)) { //for conditional tasks that doesn't require sampling
+                
+                let carePlanResult = sampleAssessment.buildResultForCarePlanEvent(event, taskResult: taskViewController.result)
+                self.completeEvent(event, inStore: self.storeManager.store, withResult: carePlanResult)
+                return
+            }
+            
             let sample = healthSampleBuilder.buildSampleWithTaskResult(taskViewController.result)
             let sampleTypes: Set<HKSampleType> = [sample.sampleType]
-            
             let carePlanResult = sampleAssessment.buildResultForCarePlanEvent(event, taskResult: taskViewController.result)
             
             //Save the category sample to HKStore

@@ -51,17 +51,16 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
     func task() -> ORKTask {
         
         // Create a question.
-        let questionStep = ORKQuestionStep(identifier: "had_sex", title: "Sexual Activity", text: "Did you have any sexual activity in this day?" , answer: ORKAnswerFormat.booleanAnswerFormat())
-        questionStep.optional = false
+        let booleanQuestionStep = ORKQuestionStep(identifier: "had_sex", title: "Sexual Activity", text: "Did you have any sexual activity in this day?" , answer: ORKAnswerFormat.booleanAnswerFormat())
+        booleanQuestionStep.optional = false
+        
         
         // Form for the category sample
         let formStep = ORKFormStep(identifier: "sex_miniform", title: "Sexual Activity", text: "")
         formStep.optional = false
         
         var steps = [ORKFormItem]()
-                
         let protection = ORKFormItem(identifier: "sex_protection", text: "Protection Used:", answerFormat: ORKAnswerFormat.booleanAnswerFormat())
-        
         let date = ORKFormItem(identifier: "sex_date", text: "Date:", answerFormat: ORKAnswerFormat.dateTimeAnswerFormat())
         
         steps.append(protection)
@@ -69,19 +68,25 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
         
         formStep.formItems = steps
         
+        // A dummy skip step for navigatable form
         let skipStep = ORKInstructionStep(identifier: "survey_skipped")
         skipStep.title = "Thanks for your answer!"
+        skipStep.optional = false
         
         // Create an ordered task with a single question.
-        let task: ORKNavigableOrderedTask = ORKNavigableOrderedTask(identifier: "sex_survey", steps: [questionStep, formStep, skipStep])
+        let task: ORKNavigableOrderedTask = ORKNavigableOrderedTask(identifier: "sex_survey", steps: [booleanQuestionStep, formStep, skipStep])
         
         // If the user didn't have sex skip the second step and nothing needs to be logged in HKStore
-        let resultSelector = ORKResultSelector.init(stepIdentifier: "had_sex", resultIdentifier: "had_sex");
-        let predicateSkippedSex: NSPredicate = ORKResultPredicate.predicateForChoiceQuestionResultWithResultSelector(resultSelector, expectedAnswerValue: false)
+        let resultSelector = ORKResultSelector.init(resultIdentifier: "had_sex");
+        let predicateSkippedSex: NSPredicate = ORKResultPredicate.predicateForBooleanQuestionResultWithResultSelector(resultSelector, expectedAnswer: false)
         
-        let predicateRule = ORKPredicateStepNavigationRule(resultPredicates: [predicateSkippedSex], destinationStepIdentifiers: ["survey_skipped"], defaultStepIdentifier: "survey_skipped", validateArrays: true)
-        task.setNavigationRule(predicateRule, forTriggerStepIdentifier: "sex_survey")
+        let predicateRule = ORKPredicateStepNavigationRule(resultPredicates: [predicateSkippedSex], destinationStepIdentifiers: ["survey_skipped"], defaultStepIdentifier: nil, validateArrays: true)
+        task.setNavigationRule(predicateRule, forTriggerStepIdentifier: "had_sex")
         
+//        // Add end direct rules to skip unneeded steps
+//        let directRule = ORKDirectStepNavigationRule(destinationStepIdentifier: ORKNullStepIdentifier)
+//        task.setNavigationRule(directRule, forTriggerStepIdentifier: "hadSexResult")
+//        
         return task
     }
     
@@ -90,32 +95,53 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
     /// Builds a `HKCategorySample` from the information in the supplied `ORKTaskResult`.
     func buildSampleWithTaskResult(result: ORKTaskResult) -> HKCategorySample {
         
-        // Get the first result for the first step of the task result.
-        guard let firstResult = result.firstResult as? ORKStepResult, stepResult = firstResult.results?.first else { fatalError("Unexepected task results") }
+        // Get the task result.
+        guard let miniForm = result.stepResultForStepIdentifier("sex_miniform") else { fatalError("Unexepected task results") }
+        guard let protectionStep = miniForm.resultForIdentifier("sex_protection") as? ORKBooleanQuestionResult else { fatalError("Unexepected task results") }
+        guard let dateStep = miniForm.resultForIdentifier("sex_date") as? ORKDateQuestionResult else { fatalError("Unexepected task results") }
+
+        let startDate =  dateStep.dateAnswer!
+        let endDate =  dateStep.dateAnswer!
+        let protectionUsed:Bool = (protectionStep.booleanAnswer?.boolValue)!
         
-        let startDate =  NSDate()
-        let endDate =  NSDate()
-        let protectionUsed = true
-        
-        let metadata = [HKCategoryTypeIdentifierSexualActivity : protectionUsed]
-        
-        return HKCategorySample(type: categotyType, value: value, startDate: startDate, endDate: endDate, metadata: metadata)
+        let metadata = [HKMetadataKeySexualActivityProtectionUsed : protectionUsed]
+        return HKCategorySample(type: categotyType, value: self.value, startDate: startDate, endDate: endDate, metadata: metadata)
     }
     
     func buildCategoricalResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
-        // Get the first result for the first step of the task result.
-        guard let firstResult = taskResult.firstResult as? ORKStepResult, stepResult = firstResult.results?.first else { fatalError("Unexepected task results") }
-        
-        // Determine what type of result should be saved.
-        if let scaleResult = stepResult as? ORKScaleQuestionResult, answer = scaleResult.scaleAnswer {
-            return OCKCarePlanEventResult(valueString: answer.stringValue, unitString: "out of 10", userInfo: nil)
-        }
-        else if let numericResult = stepResult as? ORKNumericQuestionResult, answer = numericResult.numericAnswer {
-            return OCKCarePlanEventResult(valueString: answer.stringValue, unitString: numericResult.unit, userInfo: nil)
+    
+        if(self.shouldIgnoreSample(taskResult)) {
+            return OCKCarePlanEventResult(valueString: "-", unitString: nil, userInfo: ["skipped":1])
         }
         
-        fatalError("Unexpected task result type")
+        let categorySample = self.buildSampleWithTaskResult(taskResult)
+        // Build the result should be saved.
+        return OCKCarePlanEventResult(
+            categorySample: categorySample,
+            categoryValueStringKeys: self.ValueStringForCategory(),
+            userInfo: nil
+        )
     }
-
+    
+    func shouldIgnoreSample(result: ORKTaskResult?) -> Bool {
+        
+        guard let firstResult = result?.firstResult as? ORKStepResult, stepResult = firstResult.results?.first else {
+            return true
+        }
+        
+        // Get the boolean answer for the result.
+        guard let booleanResult = stepResult as? ORKBooleanQuestionResult, booleanAnswer = booleanResult.booleanAnswer as? Bool else { fatalError("Unable to determine result answer") }
+        
+        return !booleanAnswer
+    }
+    
+    private func ValueStringForCategory() -> [Int:String] {
+        
+        return [
+            0 : "✔️",
+            1 : "✔️",
+            self.value: "✔️"
+        ]
+    }
     
 }

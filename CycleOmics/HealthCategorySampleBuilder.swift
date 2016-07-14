@@ -20,3 +20,14 @@ protocol HealthCategorySampleBuilder {
     func buildCategoricalResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult
 }
 
+extension HealthCategorySampleBuilder {
+    
+    func shouldIgnoreSample(result:ORKTaskResult?) -> Bool {
+        
+        if let checkType = self as? SexualActivities {
+            return checkType.shouldIgnoreSample(result)
+        }
+        
+        return false
+    }
+}
