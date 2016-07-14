@@ -13,7 +13,6 @@ struct BasalBodyTemprature: Assessment, HealthQuantitySampleBuilder {
     // MARK: HealthSampleBuilder Properties
 
     let quantityType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBasalBodyTemperature)!
-    
     let unit = HKUnit.degreeFahrenheitUnit()
     
     // MARK: Activity
@@ -45,9 +44,7 @@ struct BasalBodyTemprature: Assessment, HealthQuantitySampleBuilder {
     
     func task() -> ORKTask {
         // Get the localized strings to use for the task.
-        let quantityType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBasalBodyTemperature)!
-        let unit = HKUnit.degreeFahrenheitUnit();
-        let answerFormat = ORKHealthKitQuantityTypeAnswerFormat(quantityType: quantityType, unit:unit, style: .Integer)
+        let answerFormat = ORKHealthKitQuantityTypeAnswerFormat(quantityType: self.quantityType, unit:self.unit, style: .Integer)
         
         // Create a question.
         let title = NSLocalizedString("Input your basal body temperature", comment: "")
