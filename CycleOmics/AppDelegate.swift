@@ -45,9 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         
         let standardDefaults = NSUserDefaults.standardUserDefaults()
-        if standardDefaults.objectForKey("ORKSampleFirstRun") == nil {
+        if standardDefaults.objectForKey("FirstRun") == nil {
             ORKPasscodeViewController.removePasscodeFromKeychain()
-            standardDefaults.setValue("ORKSampleFirstRun", forKey: "ORKSampleFirstRun")
+            standardDefaults.setValue("FirstRun", forKey: "FirstRun")
         }
         
         // Appearance customization
