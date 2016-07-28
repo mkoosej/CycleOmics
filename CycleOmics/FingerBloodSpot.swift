@@ -27,7 +27,19 @@ struct FingerBloodSpot: TubeSample {
         // Get the localized strings to use for the activity.
         let title = NSLocalizedString("Finger blood spot", comment: "")
         let summary = NSLocalizedString("Add 80ul of blood", comment: "")
-        let instructions = NSLocalizedString("Add 80ul of blood (reach black line)", comment: "")
+        
+        let text = "1) To ensure a good finger stick: Warm water washing for 1mi.n\n\n" +
+        "2) Vigorously massaging or rubbing the fingertip for 30 seconds.\n\n" +
+        "Remember to select either the middle or ring finger on the non-dominant hand. Avoid calluses and the “pad” of the fingertip. The fleshy side of the fingertip is the ideal spot to place the lancet for the finger stick.\n\n" +
+        "3) Anchor your hand against a firm surface before using the  lancet.\n\n" +
+        "4) Use lancet to prick fleshy side of middle or ring finger.\n\n" +
+        "5) Apply pressure around fingerprick if needed to encourage blood flow.\n\n" +
+        "6) Touch 80ul capillary tube to the blood (do not squeeze dropper part yet!).\n\n" +
+        "7) If bubble appears in capillary tube, repeat with a new tube.\n\n" +
+        "8) After capillary tube full, squeeze dropper to deposit blood into center of a HemaSpot. Add daily, from plate 1 to 2, position A1 to A2.\n\n" +
+        "9) Label the date and time on the cover of the plate at today’s blood spot position.\n\n"
+        
+        let instructions = NSLocalizedString(text , comment: "")
         
         // Create the intervention activity.
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
