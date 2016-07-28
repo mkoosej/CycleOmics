@@ -33,15 +33,12 @@ import ResearchKit
 class ConsentDocument: ORKConsentDocument {
     // MARK: Properties
     
-    let ipsum = [
-        "More optoinal information here.",
-        "More optoinal information here.",
-        "Aenean in ligula quis arcu rhoncus tristique. Donec ut nisl suscipit augue ornare venenatis. Suspendisse commodo nibh dignissim, congue justo quis, ultrices sapien. Aliquam at lacinia ante. Sed venenatis quam eget dui lobortis, non ullamcorper tellus molestie. Quisque tempus fringilla velit, et viverra odio accumsan quis. Suspendisse potenti. Nullam ac dolor nunc. Pellentesque nec scelerisque risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus consectetur efficitur rutrum. Suspendisse in arcu id ex luctus aliquam quis at quam.",
-        "Maecenas quis varius massa. Nam in dapibus turpis, ut varius eros. Proin a ex enim. Sed faucibus magna vel tincidunt facilisis. Donec id ligula vel mi suscipit sollicitudin. Nulla non magna blandit, semper augue vel, sagittis dui. Curabitur quis rutrum ex. Sed ipsum odio, mattis et dignissim sit amet, volutpat et turpis. Sed quis placerat orci. Duis vitae bibendum diam.",
-        "Sed nec tortor sapien. Quisque tempor scelerisque vulputate. Nulla eget consequat urna. Aliquam tempus sagittis orci vel tempus. Mauris porta ante sed maximus iaculis. Etiam elit purus, pretium nec ipsum non, aliquam commodo erat. Aliquam sagittis, nibh at porta pellentesque, libero purus finibus nulla, sed consectetur tellus sem non nisl. Duis eu sollicitudin orci. Quisque tincidunt feugiat sapien ac accumsan. Nullam vitae fringilla quam.",
-        "Integer tristique, nulla nec auctor consectetur, justo dolor sagittis erat, vel laoreet erat turpis vitae dui. Praesent purus tellus, eleifend faucibus sapien id, egestas mollis turpis. Fusce enim lorem, ornare quis ligula a, mattis feugiat diam. Praesent ullamcorper fringilla urna sollicitudin convallis. Curabitur eget dapibus ipsum, ac suscipit mauris. In hac habitasse platea dictumst. Vestibulum non hendrerit ex.",
-        "Nulla convallis ligula ornare efficitur ullamcorper. Vivamus erat enim, malesuada sit amet dolor ac, tristique blandit felis. Praesent a ante ac nisi tempor elementum. Mauris ligula tellus, porttitor eu vehicula eget, condimentum sed nisi. Donec pharetra lacus tincidunt sapien dignissim iaculis. Duis id ultrices tortor, at congue dolor. Donec consequat fringilla leo, eu congue nulla suscipit non.",
-        "Sed convallis, ligula vel egestas commodo, mauris nisl tincidunt arcu, id tristique est nunc sit amet felis. Curabitur tortor dolor, ullamcorper vitae pulvinar egestas, venenatis a sem. Cras sit amet maximus magna. Vivamus auctor nisi quis felis mattis, vel sagittis purus pulvinar. Nunc tristique nibh mauris, at eleifend arcu sodales nec. Curabitur rhoncus rutrum metus, ac pretium ante tempor sed. Sed vehicula placerat felis, nec interdum nisl fringilla eu. Nunc iaculis sit amet massa fringilla rhoncus. Maecenas consequat, risus eget commodo suscipit, lorem ex condimentum orci, et sollicitudin nisi eros sed lectus. Sed at erat nisl. Nunc venenatis mi tellus, vitae congue erat dictum a."
+    let steps = [
+        "This simple walkthrough will explain the research study, the impact it may have on your life   and will allow you to provide your consent to participate.",
+        "Stanford Medicine (“Stanford”) and the CycleOmics research team know you care about how your information is used and shared. We take protecting your privacy very seriously.",
+        "For the purpose of the study, you should take required samples in a daily basis. You should keep samples hard frozen after sample collection for storage and transportation",
+        "Some of the tasks in this study will require you to answer survey questions about health and lifesttyle factors.",
+        "Your coded study will be used for research by Stanford and may be shared with other researchers approved by Stanford."
     ]
     
     // MARK: Initialization
@@ -53,26 +50,33 @@ class ConsentDocument: ORKConsentDocument {
         
         let sectionTypes: [ORKConsentSectionType] = [
             .Overview,
-            .DataGathering,
             .Privacy,
-            .DataUse,
-            .TimeCommitment,
-            .StudySurvey,
             .StudyTasks,
-            .Withdrawing
+            .StudySurvey,
+            .DataUse
         ]
         
-        sections = zip(sectionTypes, ipsum).map { sectionType, ipsum in
+        sections = zip(sectionTypes, steps).map { sectionType, steps in
             let section = ORKConsentSection(type: sectionType)
             
-            let localizedIpsum = NSLocalizedString(ipsum, comment: "")
-            let localizedSummary = localizedIpsum.componentsSeparatedByString(".")[0] + "."
+            let localizedIpsum = NSLocalizedString(steps, comment: "")
+            let localizedSummary = localizedIpsum
             
             section.summary = localizedSummary
             section.content = localizedIpsum
             
+            if(section.type == ORKConsentSectionType.Privacy) {
+                
+                section.contentURL = NSURL(string: "https://people.stanford.edu/rkellogg/cycleomics-privacy-policy")
+            }
+            else {
+                section.customLearnMoreButtonTitle = ""
+            }
+            
             return section
         }
+        
+        sections?.first?.customLearnMoreButtonTitle = ""
 
         let signature = ORKConsentSignature(forPersonWithTitle: nil, dateFormatString: nil, identifier: "ConsentDocumentParticipantSignature")
         addSignature(signature)

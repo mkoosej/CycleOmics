@@ -54,7 +54,6 @@ class HealthDataStep: ORKInstructionStep {
     ]
     
     // MARK: Initialization
-    
     override init(identifier: String) {
         super.init(identifier: identifier)
         
@@ -67,10 +66,9 @@ class HealthDataStep: ORKInstructionStep {
     }
     
     // MARK: Convenience
-    
     func getHealthAuthorization(completion: (success: Bool, error: NSError?) -> Void) {
         guard HKHealthStore.isHealthDataAvailable() else {
-            let error = NSError(domain: "com.example.apple-samplecode.ORKSample", code: 2, userInfo: [NSLocalizedDescriptionKey: "Health data is not available on this device."])
+            let error = NSError(domain: "com.curio.CycleOmics", code: 2, userInfo: [NSLocalizedDescriptionKey: "Health data is not available on this device."])
             
             completion(success: false, error:error)
             

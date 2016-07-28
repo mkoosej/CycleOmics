@@ -61,7 +61,7 @@
 		62EB41C91D1C5E8F002D67DE /* Stress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41C81D1C5E8F002D67DE /* Stress.swift */; };
 		62EB41CB1D1C659E002D67DE /* SymptomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41CA1D1C659E002D67DE /* SymptomNavigationController.swift */; };
 		62EB41CD1D1C6B77002D67DE /* Sleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41CC1D1C6B77002D67DE /* Sleep.swift */; };
-		62EB41CF1D1C6CE0002D67DE /* BasalBodyTemperature .swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41CE1D1C6CE0002D67DE /* BasalBodyTemperature .swift */; };
+		62EB41CF1D1C6CE0002D67DE /* BasalBodyTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41CE1D1C6CE0002D67DE /* BasalBodyTemperature.swift */; };
 		7EAA0F01CCB0451C7922B932 /* Pods_CycleOmicsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C076BFE79D8517733B75F082 /* Pods_CycleOmicsUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -145,7 +145,7 @@
 		62EB41C81D1C5E8F002D67DE /* Stress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stress.swift; sourceTree = "<group>"; };
 		62EB41CA1D1C659E002D67DE /* SymptomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymptomNavigationController.swift; sourceTree = "<group>"; };
 		62EB41CC1D1C6B77002D67DE /* Sleep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sleep.swift; sourceTree = "<group>"; };
-		62EB41CE1D1C6CE0002D67DE /* BasalBodyTemperature .swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BasalBodyTemperature .swift"; sourceTree = "<group>"; };
+		62EB41CE1D1C6CE0002D67DE /* BasalBodyTemperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasalBodyTemperature.swift; sourceTree = "<group>"; };
 		970859AF2835716EF0CC4F13 /* Pods_CycleOmics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CycleOmics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4250DEE775E006439A5735C /* Pods-CycleOmicsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmicsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmicsTests/Pods-CycleOmicsTests.release.xcconfig"; sourceTree = "<group>"; };
 		BAB3064C3315C23E1017E63C /* Pods_CycleOmicsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CycleOmicsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -382,7 +382,7 @@
 			children = (
 				629110071D2E179800244FCE /* StressSurvey.swift */,
 				62910FF71D2C7C2100244FCE /* Protocols */,
-				62EB41CE1D1C6CE0002D67DE /* BasalBodyTemperature .swift */,
+				62EB41CE1D1C6CE0002D67DE /* BasalBodyTemperature.swift */,
 				62EB41C81D1C5E8F002D67DE /* Stress.swift */,
 				62EB419F1D1BF91E002D67DE /* Mood.swift */,
 				62EB41CC1D1C6B77002D67DE /* Sleep.swift */,
@@ -728,7 +728,7 @@
 				62EB419A1D1B84C6002D67DE /* HKHealthStore+Queries.swift in Sources */,
 				62EB41B91D1C4FCF002D67DE /* InsightsBuilder.swift in Sources */,
 				62EB41811D1B8429002D67DE /* AnimatableChart.swift in Sources */,
-				62EB41CF1D1C6CE0002D67DE /* BasalBodyTemperature .swift in Sources */,
+				62EB41CF1D1C6CE0002D67DE /* BasalBodyTemperature.swift in Sources */,
 				62EB41721D1B8394002D67DE /* ResearchContainerSegue.swift in Sources */,
 				62EB41791D1B83DF002D67DE /* DiscreteGraphDataSource.swift in Sources */,
 				62EB41881D1B8440002D67DE /* ConsentDocument.swift in Sources */,
@@ -886,6 +886,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CycleOmics/CycleOmics.entitlements;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = CycleOmics/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = curio.CycleOmics;
@@ -899,6 +900,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CycleOmics/CycleOmics.entitlements;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = CycleOmics/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = curio.CycleOmics;
