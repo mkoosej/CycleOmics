@@ -64,6 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Handling passcode states
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+                
+        handleNotification(launchOptions)
         lockApp()
         return true
     }
@@ -90,6 +92,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let passcodeViewController = ORKPasscodeViewController.passcodeAuthenticationViewControllerWithText("Welcome back to CycleOmics", delegate: self) as! ORKPasscodeViewController
         containerViewController?.presentViewController(passcodeViewController, animated: false, completion: nil)
+    }
+    
+    func handleNotification(launchOptions: [NSObject: AnyObject]?) {
+        
+        let locationNotification = launchOptions?.indexForKey(UIApplicationLaunchOptionsLocalNotificationKey)
+        
+        if (locationNotification != nil) {
+            
+        }
     }
 }
 

@@ -56,12 +56,63 @@ class OnboardingViewController: UIViewController {
         completionStep.title = "Welcome aboard."
         completionStep.text = "Thank you for joining this study."
         
-        let orderedTask = ORKOrderedTask(identifier: "Join", steps: [consentStep, reviewConsentStep, healthDataStep, passcodeStep, completionStep])
+        let defaultTime = NSDateComponents()
+        defaultTime.hour = 8
+        defaultTime.minute = 0
+
+        let formStep = ORKQuestionStep(
+            identifier: "notificationStep",
+            title: "Reminder",
+            text: "What time do you generaly wake up? We will send you a notification to remind you of your first activity.",
+            answer: ORKAnswerFormat.timeOfDayAnswerFormatWithDefaultComponents(defaultTime)
+        )
+        
+        let orderedTask = ORKOrderedTask(identifier: "Join", steps: [consentStep, reviewConsentStep, healthDataStep, passcodeStep, formStep, completionStep])
         let taskViewController = ORKTaskViewController(task: orderedTask, taskRunUUID: nil)
         taskViewController.delegate = self
         
         presentViewController(taskViewController, animated: true, completion: nil)
     }
+    
+    private func setNotficationTime(results:ORKTaskResult) {
+        
+        let stepResult = results.stepResultForStepIdentifier("notificationStep")?.firstResult as? ORKTimeOfDayQuestionResult
+        
+        if(stepResult == nil)  { return }
+        
+        let calendar = NSCalendar.currentCalendar()
+        let wakeup = stepResult?.dateComponentsAnswer!
+        
+        let today = NSDate()
+        let components = calendar.components([.Year , .Month, .Day, .Hour, .Minute, .Second], fromDate: today)
+        components.minute = (wakeup?.minute)!
+        components.hour = (wakeup?.hour)!
+        components.second = 0
+        
+        let date = calendar.dateFromComponents(components)
+        
+        // register notification settings
+        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Sound], categories: nil))
+        
+        // schedule notificaion
+        let notification = UILocalNotification()
+        notification.alertBody = "It's time for you to complete your first task of the day"
+        notification.alertAction = "open"
+        notification.fireDate = date
+        notification.soundName = UILocalNotificationDefaultSoundName
+        notification.userInfo = ["title": "reminder", "UUID": "curio.cycleomics.local"]
+        notification.repeatInterval = .Day
+        notification.timeZone = NSCalendar.currentCalendar().timeZone
+        
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+    }
+    
+    private func completeOnboarding(results:ORKTaskResult) {
+        
+        setNotficationTime(results)
+        performSegueWithIdentifier("unwindToStudy", sender: nil)
+    }
+    
 }
 
 extension OnboardingViewController : ORKTaskViewControllerDelegate {
@@ -69,8 +120,7 @@ extension OnboardingViewController : ORKTaskViewControllerDelegate {
     func taskViewController(taskViewController: ORKTaskViewController, didFinishWithReason reason: ORKTaskViewControllerFinishReason, error: NSError?) {
         switch reason {
             case .Completed:
-                performSegueWithIdentifier("unwindToStudy", sender: nil)
-            
+                completeOnboarding(taskViewController.result)
             case .Discarded, .Failed, .Saved:
                 dismissViewControllerAnimated(true, completion: nil)
         }
