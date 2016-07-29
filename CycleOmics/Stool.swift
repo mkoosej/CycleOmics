@@ -36,6 +36,7 @@ struct Stool: TubeSample {
         "7) Mark the date and time on the tube.\n\n" +
         "8) Freeze it immediately.\n\n"
         let instructions = NSLocalizedString(text, comment: "")
+        let imageUrl = NSBundle.mainBundle().URLForResource("StoolSample", withExtension: "png")
         
         // Create the intervention activity.
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
@@ -45,7 +46,7 @@ struct Stool: TubeSample {
             text: summary,
             tintColor: Colors.Green.color,
             instructions: instructions,
-            imageURL: nil,
+            imageURL: imageUrl,
             schedule: schedule,
             userInfo: nil
         )

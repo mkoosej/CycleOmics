@@ -35,7 +35,7 @@ struct Urine: TubeSample {
         "6) Store at freezer immediately."
 
         let instructions = NSLocalizedString(text, comment: "")
-        let imageUrl = NSURL(string: "https://s31.postimg.org/p91f77tgb/Urine_Sample.png")
+        let imageUrl = NSBundle.mainBundle().URLForResource("UrineSample", withExtension: "png")
         
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
             activityType.rawValue,

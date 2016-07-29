@@ -59,6 +59,7 @@ struct VaginalSwab: TubeSample {
         "8) Freeze it immediately."
         
         let instructions = NSLocalizedString(text, comment: "")
+        let imageUrl = NSBundle.mainBundle().URLForResource("VaginalSwabSample", withExtension: "png")
         
         // Create the intervention activity.
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
@@ -68,7 +69,7 @@ struct VaginalSwab: TubeSample {
             text: summary,
             tintColor: Colors.Purple.color,
             instructions: instructions,
-            imageURL: nil,
+            imageURL: imageUrl,
             schedule: schedule,
             userInfo: nil
         )

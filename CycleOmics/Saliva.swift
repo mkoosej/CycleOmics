@@ -35,7 +35,7 @@ struct Saliva: TubeSample {
 
         let instructions = NSLocalizedString(text, comment: "")
         let imageUrl = NSBundle.mainBundle().URLForResource("SalivaSample", withExtension: "png")
-        
+
         // Create the intervention activity.
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
             activityType.rawValue,

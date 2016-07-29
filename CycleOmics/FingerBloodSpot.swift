@@ -40,6 +40,7 @@ struct FingerBloodSpot: TubeSample {
         "9) Label the date and time on the cover of the plate at today’s blood spot position.\n\n"
         
         let instructions = NSLocalizedString(text , comment: "")
+        let imageUrl = NSBundle.mainBundle().URLForResource("fingerBloodSample", withExtension: "png")
         
         // Create the intervention activity.
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
@@ -49,7 +50,7 @@ struct FingerBloodSpot: TubeSample {
             text: summary,
             tintColor: Colors.Red.color,
             instructions: instructions,
-            imageURL: nil,
+            imageURL: imageUrl,
             schedule: schedule,
             userInfo: nil
         )
