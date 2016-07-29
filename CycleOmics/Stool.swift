@@ -27,14 +27,14 @@ struct Stool: TubeSample {
         // Get the localized strings to use for the activity.
         let title = NSLocalizedString("Stool Sample", comment: "")
         let summary = NSLocalizedString("Follow the instructions.", comment: "")
-        let text = "1) Collect one tube of stool, at least 2 ml, into the bigger tube." +
-        "2) Thinly coat a swab with feces from toilet paper." +
-        "3) Insert the swab in the provided 2 ml collection tube (containing MoBio reagent)." +
-        "4) Swirl/agitate the swab for 30 seconds" +
-        "5) Break off the handle, leaving the swab head in the reagent tube" +
-        "6) Close the tube." +
-        "7) Mark the date and time on the tube." +
-        "8) Freeze it immediately."
+        let text = "1) Collect one tube of stool, at least 2 ml, into the bigger tube.\n\n" +
+        "2) Thinly coat a swab with feces from toilet paper.\n\n" +
+        "3) Insert the swab in the provided 2 ml collection tube (containing MoBio reagent).\n\n" +
+        "4) Swirl/agitate the swab for 30 seconds\n\n" +
+        "5) Break off the handle, leaving the swab head in the reagent tube\n\n" +
+        "6) Close the tube.\n\n" +
+        "7) Mark the date and time on the tube.\n\n" +
+        "8) Freeze it immediately.\n\n"
         let instructions = NSLocalizedString(text, comment: "")
         
         // Create the intervention activity.
