@@ -59,10 +59,10 @@ class InsightsBuilder {
             `TakeMedication` activity.
          */
         
-        let medicationEventsOperation = QueryActivityEventsOperation(store: carePlanStore,
-                                                                     activityIdentifier: ActivityType.TakeMedication.rawValue,
-                                                                     startDate: queryDateRange.start,
-                                                                     endDate: queryDateRange.end)
+//        let medicationEventsOperation = QueryActivityEventsOperation(store: carePlanStore,
+//                                                                     activityIdentifier: ActivityType.TakeMedication.rawValue,
+//                                                                     startDate: queryDateRange.start,
+//                                                                     endDate: queryDateRange.end)
 
         /*
             Create an operation to query for events for the previous week and
