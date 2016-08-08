@@ -28,7 +28,7 @@ struct FingerBloodSpot: TubeSample {
         let title = NSLocalizedString("Finger blood spot", comment: "")
         let summary = NSLocalizedString("Add 80ul of blood", comment: "")
         
-        let text = "1) To ensure a good finger stick: Warm water washing for 1mi.n\n\n" +
+        let text = "1) To ensure a good finger stick: Warm water washing for 1min.\n\n" +
         "2) Vigorously massaging or rubbing the fingertip for 30 seconds.\n\n" +
         "Remember to select either the middle or ring finger on the non-dominant hand. Avoid calluses and the “pad” of the fingertip. The fleshy side of the fingertip is the ideal spot to place the lancet for the finger stick.\n\n" +
         "3) Anchor your hand against a firm surface before using the  lancet.\n\n" +
