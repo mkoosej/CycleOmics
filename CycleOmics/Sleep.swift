@@ -59,8 +59,10 @@ struct Sleep: Assessment, HealthCategorySampleBuilder {
         
         var steps = [ORKFormItem]()
         let start = ORKFormItem(identifier: "sleep_starts", text: "Starts", answerFormat: ORKAnswerFormat.dateTimeAnswerFormat())
+        start.optional = false
         
         let end = ORKFormItem(identifier: "sleep_end", text: "Ends", answerFormat: ORKAnswerFormat.dateTimeAnswerFormat())
+        end.optional = false
         
         steps.append(start)
         steps.append(end)
