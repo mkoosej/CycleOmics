@@ -70,28 +70,17 @@ class SampleData: NSObject {
             image: nil),
         
         OCKContact(contactType: .CareTeam,
-            name: "Bill James",
+            name: "Ryan Kellog",
             relation: "Nurse",
-            tintColor: Colors.Green.color,
+            tintColor: Colors.Blue.color,
             phoneNumber: CNPhoneNumber(stringValue: "888-555-5512"),
             messageNumber: CNPhoneNumber(stringValue: "888-555-5512"),
             emailAddress: "billjames2@mac.com",
             monogram: "BJ",
             image: nil),
-        
-        OCKContact(contactType: .Personal,
-            name: "Tom Clark",
-            relation: "Father",
-            tintColor: Colors.Yellow.color,
-            phoneNumber: CNPhoneNumber(stringValue: "888-555-5512"),
-            messageNumber: CNPhoneNumber(stringValue: "888-555-5512"),
-            emailAddress: nil,
-            monogram: "TC",
-            image: nil)
     ]
     
     // MARK: Initialization
-    
     required init(carePlanStore: OCKCarePlanStore) {
         super.init()
 
@@ -120,12 +109,31 @@ class SampleData: NSObject {
     }
     
     func generateSampleDocument() -> OCKDocument {
+        
+        
+        let title = "Report of the Day"
         let subtitle = OCKDocumentElementSubtitle(subtitle: "First subtitle")
         
         let paragraph = OCKDocumentElementParagraph(content: "Lorem ipsum dolor sit amet, vim primis noster sententiae ne, et albucius apeirian accusata mea, vim at dicunt laoreet. Eu probo omnes inimicus ius, duo at veritus alienum. Nostrud facilisi id pro. Putant oporteat id eos. Admodum antiopam mel in, at per everti quaeque. Lorem ipsum dolor sit amet, vim primis noster sententiae ne, et albucius apeirian accusata mea, vim at dicunt laoreet. Eu probo omnes inimicus ius, duo at veritus alienum. Nostrud facilisi id pro. Putant oporteat id eos. Admodum antiopam mel in, at per everti quaeque. Lorem ipsum dolor sit amet, vim primis noster sententiae ne, et albucius apeirian accusata mea, vim at dicunt laoreet. Eu probo omnes inimicus ius, duo at veritus alienum. Nostrud facilisi id pro. Putant oporteat id eos. Admodum antiopam mel in, at per everti quaeque.")
-            
-        let document = OCKDocument(title: "Sample Document Title", elements: [subtitle, paragraph])
-        document.pageHeader = "App Name: OCKSample, User Name: John Appleseed"
+        
+        let activityHeaders = ["" , "Tube Number"]
+        var activityResults:[[String]] = Array()
+        activityResults.append(["Finger Blood", "4535"])
+        
+        let activityTable = OCKDocumentElementTable(headers: activityHeaders, rows: activityResults)
+        
+        var assesmentResults:[[String]] = Array()
+        assesmentResults.append(["Mood", "5"])
+        
+        let assesmentHeaders = ["" , "Tube Number"]
+        let assesmentsTable = OCKDocumentElementTable(headers: assesmentHeaders, rows: assesmentResults)
+        
+        
+        let document = OCKDocument(title: title, elements: [subtitle, paragraph, activityTable, assesmentsTable])
+        
+        let userName = "Mojtab Koosej"
+        document.pageHeader = "Research: CycleOmics, User Name: \(userName)"
+        
         
         return document
     }
