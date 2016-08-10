@@ -34,7 +34,7 @@ class ConsentDocument: ORKConsentDocument {
     // MARK: Properties
     
     let steps = [
-        "This simple walkthrough will explain the research study, the impact it may have on your life   and will allow you to provide your consent to participate.",
+        "This simple walkthrough will explain the research study, the impact it may have on your life and will allow you to provide your consent to participate.",
         "Stanford Medicine (“Stanford”) and the CycleOmics research team know you care about how your information is used and shared. We take protecting your privacy very seriously.",
         "For the purpose of the study, you should take required samples in a daily basis. You should keep samples hard frozen after sample collection for storage and transportation",
         "Some of the tasks in this study will require you to answer survey questions about health and lifesttyle factors.",

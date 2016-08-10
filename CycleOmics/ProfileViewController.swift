@@ -1,162 +1,207 @@
-/*
-Copyright (c) 2015, Apple Inc. All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
-
-1.  Redistributions of source code must retain the above copyright notice, this
-list of conditions and the following disclaimer.
-
-2.  Redistributions in binary form must reproduce the above copyright notice,
-this list of conditions and the following disclaimer in the documentation and/or
-other materials provided with the distribution.
-
-3.  Neither the name of the copyright holder(s) nor the names of any contributors
-may be used to endorse or promote products derived from this software without
-specific prior written permission. No license is granted to the trademarks of
-the copyright holders even if such marks are included in this software.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+//
+//  SymptomNavigationController.swift
+//  CycleOmics
+//
+//  Created by Mojtaba Koosej on 6/23/16.
+//  Copyright © 2016 Curio. All rights reserved.
+//
 
 import UIKit
 import ResearchKit
 import HealthKit
+import CareKit
+import QuickLook
 
-class ProfileViewController: UITableViewController, HealthClientType {
+class ProfileViewController: UITableViewController {
+    
     // MARK: Properties
-
-    let healthObjectTypes = [
-        HKObjectType.characteristicTypeForIdentifier(HKCharacteristicTypeIdentifierDateOfBirth)!,
-        HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeight)!,
-        HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)!
-    ]
-    
-    var healthStore: HKHealthStore?
-    
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet var applicationNameLabel: UILabel!
+    var todayIndex:Int = 0
+    var dates:[NSDate] = []
     
     // MARK: UIViewController
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let healthStore = healthStore else { fatalError("healhStore not set") }
+        // initialize properties
+        applicationNameLabel.text = "CycleOmics"
+        let firstName = NSUserDefaults.standardUserDefaults().stringForKey("givenName")!
+        let lastName = NSUserDefaults.standardUserDefaults().stringForKey("familyName")!
+        //TODO: localize this
+        nameLabel.text = "\(firstName) \(lastName)"
+        self.dates = daysInThisWeek()
         
         // Ensure the table view automatically sizes its rows.
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
-
-        // Request authrization to query the health objects that need to be shown.
-        let typesToRequest = Set<HKObjectType>(healthObjectTypes)
-        healthStore.requestAuthorizationToShareTypes(nil, readTypes: typesToRequest) { authorized, error in
-            guard authorized else { return }
-            
-            // Reload the table view cells on the main thread.
-            NSOperationQueue.mainQueue().addOperationWithBlock() {
-                let allRowIndexPaths = self.healthObjectTypes.enumerate().map { NSIndexPath(forRow: $0.index, inSection: 0) }
-                self.tableView.reloadRowsAtIndexPaths(allRowIndexPaths, withRowAnimation: .Automatic)
-            }
-        }
     }
-    
+
     // MARK: UITableViewDataSource
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return healthObjectTypes.count
+        // it's always equal to numberf of days in week
+        return 7
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier(ProfileStaticTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? ProfileStaticTableViewCell else { fatalError("Unable to dequeue a ProfileStaticTableViewCell") }
-        let objectType = healthObjectTypes[indexPath.row]
         
-        switch(objectType.identifier) {
-            case HKCharacteristicTypeIdentifierDateOfBirth:
-                configureCellWithDateOfBirth(cell)
-            
-            case HKQuantityTypeIdentifierHeight:
-                let title = NSLocalizedString("Height", comment: "")
-                configureCell(cell, withTitleText: title, valueForQuantityTypeIdentifier: objectType.identifier)
-                
-            case HKQuantityTypeIdentifierBodyMass:
-                let title = NSLocalizedString("Weight", comment: "")
-                configureCell(cell, withTitleText: title, valueForQuantityTypeIdentifier: objectType.identifier)
-            
-            default:
-                fatalError("Unexpected health object type identifier - \(objectType.identifier)")
-        }
+        guard let cell = tableView.dequeueReusableCellWithIdentifier(ProfileStaticTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? ProfileStaticTableViewCell else { fatalError("Unable to dequeue a ProfileStaticTableViewCell") }
+        
+        let cellDate = dates[indexPath.row]
+        cell.titleLabel.text = getLocalizedDayofWeek(cellDate)
+        
+        // TODO: check if it's been sent
+        let hasSent = NSUserDefaults.standardUserDefaults().boolForKey(dateStringFormatter(cellDate))
+        cell.valueLabel.hidden = !hasSent
+        cell.sendBtn.hidden = true
 
+        // disable dates in the future
+        let today = NSDate()
+        switch cellDate.compare(today) {
+            case .OrderedAscending:
+                cell.sendBtn.enabled = true
+                cell.titleLabel.textColor = UIColor.blackColor()
+            default:
+                cell.sendBtn.enabled = false
+                cell.titleLabel.textColor = UIColor.grayColor()
+        }
+        
+        // highlight today's row
+        if indexPath.row == todayIndex {
+            cell.titleLabel.textColor = UIColor.redColor()
+        }
+        
         return cell
     }
     
+    // MARK: UITableViewDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let date = dates[indexPath.row]
+        previewPdf(date)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    // MARK: Cell configuration
-    
-    func configureCellWithDateOfBirth(cell: ProfileStaticTableViewCell) {
-        // Set the default cell content.
-        cell.titleLabel.text = NSLocalizedString("Date of Birth", comment: "")
-        cell.valueLabel.text = NSLocalizedString("-", comment: "")
-
-        // Update the value label with the date of birth from the health store.
-        guard let healthStore = healthStore else { return }
-
-        do {
-            let dateOfBirth = try healthStore.dateOfBirth()
-            let now = NSDate()
-
-            let ageComponents = NSCalendar.currentCalendar().components(.Year, fromDate: dateOfBirth, toDate: now, options: .WrapComponents)
-            let age = ageComponents.year
-
-            cell.valueLabel.text = "\(age)"
-        }
-        catch {
-        }
-    }
-    
-    func configureCell(cell: ProfileStaticTableViewCell, withTitleText titleText: String, valueForQuantityTypeIdentifier identifier: String) {
-        // Set the default cell content.
-        cell.titleLabel.text = titleText
-        cell.valueLabel.text = NSLocalizedString("-", comment: "")
+    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         
-        /*
-            Check a health store has been set and a `HKQuantityType` can be
-            created with the identifier provided.
-        */
-        guard let healthStore = healthStore, quantityType = HKQuantityType.quantityTypeForIdentifier(identifier) else { return }
-        
-        // Get the most recent entry from the health store.
-        healthStore.mostRecentQauntitySampleOfType(quantityType) { quantity, _ in
-            guard let quantity = quantity else { return }
-            
-            // Update the cell on the main thread.
-            NSOperationQueue.mainQueue().addOperationWithBlock() {
-                guard let indexPath = self.indexPathForObjectTypeIdentifier(identifier) else { return }
-                guard let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? ProfileStaticTableViewCell else { return }
-                
-                cell.valueLabel.text = "\(quantity)"
-            }
+        let cellDate = dates[indexPath.row]
+        let today = NSDate()
+        switch cellDate.compare(today) {
+        case .OrderedAscending:
+            return true
+        default:
+            return false
         }
     }
     
     // MARK: Convenience
-    
-    func indexPathForObjectTypeIdentifier(identifier: String) -> NSIndexPath? {
-        for (index, objectType) in healthObjectTypes.enumerate() where objectType.identifier == identifier {
-            return NSIndexPath(forRow: index, inSection: 0)
+    private func getPersistenceDirectoryURL() -> NSURL {
+        
+        let searchPaths = NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)
+        let applicationSupportPath = searchPaths[0]
+        let persistenceDirectoryURL = NSURL(fileURLWithPath: applicationSupportPath)
+        
+        if !NSFileManager.defaultManager().fileExistsAtPath(persistenceDirectoryURL.absoluteString, isDirectory: nil) {
+            try! NSFileManager.defaultManager().createDirectoryAtURL(persistenceDirectoryURL, withIntermediateDirectories: true, attributes: nil)
         }
         
-        return nil
+        return persistenceDirectoryURL
+    }
+
+    private func daysInThisWeek() -> [NSDate] {
+        // create calendar
+        let calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!
+        
+        // today's date
+        let today = NSDate()
+        let todayComponent = calendar.components([.Day, .Month, .Year], fromDate: today)
+        
+        
+        // range of dates in this week
+        let thisWeekDateRange = calendar.rangeOfUnit(.Day, inUnit:.WeekOfMonth, forDate:today)
+        
+        // date interval from today to beginning of week
+        let dayInterval = thisWeekDateRange.location - todayComponent.day
+        
+        // date for beginning day of this week, ie. this week's Sunday's date
+        let beginningOfWeek = calendar.dateByAddingUnit(.Day, value: dayInterval, toDate: today, options: .MatchNextTime)
+        
+        var dates: [NSDate] = []
+        
+        // to include days of the week belongs to past month
+        // we should always have 7 days
+        for i in (thisWeekDateRange.length-7) ..< thisWeekDateRange.length {
+            let date = calendar.dateByAddingUnit(.Day, value: i, toDate: beginningOfWeek!, options: .MatchNextTime)!
+            dates.append(date)
+        }
+        
+        todayIndex = -(dayInterval + (thisWeekDateRange.length-7))
+        
+        return dates
+    }
+
+    private func getLocalizedDayofWeek(date:NSDate)->String {
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        let dayOfWeekString = dateFormatter.stringFromDate(date)
+        
+        return dayOfWeekString
+    }
+    
+    // returns a key for saving date specefic values
+    private func dateStringFormatter(date:NSDate)->String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.stringFromDate(date)
+    }
+}
+
+extension ProfileViewController: QLPreviewControllerDataSource, UIDocumentInteractionControllerDelegate {
+    
+    // MARK: QLPreviewControllerDataSource
+    func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
+        return 1;
+    }
+    
+    func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
+        
+        // convert index to date
+        let date = NSDate()
+        
+        //        // create report for the date
+        //        let name = "Mojtaba Koosej \(index)"
+        //        let document = OCKDocument(title: name, elements: [])
+        
+        let sharedManager = CarePlanStoreManager.sharedCarePlanStoreManager
+        let reportBuilder = ReportsBuilder(carePlanStore: sharedManager.store)
+        var document:OCKDocument?
+        reportBuilder.createReport(forDay: date) { (success, generatedDoc) in
+            
+            if(success) {
+                document = generatedDoc!
+            }
+            else {
+                //raise error
+            }
+        }
+        
+        let fileName = "Sample1.pdf"
+        let pdfURL = getPersistenceDirectoryURL().URLByAppendingPathComponent(fileName)
+        //
+        //        document!.createPDFDataWithCompletion { (data : NSData, error: NSError?) in
+        //            try! data.writeToURL(pdfURL, options: .AtomicWrite)
+        //        }
+        
+        return pdfURL
+    }
+    
+    private func previewPdf(date:NSDate) {
+        
+        let previewController = QLPreviewController()
+        previewController.dataSource = self;
+        
+        // start previewing the document at the current section index
+        self.navigationController!.presentViewController(previewController, animated: true, completion: nil)
     }
 }

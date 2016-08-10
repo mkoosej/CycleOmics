@@ -107,12 +107,29 @@ class OnboardingViewController: UIViewController {
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     
+    private func saveIdentifications(results:ORKTaskResult) {
+        
+        let stepResult = results.stepResultForStepIdentifier("ConsentReviewStep")?.firstResult as? ORKConsentSignatureResult
+        
+        if(stepResult == nil)  { return }
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        if let givenName = stepResult?.signature?.givenName {
+            defaults.setValue(givenName, forKey: "givenName")
+        }
+        
+        if let familyName = stepResult?.signature?.familyName {
+            defaults.setValue(familyName, forKey: "familyName")
+        }
+    }
+    
     private func completeOnboarding(results:ORKTaskResult) {
         
+        saveIdentifications(results)
         setNotficationTime(results)
         performSegueWithIdentifier("unwindToStudy", sender: nil)
     }
-    
 }
 
 extension OnboardingViewController : ORKTaskViewControllerDelegate {
@@ -134,4 +151,5 @@ extension OnboardingViewController : ORKTaskViewControllerDelegate {
         
         return nil
     }
+    
 }

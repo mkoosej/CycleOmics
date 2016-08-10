@@ -37,7 +37,7 @@ class ProfileHeaderView: UIView {
     var seperatorHeight = CGFloat(0.5)
 
     var seperatorColor = UIColor.lightGrayColor()
-
+    
     // MARK: UIView
     
     override func drawRect(rect: CGRect) {

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0832E35DE0A8F5F872401821 /* Pods_CycleOmics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 970859AF2835716EF0CC4F13 /* Pods_CycleOmics.framework */; };
 		234594D51F4AF06C9C104ECF /* Pods_CycleOmicsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAB3064C3315C23E1017E63C /* Pods_CycleOmicsTests.framework */; };
+		621F40D01D50261F0032243A /* ConnectNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621F40CF1D50261F0032243A /* ConnectNavigationController.swift */; };
 		623C7D771D4B168C007B3D68 /* SalivaSample.png in Resources */ = {isa = PBXBuildFile; fileRef = 623C7D761D4B168C007B3D68 /* SalivaSample.png */; };
 		623C7D7C1D4B17F4007B3D68 /* fingerBloodSample.png in Resources */ = {isa = PBXBuildFile; fileRef = 623C7D781D4B17F4007B3D68 /* fingerBloodSample.png */; };
 		623C7D7D1D4B17F4007B3D68 /* StoolSample.png in Resources */ = {isa = PBXBuildFile; fileRef = 623C7D791D4B17F4007B3D68 /* StoolSample.png */; };
@@ -20,10 +21,13 @@
 		623FFD751CFB9A8E006EA0E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 623FFD731CFB9A8E006EA0E0 /* LaunchScreen.storyboard */; };
 		623FFD801CFB9A8E006EA0E0 /* CycleOmicsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD7F1CFB9A8E006EA0E0 /* CycleOmicsTests.swift */; };
 		623FFD8B1CFB9A8E006EA0E0 /* CycleOmicsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD8A1CFB9A8E006EA0E0 /* CycleOmicsUITests.swift */; };
+		625921191D5809A600B8AC11 /* NSDate+day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625921181D5809A600B8AC11 /* NSDate+day.swift */; };
+		625921231D58C33C00B8AC11 /* BuildReportOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625921221D58C33C00B8AC11 /* BuildReportOperation.swift */; };
 		62910FF31D2B612100244FCE /* CareCardNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62910FF21D2B612100244FCE /* CareCardNavigationController.swift */; };
 		62910FFC1D2C80B500244FCE /* HealthCategorySampleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62910FFB1D2C80B500244FCE /* HealthCategorySampleBuilder.swift */; };
 		629110041D2C93DE00244FCE /* SexualActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629110031D2C93DE00244FCE /* SexualActivities.swift */; };
 		629110061D2E04ED00244FCE /* CervicalMucus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629110051D2E04ED00244FCE /* CervicalMucus.swift */; };
+		62A707A21D54281A00786F37 /* ReportBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A707A11D54281A00786F37 /* ReportBuilder.swift */; };
 		62EA406E1D334F560072FE2F /* VaginalSwab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EA406D1D334F560072FE2F /* VaginalSwab.swift */; };
 		62EA40701D334FC70072FE2F /* Stool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EA406F1D334FC70072FE2F /* Stool.swift */; };
 		62EA40741D3464820072FE2F /* TubeSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EA40731D3464820072FE2F /* TubeSample.swift */; };
@@ -32,10 +36,6 @@
 		62EB41631D1B7A85002D67DE /* IntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41611D1B7A85002D67DE /* IntroductionViewController.swift */; };
 		62EB41711D1B8394002D67DE /* ResearchContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB416F1D1B8394002D67DE /* ResearchContainerViewController.swift */; };
 		62EB41721D1B8394002D67DE /* ResearchContainerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41701D1B8394002D67DE /* ResearchContainerSegue.swift */; };
-		62EB41771D1B83DF002D67DE /* DashboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41731D1B83DF002D67DE /* DashboardTableViewController.swift */; };
-		62EB41781D1B83DF002D67DE /* PieChartDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41741D1B83DF002D67DE /* PieChartDataSource.swift */; };
-		62EB41791D1B83DF002D67DE /* DiscreteGraphDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41751D1B83DF002D67DE /* DiscreteGraphDataSource.swift */; };
-		62EB417A1D1B83DF002D67DE /* LineGraphDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41761D1B83DF002D67DE /* LineGraphDataSource.swift */; };
 		62EB417D1D1B83FF002D67DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62EB417C1D1B83FF002D67DE /* Main.storyboard */; };
 		62EB41801D1B8429002D67DE /* HealthClientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB417E1D1B8429002D67DE /* HealthClientType.swift */; };
 		62EB41811D1B8429002D67DE /* AnimatableChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB417F1D1B8429002D67DE /* AnimatableChart.swift */; };
@@ -56,9 +56,7 @@
 		62EB41B11D1BF9CE002D67DE /* Saliva.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41AD1D1BF9CE002D67DE /* Saliva.swift */; };
 		62EB41B21D1BF9CE002D67DE /* Urine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41AE1D1BF9CE002D67DE /* Urine.swift */; };
 		62EB41B51D1C4FA2002D67DE /* CarePlanStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41B41D1C4FA2002D67DE /* CarePlanStoreManager.swift */; };
-		62EB41B91D1C4FCF002D67DE /* InsightsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41B61D1C4FCF002D67DE /* InsightsBuilder.swift */; };
 		62EB41BA1D1C4FCF002D67DE /* QueryActivityEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41B71D1C4FCF002D67DE /* QueryActivityEventsOperation.swift */; };
-		62EB41BB1D1C4FCF002D67DE /* BuildInsightsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41B81D1C4FCF002D67DE /* BuildInsightsOperation.swift */; };
 		62EB41BF1D1C5009002D67DE /* NSCalendar+Dates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41BD1D1C5009002D67DE /* NSCalendar+Dates.swift */; };
 		62EB41C01D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41BE1D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift */; };
 		62EB41C51D1C536A002D67DE /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41C41D1C536A002D67DE /* SampleData.swift */; };
@@ -90,6 +88,7 @@
 		2B284847ACE23B7EACCB0285 /* Pods-CycleOmicsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmicsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmicsUITests/Pods-CycleOmicsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		45D919E8F101563A84221CE2 /* Pods-CycleOmics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmics/Pods-CycleOmics.debug.xcconfig"; sourceTree = "<group>"; };
 		590DCA2686982E424AB64D68 /* Pods-CycleOmicsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmicsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmicsUITests/Pods-CycleOmicsUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		621F40CF1D50261F0032243A /* ConnectNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectNavigationController.swift; sourceTree = "<group>"; };
 		623C7D761D4B168C007B3D68 /* SalivaSample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SalivaSample.png; sourceTree = "<group>"; };
 		623C7D781D4B17F4007B3D68 /* fingerBloodSample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fingerBloodSample.png; sourceTree = "<group>"; };
 		623C7D791D4B17F4007B3D68 /* StoolSample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoolSample.png; sourceTree = "<group>"; };
@@ -107,10 +106,13 @@
 		623FFD861CFB9A8E006EA0E0 /* CycleOmicsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CycleOmicsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		623FFD8A1CFB9A8E006EA0E0 /* CycleOmicsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleOmicsUITests.swift; sourceTree = "<group>"; };
 		623FFD8C1CFB9A8E006EA0E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		625921181D5809A600B8AC11 /* NSDate+day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+day.swift"; sourceTree = "<group>"; };
+		625921221D58C33C00B8AC11 /* BuildReportOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildReportOperation.swift; sourceTree = "<group>"; };
 		62910FF21D2B612100244FCE /* CareCardNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CareCardNavigationController.swift; sourceTree = "<group>"; };
 		62910FFB1D2C80B500244FCE /* HealthCategorySampleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCategorySampleBuilder.swift; sourceTree = "<group>"; };
 		629110031D2C93DE00244FCE /* SexualActivities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SexualActivities.swift; sourceTree = "<group>"; };
 		629110051D2E04ED00244FCE /* CervicalMucus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CervicalMucus.swift; sourceTree = "<group>"; };
+		62A707A11D54281A00786F37 /* ReportBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportBuilder.swift; sourceTree = "<group>"; };
 		62EA406D1D334F560072FE2F /* VaginalSwab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaginalSwab.swift; sourceTree = "<group>"; };
 		62EA406F1D334FC70072FE2F /* Stool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stool.swift; sourceTree = "<group>"; };
 		62EA40731D3464820072FE2F /* TubeSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TubeSample.swift; sourceTree = "<group>"; };
@@ -120,10 +122,6 @@
 		62EB41611D1B7A85002D67DE /* IntroductionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroductionViewController.swift; sourceTree = "<group>"; };
 		62EB416F1D1B8394002D67DE /* ResearchContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResearchContainerViewController.swift; sourceTree = "<group>"; };
 		62EB41701D1B8394002D67DE /* ResearchContainerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResearchContainerSegue.swift; sourceTree = "<group>"; };
-		62EB41731D1B83DF002D67DE /* DashboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTableViewController.swift; sourceTree = "<group>"; };
-		62EB41741D1B83DF002D67DE /* PieChartDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartDataSource.swift; sourceTree = "<group>"; };
-		62EB41751D1B83DF002D67DE /* DiscreteGraphDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscreteGraphDataSource.swift; sourceTree = "<group>"; };
-		62EB41761D1B83DF002D67DE /* LineGraphDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineGraphDataSource.swift; sourceTree = "<group>"; };
 		62EB417C1D1B83FF002D67DE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		62EB417E1D1B8429002D67DE /* HealthClientType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthClientType.swift; sourceTree = "<group>"; };
 		62EB417F1D1B8429002D67DE /* AnimatableChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatableChart.swift; sourceTree = "<group>"; };
@@ -144,9 +142,7 @@
 		62EB41AD1D1BF9CE002D67DE /* Saliva.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Saliva.swift; sourceTree = "<group>"; };
 		62EB41AE1D1BF9CE002D67DE /* Urine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Urine.swift; sourceTree = "<group>"; };
 		62EB41B41D1C4FA2002D67DE /* CarePlanStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarePlanStoreManager.swift; sourceTree = "<group>"; };
-		62EB41B61D1C4FCF002D67DE /* InsightsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsightsBuilder.swift; sourceTree = "<group>"; };
 		62EB41B71D1C4FCF002D67DE /* QueryActivityEventsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryActivityEventsOperation.swift; sourceTree = "<group>"; };
-		62EB41B81D1C4FCF002D67DE /* BuildInsightsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildInsightsOperation.swift; sourceTree = "<group>"; };
 		62EB41BD1D1C5009002D67DE /* NSCalendar+Dates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+Dates.swift"; sourceTree = "<group>"; };
 		62EB41BE1D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OCKInsightItem+EmptyMessage.swift"; sourceTree = "<group>"; };
 		62EB41C41D1C536A002D67DE /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
@@ -229,19 +225,17 @@
 			isa = PBXGroup;
 			children = (
 				623FFD671CFB9A8E006EA0E0 /* AppDelegate.swift */,
-				62EA40721D3462690072FE2F /* ResearchContainer */,
 				62EB41641D1B7A92002D67DE /* Onboarding */,
+				62EA40721D3462690072FE2F /* ResearchContainer */,
 				624567871D22011E00EEF04E /* NavigationControllers */,
 				62EB41B31D1BF9D2002D67DE /* Activity */,
 				62EB41A81D1BF926002D67DE /* Assesments */,
 				624567861D22004D00EEF04E /* StoreManager */,
-				62EB41BC1D1C4FD5002D67DE /* Insights */,
-				62EB417B1D1B83E5002D67DE /* Dashboard */,
+				625921211D58C30B00B8AC11 /* Reports */,
 				62EB41931D1B8478002D67DE /* Profile */,
 				62EB41821D1B842D002D67DE /* Protocols */,
 				62EB41C11D1C500E002D67DE /* Extenstion */,
 				62EB41A91D1BF96A002D67DE /* Colors.swift */,
-				62EB41991D1B84C6002D67DE /* HKHealthStore+Queries.swift */,
 				62EB417C1D1B83FF002D67DE /* Main.storyboard */,
 				623FFD731CFB9A8E006EA0E0 /* LaunchScreen.storyboard */,
 				62EB419B1D1B8511002D67DE /* Supporting Files */,
@@ -282,8 +276,19 @@
 			children = (
 				62EB41CA1D1C659E002D67DE /* SymptomNavigationController.swift */,
 				62910FF21D2B612100244FCE /* CareCardNavigationController.swift */,
+				621F40CF1D50261F0032243A /* ConnectNavigationController.swift */,
 			);
 			name = NavigationControllers;
+			sourceTree = "<group>";
+		};
+		625921211D58C30B00B8AC11 /* Reports */ = {
+			isa = PBXGroup;
+			children = (
+				62A707A11D54281A00786F37 /* ReportBuilder.swift */,
+				62EB41B71D1C4FCF002D67DE /* QueryActivityEventsOperation.swift */,
+				625921221D58C33C00B8AC11 /* BuildReportOperation.swift */,
+			);
+			name = Reports;
 			sourceTree = "<group>";
 		};
 		62910FF71D2C7C2100244FCE /* Protocols */ = {
@@ -336,17 +341,6 @@
 				62EB41611D1B7A85002D67DE /* IntroductionViewController.swift */,
 			);
 			name = Onboarding;
-			sourceTree = "<group>";
-		};
-		62EB417B1D1B83E5002D67DE /* Dashboard */ = {
-			isa = PBXGroup;
-			children = (
-				62EB41731D1B83DF002D67DE /* DashboardTableViewController.swift */,
-				62EB41741D1B83DF002D67DE /* PieChartDataSource.swift */,
-				62EB41751D1B83DF002D67DE /* DiscreteGraphDataSource.swift */,
-				62EB41761D1B83DF002D67DE /* LineGraphDataSource.swift */,
-			);
-			name = Dashboard;
 			sourceTree = "<group>";
 		};
 		62EB41821D1B842D002D67DE /* Protocols */ = {
@@ -422,20 +416,12 @@
 			name = Activity;
 			sourceTree = "<group>";
 		};
-		62EB41BC1D1C4FD5002D67DE /* Insights */ = {
-			isa = PBXGroup;
-			children = (
-				62EB41B61D1C4FCF002D67DE /* InsightsBuilder.swift */,
-				62EB41B71D1C4FCF002D67DE /* QueryActivityEventsOperation.swift */,
-				62EB41B81D1C4FCF002D67DE /* BuildInsightsOperation.swift */,
-			);
-			name = Insights;
-			sourceTree = "<group>";
-		};
 		62EB41C11D1C500E002D67DE /* Extenstion */ = {
 			isa = PBXGroup;
 			children = (
+				62EB41991D1B84C6002D67DE /* HKHealthStore+Queries.swift */,
 				62EB41BD1D1C5009002D67DE /* NSCalendar+Dates.swift */,
+				625921181D5809A600B8AC11 /* NSDate+day.swift */,
 				62EB41BE1D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift */,
 			);
 			name = Extenstion;
@@ -727,6 +713,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				625921231D58C33C00B8AC11 /* BuildReportOperation.swift in Sources */,
 				62EB41C51D1C536A002D67DE /* SampleData.swift in Sources */,
 				62EB41BA1D1C4FCF002D67DE /* QueryActivityEventsOperation.swift in Sources */,
 				62EB41BF1D1C5009002D67DE /* NSCalendar+Dates.swift in Sources */,
@@ -740,38 +727,35 @@
 				62EB41CD1D1C6B77002D67DE /* Sleep.swift in Sources */,
 				62EB41B01D1BF9CE002D67DE /* FingerBloodSpot.swift in Sources */,
 				623FFD681CFB9A8E006EA0E0 /* AppDelegate.swift in Sources */,
-				62EB41771D1B83DF002D67DE /* DashboardTableViewController.swift in Sources */,
 				62EB41C01D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift in Sources */,
+				625921191D5809A600B8AC11 /* NSDate+day.swift in Sources */,
 				62EB41B11D1BF9CE002D67DE /* Saliva.swift in Sources */,
 				62EB41CB1D1C659E002D67DE /* SymptomNavigationController.swift in Sources */,
 				62EB41901D1B8473002D67DE /* ProfileViewController.swift in Sources */,
 				62EB41A51D1BF91E002D67DE /* Mood.swift in Sources */,
 				62EB41A21D1BF91E002D67DE /* Assessment.swift in Sources */,
 				62EA406E1D334F560072FE2F /* VaginalSwab.swift in Sources */,
+				621F40D01D50261F0032243A /* ConnectNavigationController.swift in Sources */,
 				62EB41921D1B8473002D67DE /* ProfileHeaderView.swift in Sources */,
 				62EA40741D3464820072FE2F /* TubeSample.swift in Sources */,
 				62EB419A1D1B84C6002D67DE /* HKHealthStore+Queries.swift in Sources */,
-				62EB41B91D1C4FCF002D67DE /* InsightsBuilder.swift in Sources */,
 				62EB41811D1B8429002D67DE /* AnimatableChart.swift in Sources */,
 				62EB41CF1D1C6CE0002D67DE /* BasalBodyTemperature.swift in Sources */,
 				62EB41721D1B8394002D67DE /* ResearchContainerSegue.swift in Sources */,
-				62EB41791D1B83DF002D67DE /* DiscreteGraphDataSource.swift in Sources */,
 				62EB41881D1B8440002D67DE /* ConsentDocument.swift in Sources */,
+				62A707A21D54281A00786F37 /* ReportBuilder.swift in Sources */,
 				62EB41861D1B8440002D67DE /* HealthDataStep.swift in Sources */,
 				62910FF31D2B612100244FCE /* CareCardNavigationController.swift in Sources */,
 				623FFD701CFB9A8E006EA0E0 /* CycleOmics.xcdatamodeld in Sources */,
 				62EB41871D1B8440002D67DE /* HealthDataStepViewController.swift in Sources */,
-				62EB41BB1D1C4FCF002D67DE /* BuildInsightsOperation.swift in Sources */,
 				62EB418B1D1B845A002D67DE /* WithdrawViewController.swift in Sources */,
 				629110041D2C93DE00244FCE /* SexualActivities.swift in Sources */,
-				62EB417A1D1B83DF002D67DE /* LineGraphDataSource.swift in Sources */,
 				62EA40701D334FC70072FE2F /* Stool.swift in Sources */,
 				62EB41911D1B8473002D67DE /* ProfileStaticTableViewCell.swift in Sources */,
 				62EB41A31D1BF91E002D67DE /* HealthSampleBuilder.swift in Sources */,
 				62EB41B51D1C4FA2002D67DE /* CarePlanStoreManager.swift in Sources */,
 				62EB41621D1B7A85002D67DE /* OnboardingViewController.swift in Sources */,
 				629110061D2E04ED00244FCE /* CervicalMucus.swift in Sources */,
-				62EB41781D1B83DF002D67DE /* PieChartDataSource.swift in Sources */,
 				62EB41C91D1C5E8F002D67DE /* Stress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
