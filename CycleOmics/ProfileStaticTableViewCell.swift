@@ -36,5 +36,6 @@ class ProfileStaticTableViewCell: UITableViewCell {
     static let reuseIdentifier = "ProfileStaticTableViewCell"
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var valueLabel: UILabel!
 }
