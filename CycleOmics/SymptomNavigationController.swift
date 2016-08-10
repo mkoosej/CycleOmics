@@ -24,9 +24,7 @@ class SymptomNavigationController: UINavigationController {
         
         symptomTrackerViewController = createSymptomTrackerViewController()
 
-        self.pushViewController(symptomTrackerViewController, animated: true)
-        storeManager.delegate = self
-        
+        self.pushViewController(symptomTrackerViewController, animated: true)        
     }
     
     private func createSymptomTrackerViewController() -> OCKSymptomTrackerViewController {
@@ -39,7 +37,6 @@ class SymptomNavigationController: UINavigationController {
         
         return viewController
     }
-    
 }
 
 
@@ -177,19 +174,5 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
                 }
             })
         })
-    }
-}
-
-
-// MARK: insight delegate - didUpdateInsights
-
-extension SymptomNavigationController: CarePlanStoreManagerDelegate {
-    
-    /// Called when the `CarePlanStoreManager`'s insights are updated.
-    func carePlanStoreManager(manager: CarePlanStoreManager, didUpdateInsights insights: [OCKInsightItem]) {
-        // Update the insights view controller with the new insights.
-                
-        //TODO: fix this
-        //        insightsViewController.items = insights
     }
 }

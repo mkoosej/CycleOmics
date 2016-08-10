@@ -28,7 +28,6 @@ class CareCardNavigationController: UINavigationController {
         careCardViewController.delegate = self
         
         self.pushViewController(careCardViewController, animated: true)
-        storeManager.delegate = self
     }
     
     private func createCareCardViewController() -> OCKCareCardViewController {
@@ -69,6 +68,11 @@ extension CareCardNavigationController: OCKCareCardViewControllerDelegate {
         lastInterventionEvent = interventionEvent
         presentViewController(taskViewController, animated: true, completion: nil)
     }
+  
+    func careCardViewController(viewController: OCKCareCardViewController, shouldHandleEventCompletionForActivity interventionActivity: OCKCarePlanActivity) -> Bool {
+        
+        return false
+    }
 }
 
 extension CareCardNavigationController: ORKTaskViewControllerDelegate {
@@ -101,11 +105,6 @@ extension CareCardNavigationController: ORKTaskViewControllerDelegate {
         completeEvent(event, inStore: storeManager.store, withResult: carePlanResult)
     }
     
-    func careCardViewController(viewController: OCKCareCardViewController, shouldHandleEventCompletionForActivity interventionActivity: OCKCarePlanActivity) -> Bool {
-        
-        return false
-    }
-
     // MARK: Convenience
 
     private func completeEvent(event: OCKCarePlanEvent, inStore store: OCKCarePlanStore, withResult result: OCKCarePlanEventResult) {
@@ -114,17 +113,5 @@ extension CareCardNavigationController: ORKTaskViewControllerDelegate {
                 print(error?.localizedDescription)
             }
         }
-    }
-}
-
-// MARK: insight delegate - didUpdateInsights
-extension CareCardNavigationController: CarePlanStoreManagerDelegate {
-    
-    /// Called when the `CarePlanStoreManager`'s insights are updated.
-    func carePlanStoreManager(manager: CarePlanStoreManager, didUpdateInsights insights: [OCKInsightItem]) {
-        // Update the insights view controller with the new insights.
-        
-        //TODO: fix this
-        //        insightsViewController.items = insights
     }
 }
