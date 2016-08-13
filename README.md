@@ -10,7 +10,7 @@ The source in the MyHeartCounts repository is made available under the
 following license unless another license is explicitly identified:
 
 ```
-Copyright (c) 2015, Stanford Medical. All rights reserved. 
+Copyright (c) 2016, Stanford Medical. All rights reserved. 
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
