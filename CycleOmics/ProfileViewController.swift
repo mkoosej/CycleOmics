@@ -18,7 +18,9 @@ class ProfileViewController: UITableViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet var applicationNameLabel: UILabel!
     var todayIndex:Int = 0
-    var dates:[NSDate] = []
+    var availableDates = 0
+    var dates = [NSDate]()
+    var documents = [Int:OCKDocument]()
     
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -60,6 +62,7 @@ class ProfileViewController: UITableViewController {
         switch cellDate.compare(today) {
             case .OrderedAscending:
                 cell.sendBtn.enabled = true
+                availableDates += 1
                 cell.titleLabel.textColor = UIColor.blackColor()
             default:
                 cell.sendBtn.enabled = false
@@ -77,8 +80,7 @@ class ProfileViewController: UITableViewController {
     // MARK: UITableViewDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let date = dates[indexPath.row]
-        previewPdf(date)
+        previewPdf(indexPath.row)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
@@ -161,47 +163,51 @@ extension ProfileViewController: QLPreviewControllerDataSource, UIDocumentIntera
     
     // MARK: QLPreviewControllerDataSource
     func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
-        return 1;
+        return availableDates;
     }
     
     func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
         
-        // convert index to date
-        let date = NSDate()
-        
-        //        // create report for the date
-        //        let name = "Mojtaba Koosej \(index)"
-        //        let document = OCKDocument(title: name, elements: [])
-        
-        let sharedManager = CarePlanStoreManager.sharedCarePlanStoreManager
-        let reportBuilder = ReportsBuilder(carePlanStore: sharedManager.store)
-        var document:OCKDocument?
-        reportBuilder.createReport(forDay: date) { (success, generatedDoc) in
-            
-            if(success) {
-                document = generatedDoc!
-            }
-            else {
-                //raise error
-            }
-        }
-        
-        let fileName = "Sample1.pdf"
-        let pdfURL = getPersistenceDirectoryURL().URLByAppendingPathComponent(fileName)
-        //
-        //        document!.createPDFDataWithCompletion { (data : NSData, error: NSError?) in
-        //            try! data.writeToURL(pdfURL, options: .AtomicWrite)
-        //        }
-        
+        // the pdf should exist and available on the disk ast this point
+        let pdfURL = generatePdfUrl(index)
         return pdfURL
     }
     
-    private func previewPdf(date:NSDate) {
+    private func previewPdf(index:Int) {
         
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .LongStyle
+        formatter.timeStyle = .LongStyle
+        
+        let sharedManager = CarePlanStoreManager.sharedCarePlanStoreManager
+        let reportBuilder = ReportsBuilder(carePlanStore: sharedManager.store)
+        
+        for i in 0..<availableDates {
+            let date = dates[i]
+            
+            let s = formatter.stringFromDate(date)
+            debugPrint("Creating report for date \(s)")
+            
+            if let doc = reportBuilder.createReport(forDay: date) {
+            
+                //store the pdf in memory
+                let pdfURL = generatePdfUrl(i)
+                doc.createPDFDataWithCompletion { (data : NSData, error: NSError?) in
+                    data.writeToURL(pdfURL, atomically: false) // it's synchrous so we don't have to worry about it ( not sure :} )
+                }
+            }
+        }
+        
+        // preview
         let previewController = QLPreviewController()
         previewController.dataSource = self;
         
         // start previewing the document at the current section index
         self.navigationController!.presentViewController(previewController, animated: true, completion: nil)
+    }
+    
+    private func generatePdfUrl(index:Int)->NSURL {
+        let fileName = "Sample\(index).pdf"
+        return getPersistenceDirectoryURL().URLByAppendingPathComponent(fileName)
     }
 }

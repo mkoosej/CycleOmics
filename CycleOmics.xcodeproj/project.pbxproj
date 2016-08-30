@@ -9,12 +9,10 @@
 /* Begin PBXBuildFile section */
 		0832E35DE0A8F5F872401821 /* Pods_CycleOmics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 970859AF2835716EF0CC4F13 /* Pods_CycleOmics.framework */; };
 		234594D51F4AF06C9C104ECF /* Pods_CycleOmicsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAB3064C3315C23E1017E63C /* Pods_CycleOmicsTests.framework */; };
-		621F40D01D50261F0032243A /* ConnectNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621F40CF1D50261F0032243A /* ConnectNavigationController.swift */; };
-		623C7D771D4B168C007B3D68 /* SalivaSample.png in Resources */ = {isa = PBXBuildFile; fileRef = 623C7D761D4B168C007B3D68 /* SalivaSample.png */; };
-		623C7D7C1D4B17F4007B3D68 /* fingerBloodSample.png in Resources */ = {isa = PBXBuildFile; fileRef = 623C7D781D4B17F4007B3D68 /* fingerBloodSample.png */; };
-		623C7D7D1D4B17F4007B3D68 /* StoolSample.png in Resources */ = {isa = PBXBuildFile; fileRef = 623C7D791D4B17F4007B3D68 /* StoolSample.png */; };
-		623C7D7E1D4B17F4007B3D68 /* UrineSample.png in Resources */ = {isa = PBXBuildFile; fileRef = 623C7D7A1D4B17F4007B3D68 /* UrineSample.png */; };
-		623C7D7F1D4B17F4007B3D68 /* VaginalSwabSample.png in Resources */ = {isa = PBXBuildFile; fileRef = 623C7D7B1D4B17F4007B3D68 /* VaginalSwabSample.png */; };
+		622BE5141D6FB5940016B3D9 /* CarePlanQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BE5131D6FB5940016B3D9 /* CarePlanQuery.swift */; };
+		622BE5161D6FB7FC0016B3D9 /* ActivityQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BE5151D6FB7FC0016B3D9 /* ActivityQuery.swift */; };
+		622BE5181D6FBCA50016B3D9 /* AssesmentQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BE5171D6FBCA50016B3D9 /* AssesmentQuery.swift */; };
+		622BE51B1D6FC49B0016B3D9 /* debugPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BE51A1D6FC49B0016B3D9 /* debugPrint.swift */; };
 		623FFD681CFB9A8E006EA0E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD671CFB9A8E006EA0E0 /* AppDelegate.swift */; };
 		623FFD701CFB9A8E006EA0E0 /* CycleOmics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD6E1CFB9A8E006EA0E0 /* CycleOmics.xcdatamodeld */; };
 		623FFD721CFB9A8E006EA0E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 623FFD711CFB9A8E006EA0E0 /* Assets.xcassets */; };
@@ -22,7 +20,6 @@
 		623FFD801CFB9A8E006EA0E0 /* CycleOmicsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD7F1CFB9A8E006EA0E0 /* CycleOmicsTests.swift */; };
 		623FFD8B1CFB9A8E006EA0E0 /* CycleOmicsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623FFD8A1CFB9A8E006EA0E0 /* CycleOmicsUITests.swift */; };
 		625921191D5809A600B8AC11 /* NSDate+day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625921181D5809A600B8AC11 /* NSDate+day.swift */; };
-		625921231D58C33C00B8AC11 /* BuildReportOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625921221D58C33C00B8AC11 /* BuildReportOperation.swift */; };
 		62910FF31D2B612100244FCE /* CareCardNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62910FF21D2B612100244FCE /* CareCardNavigationController.swift */; };
 		62910FFC1D2C80B500244FCE /* HealthCategorySampleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62910FFB1D2C80B500244FCE /* HealthCategorySampleBuilder.swift */; };
 		629110041D2C93DE00244FCE /* SexualActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629110031D2C93DE00244FCE /* SexualActivities.swift */; };
@@ -56,7 +53,6 @@
 		62EB41B11D1BF9CE002D67DE /* Saliva.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41AD1D1BF9CE002D67DE /* Saliva.swift */; };
 		62EB41B21D1BF9CE002D67DE /* Urine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41AE1D1BF9CE002D67DE /* Urine.swift */; };
 		62EB41B51D1C4FA2002D67DE /* CarePlanStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41B41D1C4FA2002D67DE /* CarePlanStoreManager.swift */; };
-		62EB41BA1D1C4FCF002D67DE /* QueryActivityEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41B71D1C4FCF002D67DE /* QueryActivityEventsOperation.swift */; };
 		62EB41BF1D1C5009002D67DE /* NSCalendar+Dates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41BD1D1C5009002D67DE /* NSCalendar+Dates.swift */; };
 		62EB41C01D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41BE1D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift */; };
 		62EB41C51D1C536A002D67DE /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB41C41D1C536A002D67DE /* SampleData.swift */; };
@@ -88,7 +84,10 @@
 		2B284847ACE23B7EACCB0285 /* Pods-CycleOmicsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmicsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmicsUITests/Pods-CycleOmicsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		45D919E8F101563A84221CE2 /* Pods-CycleOmics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmics/Pods-CycleOmics.debug.xcconfig"; sourceTree = "<group>"; };
 		590DCA2686982E424AB64D68 /* Pods-CycleOmicsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CycleOmicsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CycleOmicsUITests/Pods-CycleOmicsUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		621F40CF1D50261F0032243A /* ConnectNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectNavigationController.swift; sourceTree = "<group>"; };
+		622BE5131D6FB5940016B3D9 /* CarePlanQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CarePlanQuery.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		622BE5151D6FB7FC0016B3D9 /* ActivityQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityQuery.swift; sourceTree = "<group>"; };
+		622BE5171D6FBCA50016B3D9 /* AssesmentQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssesmentQuery.swift; sourceTree = "<group>"; };
+		622BE51A1D6FC49B0016B3D9 /* debugPrint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = debugPrint.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		623C7D761D4B168C007B3D68 /* SalivaSample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SalivaSample.png; sourceTree = "<group>"; };
 		623C7D781D4B17F4007B3D68 /* fingerBloodSample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fingerBloodSample.png; sourceTree = "<group>"; };
 		623C7D791D4B17F4007B3D68 /* StoolSample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoolSample.png; sourceTree = "<group>"; };
@@ -107,12 +106,11 @@
 		623FFD8A1CFB9A8E006EA0E0 /* CycleOmicsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleOmicsUITests.swift; sourceTree = "<group>"; };
 		623FFD8C1CFB9A8E006EA0E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		625921181D5809A600B8AC11 /* NSDate+day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+day.swift"; sourceTree = "<group>"; };
-		625921221D58C33C00B8AC11 /* BuildReportOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildReportOperation.swift; sourceTree = "<group>"; };
-		62910FF21D2B612100244FCE /* CareCardNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CareCardNavigationController.swift; sourceTree = "<group>"; };
+		62910FF21D2B612100244FCE /* CareCardNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CareCardNavigationController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		62910FFB1D2C80B500244FCE /* HealthCategorySampleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCategorySampleBuilder.swift; sourceTree = "<group>"; };
 		629110031D2C93DE00244FCE /* SexualActivities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SexualActivities.swift; sourceTree = "<group>"; };
 		629110051D2E04ED00244FCE /* CervicalMucus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CervicalMucus.swift; sourceTree = "<group>"; };
-		62A707A11D54281A00786F37 /* ReportBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportBuilder.swift; sourceTree = "<group>"; };
+		62A707A11D54281A00786F37 /* ReportBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ReportBuilder.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		62EA406D1D334F560072FE2F /* VaginalSwab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaginalSwab.swift; sourceTree = "<group>"; };
 		62EA406F1D334FC70072FE2F /* Stool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stool.swift; sourceTree = "<group>"; };
 		62EA40731D3464820072FE2F /* TubeSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TubeSample.swift; sourceTree = "<group>"; };
@@ -129,7 +127,7 @@
 		62EB41841D1B8440002D67DE /* HealthDataStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataStepViewController.swift; sourceTree = "<group>"; };
 		62EB41851D1B8440002D67DE /* ConsentDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentDocument.swift; sourceTree = "<group>"; };
 		62EB418A1D1B845A002D67DE /* WithdrawViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
-		62EB418D1D1B8473002D67DE /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		62EB418D1D1B8473002D67DE /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProfileViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		62EB418E1D1B8473002D67DE /* ProfileStaticTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileStaticTableViewCell.swift; sourceTree = "<group>"; };
 		62EB418F1D1B8473002D67DE /* ProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		62EB41991D1B84C6002D67DE /* HKHealthStore+Queries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HKHealthStore+Queries.swift"; sourceTree = "<group>"; };
@@ -142,12 +140,11 @@
 		62EB41AD1D1BF9CE002D67DE /* Saliva.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Saliva.swift; sourceTree = "<group>"; };
 		62EB41AE1D1BF9CE002D67DE /* Urine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Urine.swift; sourceTree = "<group>"; };
 		62EB41B41D1C4FA2002D67DE /* CarePlanStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarePlanStoreManager.swift; sourceTree = "<group>"; };
-		62EB41B71D1C4FCF002D67DE /* QueryActivityEventsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryActivityEventsOperation.swift; sourceTree = "<group>"; };
 		62EB41BD1D1C5009002D67DE /* NSCalendar+Dates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+Dates.swift"; sourceTree = "<group>"; };
 		62EB41BE1D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OCKInsightItem+EmptyMessage.swift"; sourceTree = "<group>"; };
-		62EB41C41D1C536A002D67DE /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		62EB41C41D1C536A002D67DE /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SampleData.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		62EB41C81D1C5E8F002D67DE /* Stress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stress.swift; sourceTree = "<group>"; };
-		62EB41CA1D1C659E002D67DE /* SymptomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymptomNavigationController.swift; sourceTree = "<group>"; };
+		62EB41CA1D1C659E002D67DE /* SymptomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SymptomNavigationController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		62EB41CC1D1C6B77002D67DE /* Sleep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sleep.swift; sourceTree = "<group>"; };
 		62EB41CE1D1C6CE0002D67DE /* BasalBodyTemperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasalBodyTemperature.swift; sourceTree = "<group>"; };
 		970859AF2835716EF0CC4F13 /* Pods_CycleOmics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CycleOmics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +184,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		622BE5191D6FBF320016B3D9 /* Query */ = {
+			isa = PBXGroup;
+			children = (
+				622BE5131D6FB5940016B3D9 /* CarePlanQuery.swift */,
+				622BE5151D6FB7FC0016B3D9 /* ActivityQuery.swift */,
+				622BE5171D6FBCA50016B3D9 /* AssesmentQuery.swift */,
+			);
+			name = Query;
+			sourceTree = "<group>";
+		};
 		623C7D751D4B168C007B3D68 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,7 +283,6 @@
 			children = (
 				62EB41CA1D1C659E002D67DE /* SymptomNavigationController.swift */,
 				62910FF21D2B612100244FCE /* CareCardNavigationController.swift */,
-				621F40CF1D50261F0032243A /* ConnectNavigationController.swift */,
 			);
 			name = NavigationControllers;
 			sourceTree = "<group>";
@@ -285,8 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				62A707A11D54281A00786F37 /* ReportBuilder.swift */,
-				62EB41B71D1C4FCF002D67DE /* QueryActivityEventsOperation.swift */,
-				625921221D58C33C00B8AC11 /* BuildReportOperation.swift */,
+				622BE5191D6FBF320016B3D9 /* Query */,
 			);
 			name = Reports;
 			sourceTree = "<group>";
@@ -423,6 +428,7 @@
 				62EB41BD1D1C5009002D67DE /* NSCalendar+Dates.swift */,
 				625921181D5809A600B8AC11 /* NSDate+day.swift */,
 				62EB41BE1D1C5009002D67DE /* OCKInsightItem+EmptyMessage.swift */,
+				622BE51A1D6FC49B0016B3D9 /* debugPrint.swift */,
 			);
 			name = Extenstion;
 			sourceTree = "<group>";
@@ -559,13 +565,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				623FFD751CFB9A8E006EA0E0 /* LaunchScreen.storyboard in Resources */,
-				623C7D7F1D4B17F4007B3D68 /* VaginalSwabSample.png in Resources */,
-				623C7D7C1D4B17F4007B3D68 /* fingerBloodSample.png in Resources */,
-				623C7D771D4B168C007B3D68 /* SalivaSample.png in Resources */,
-				623C7D7D1D4B17F4007B3D68 /* StoolSample.png in Resources */,
 				623FFD721CFB9A8E006EA0E0 /* Assets.xcassets in Resources */,
 				62EB417D1D1B83FF002D67DE /* Main.storyboard in Resources */,
-				623C7D7E1D4B17F4007B3D68 /* UrineSample.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -713,9 +714,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				625921231D58C33C00B8AC11 /* BuildReportOperation.swift in Sources */,
 				62EB41C51D1C536A002D67DE /* SampleData.swift in Sources */,
-				62EB41BA1D1C4FCF002D67DE /* QueryActivityEventsOperation.swift in Sources */,
+				622BE5181D6FBCA50016B3D9 /* AssesmentQuery.swift in Sources */,
+				622BE5141D6FB5940016B3D9 /* CarePlanQuery.swift in Sources */,
 				62EB41BF1D1C5009002D67DE /* NSCalendar+Dates.swift in Sources */,
 				62EB41AA1D1BF96A002D67DE /* Colors.swift in Sources */,
 				62EB41AF1D1BF9CE002D67DE /* Activity.swift in Sources */,
@@ -735,10 +736,10 @@
 				62EB41A51D1BF91E002D67DE /* Mood.swift in Sources */,
 				62EB41A21D1BF91E002D67DE /* Assessment.swift in Sources */,
 				62EA406E1D334F560072FE2F /* VaginalSwab.swift in Sources */,
-				621F40D01D50261F0032243A /* ConnectNavigationController.swift in Sources */,
 				62EB41921D1B8473002D67DE /* ProfileHeaderView.swift in Sources */,
 				62EA40741D3464820072FE2F /* TubeSample.swift in Sources */,
 				62EB419A1D1B84C6002D67DE /* HKHealthStore+Queries.swift in Sources */,
+				622BE5161D6FB7FC0016B3D9 /* ActivityQuery.swift in Sources */,
 				62EB41811D1B8429002D67DE /* AnimatableChart.swift in Sources */,
 				62EB41CF1D1C6CE0002D67DE /* BasalBodyTemperature.swift in Sources */,
 				62EB41721D1B8394002D67DE /* ResearchContainerSegue.swift in Sources */,
@@ -752,6 +753,7 @@
 				629110041D2C93DE00244FCE /* SexualActivities.swift in Sources */,
 				62EA40701D334FC70072FE2F /* Stool.swift in Sources */,
 				62EB41911D1B8473002D67DE /* ProfileStaticTableViewCell.swift in Sources */,
+				622BE51B1D6FC49B0016B3D9 /* debugPrint.swift in Sources */,
 				62EB41A31D1BF91E002D67DE /* HealthSampleBuilder.swift in Sources */,
 				62EB41B51D1C4FA2002D67DE /* CarePlanStoreManager.swift in Sources */,
 				62EB41621D1B7A85002D67DE /* OnboardingViewController.swift in Sources */,
@@ -894,7 +896,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CycleOmics/CycleOmics.entitlements;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = CycleOmics/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = curio.CycleOmics;
@@ -908,7 +909,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CycleOmics/CycleOmics.entitlements;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = CycleOmics/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = curio.CycleOmics;

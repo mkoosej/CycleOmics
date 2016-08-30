@@ -49,7 +49,7 @@ class SampleData: NSObject {
         //Symptoms and measurement events
         Mood(),
         Stress(),
-        BasalBodyTemprature(),
+        BasalBodyTemperature(),
         Sleep(),
         SexualActivities(),
         CervicalMucus(),
@@ -90,7 +90,7 @@ class SampleData: NSObject {
             
             carePlanStore.addActivity(carePlanActivity) { success, error in
                 if !success {
-                    print(error?.localizedDescription)
+                    debugPrint(error?.localizedDescription)
                 }
             }
         }

@@ -17,7 +17,6 @@ struct Stool: TubeSample {
     // MARK: Activity
     
     let activityType: ActivityType = .Stool
-    let title = NSLocalizedString("Stool Sample", comment: "")
     
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
@@ -25,7 +24,6 @@ struct Stool: TubeSample {
         let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the activity.
-        let title = NSLocalizedString("Stool Sample", comment: "")
         let summary = NSLocalizedString("Follow the instructions.", comment: "")
         let text = "1) Collect one tube of stool, at least 2 ml, into the bigger tube.\n\n" +
         "2) Thinly coat a swab with feces from toilet paper.\n\n" +
@@ -36,7 +34,7 @@ struct Stool: TubeSample {
         "7) Mark the date and time on the tube.\n\n" +
         "8) Freeze it immediately.\n\n"
         let instructions = NSLocalizedString(text, comment: "")
-        let imageUrl = NSBundle.mainBundle().URLForResource("StoolSample", withExtension: "png")
+//        let imageUrl = NSBundle.mainBundle().URLForResource("StoolSample", withExtension: "png")
         
         // Create the intervention activity.
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
@@ -46,7 +44,7 @@ struct Stool: TubeSample {
             text: summary,
             tintColor: Colors.Green.color,
             instructions: instructions,
-            imageURL: imageUrl,
+            imageURL: nil,
             schedule: schedule,
             userInfo: nil
         )

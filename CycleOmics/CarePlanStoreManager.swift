@@ -54,11 +54,6 @@ class CarePlanStoreManager: NSObject {
         // Create the store.
         store = OCKCarePlanStore(persistenceDirectoryURL: persistenceDirectoryURL)
         
-        /*
-            Create an `InsightsBuilder` to build insights based on the data in
-            the store.
-        */
-        
         super.init()
     }
 }

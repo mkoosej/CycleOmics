@@ -17,7 +17,6 @@ struct Saliva: TubeSample {
     // MARK: Activity
     
     let activityType: ActivityType = .Saliva
-    let title = NSLocalizedString("Saliva Sample", comment: "")
     
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
@@ -25,7 +24,6 @@ struct Saliva: TubeSample {
         let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the activity.
-        let title = NSLocalizedString("Saliva Sample", comment: "")
         let summary = NSLocalizedString("Follow the instructions", comment: "")
         let text = "1) Rinse the mouth. No brushing teeth at least 30 minutes before collection, and not to consume food and liquids (except water) or chewing gum.\n\n" +
         "2) Saliva is allowed to accumulate in the follor of the mouth and the subject spits it out into the 50 ml tube every 60 seconds.\n\n" +
@@ -34,7 +32,7 @@ struct Saliva: TubeSample {
         "5) Store at freezer immediately."
 
         let instructions = NSLocalizedString(text, comment: "")
-        let imageUrl = NSBundle.mainBundle().URLForResource("SalivaSample", withExtension: "png")
+//        let imageUrl = NSBundle.mainBundle().URLForResource("SalivaSample", withExtension: "png")
 
         // Create the intervention activity.
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
@@ -44,7 +42,7 @@ struct Saliva: TubeSample {
             text: summary,
             tintColor: Colors.Blue.color,
             instructions: instructions,
-            imageURL: imageUrl,
+            imageURL: nil,
             schedule: schedule,
             userInfo: nil
         )

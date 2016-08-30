@@ -29,13 +29,12 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
         let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the assessment.
-        let title = NSLocalizedString("Sexual Activity", comment: "")
         let summary = NSLocalizedString("", comment: "")
         
         let activity = OCKCarePlanActivity.assessmentWithIdentifier(
             activityType.rawValue,
             groupIdentifier: nil,
-            title: title,
+            title: self.title,
             text: summary,
             tintColor: Colors.Purple.color,
             resultResettable: false,
@@ -61,7 +60,9 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
         
         var steps = [ORKFormItem]()
         let protection = ORKFormItem(identifier: "sex_protection", text: "Protection Used:", answerFormat: ORKAnswerFormat.booleanAnswerFormat())
+        protection.optional = false
         let date = ORKFormItem(identifier: "sex_date", text: "Date:", answerFormat: ORKAnswerFormat.dateTimeAnswerFormat())
+        date.optional = false
         
         steps.append(protection)
         steps.append(date)
@@ -138,8 +139,6 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
     private func ValueStringForCategory() -> [Int:String] {
         
         return [
-            0 : "✔️",
-            1 : "✔️",
             self.value: "✔️"
         ]
     }

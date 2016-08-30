@@ -49,18 +49,18 @@ struct VaginalSwab: TubeSample {
         // Get the localized strings to use for the activity.
         let title = NSLocalizedString("Vaginal swab", comment: "")
         let summary = NSLocalizedString("Follow the instructions", comment: "")
-        let text = "1) Insert the swab to the half-way point on the handle." +
-        "2) Rotate the swab 3 times." +
-        "3) Remove the swab and place it into the provided 2 ml collection tube(containing MoBio reagent)." +
-        "4) Swirl/agitate the swab in the tube for 30 seconds." +
-        "5) Break off the handle, leaving the swab head in the reagent tube." +
-        "6) Close the tube." +
-        "7) Mark the date and time on the tube." +
-        "8) Freeze it immediately."
+        let text = "1) Insert the swab to the half-way point on the handle.\n\n" +
+        "2) Rotate the swab 3 times.\n\n" +
+        "3) Remove the swab and place it into the provided 2 ml collection tube(containing MoBio reagent).\n\n" +
+        "4) Swirl/agitate the swab in the tube for 30 seconds.\n\n" +
+        "5) Break off the handle, leaving the swab head in the reagent tube.\n\n" +
+        "6) Close the tube.\n\n" +
+        "7) Mark the date and time on the tube.\n\n" +
+        "8) Freeze it immediately.\n\n"
         
         let instructions = NSLocalizedString(text, comment: "")
-        let imageUrl = NSBundle.mainBundle().URLForResource("VaginalSwabSample", withExtension: "png")
-        
+//        let imageUrl = NSBundle.mainBundle().URLForResource("images/VaginalSwabSample", withExtension: "png")
+//        
         // Create the intervention activity.
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
             activityType.rawValue,
@@ -69,7 +69,7 @@ struct VaginalSwab: TubeSample {
             text: summary,
             tintColor: Colors.Purple.color,
             instructions: instructions,
-            imageURL: imageUrl,
+            imageURL: nil,
             schedule: schedule,
             userInfo: nil
         )

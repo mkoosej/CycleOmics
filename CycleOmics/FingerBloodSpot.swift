@@ -17,7 +17,6 @@ struct FingerBloodSpot: TubeSample {
     // MARK: Activity
     
     let activityType: ActivityType = .FingerBloodSpot
-    let title = NSLocalizedString("Finger Blood Spot", comment: "")
     
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
@@ -25,7 +24,6 @@ struct FingerBloodSpot: TubeSample {
         let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the activity.
-        let title = NSLocalizedString("Finger blood spot", comment: "")
         let summary = NSLocalizedString("Add 80ul of blood", comment: "")
         
         let text = "1) To ensure a good finger stick: Warm water washing for 1min.\n\n" +
@@ -40,7 +38,7 @@ struct FingerBloodSpot: TubeSample {
         "9) Label the date and time on the cover of the plate at today’s blood spot position.\n\n"
         
         let instructions = NSLocalizedString(text , comment: "")
-        let imageUrl = NSBundle.mainBundle().URLForResource("fingerBloodSample", withExtension: "png")
+//        let imageUrl = NSBundle.mainBundle().URLForResource("fingerBloodSample", withExtension: "png")
         
         // Create the intervention activity.
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
@@ -50,7 +48,7 @@ struct FingerBloodSpot: TubeSample {
             text: summary,
             tintColor: Colors.Red.color,
             instructions: instructions,
-            imageURL: imageUrl,
+            imageURL: nil,
             schedule: schedule,
             userInfo: nil
         )

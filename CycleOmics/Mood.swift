@@ -45,13 +45,10 @@ struct Mood: Assessment {
         let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
         let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
-        // Get the localized strings to use for the assessment.
-        let title = NSLocalizedString("Mood", comment: "")
-        
         let activity = OCKCarePlanActivity.assessmentWithIdentifier(
             activityType.rawValue,
             groupIdentifier: nil,
-            title: title,
+            title: self.title,
             text: nil,
             tintColor: Colors.Green.color,
             resultResettable: false,

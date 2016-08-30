@@ -110,7 +110,7 @@ extension CareCardNavigationController: ORKTaskViewControllerDelegate {
     private func completeEvent(event: OCKCarePlanEvent, inStore store: OCKCarePlanStore, withResult result: OCKCarePlanEventResult) {
         store.updateEvent(event, withResult: result, state: .Completed) { success, _, error in
             if !success {
-                print(error?.localizedDescription)
+                debugPrint(error?.localizedDescription)
             }
         }
     }

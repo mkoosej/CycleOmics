@@ -29,13 +29,12 @@ struct CervicalMucus: Assessment, HealthCategorySampleBuilder {
         let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the assessment.
-        let title = NSLocalizedString("Cervical Mucus Quality", comment: "")
         let summary = NSLocalizedString("", comment: "")
         
         let activity = OCKCarePlanActivity.assessmentWithIdentifier(
             activityType.rawValue,
             groupIdentifier: nil,
-            title: title,
+            title: self.title,
             text: summary,
             tintColor: Colors.Purple.color,
             resultResettable: false,

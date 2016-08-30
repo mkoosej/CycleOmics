@@ -35,8 +35,17 @@ import CareKit
  */
 protocol Activity {
     var activityType: ActivityType { get }
-    
+    var title:String { get }
     func carePlanActivity() -> OCKCarePlanActivity
+}
+
+extension Activity {
+    
+    var title:String {
+        get {
+            return activityType.localizedName
+        }
+    }
 }
 
 
@@ -49,15 +58,22 @@ enum ActivityType: String {
     // Samples
     case Saliva
     case Urine
-    case FingerBloodSpot
-    case VaginalSwab
+    case FingerBloodSpot = "Finger Blood Spot"
+    case VaginalSwab = "Vaginal Swab"
     case Stool
     
     // Symptom & measurement
-    case BasalBodyTemp
+    case BasalBodyTemp = "Basal Body Temperature"
     case Mood
     case Stress
     case Sleep
-    case SexualActivities
-    case CervicalMucus
+    case SexualActivities = "Sexual Activities"
+    case CervicalMucus = "Cervical Mucus Quality"
+}
+
+extension ActivityType{
+
+    var localizedName: String {
+        return NSLocalizedString(rawValue, comment: "")
+    }
 }

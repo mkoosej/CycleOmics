@@ -3,9 +3,9 @@ import ResearchKit
 import CareKit
 
 /**
- Struct that conforms to the `Assessment` protocol to define a basal body temprature.
+ Struct that conforms to the `Assessment` protocol to define a basal body temperature.
  */
-struct BasalBodyTemprature: Assessment, HealthQuantitySampleBuilder {
+struct BasalBodyTemperature: Assessment, HealthQuantitySampleBuilder {
     // MARK: Activity properties
     
     let activityType: ActivityType = .BasalBodyTemp
@@ -23,7 +23,6 @@ struct BasalBodyTemprature: Assessment, HealthQuantitySampleBuilder {
         let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the assessment.
-        let title = NSLocalizedString("Basal Body Temperature ", comment: "")
         let summary = NSLocalizedString("Record temperature before even sit up in bed.", comment: "")
         
         let activity = OCKCarePlanActivity.assessmentWithIdentifier(

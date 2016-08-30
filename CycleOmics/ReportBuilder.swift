@@ -9,109 +9,131 @@
 import Foundation
 import CareKit
 
-
-class ReportBuilder {
+class ReportsBuilder {
     
-    // MARK: properties
     private let carePlanStore: OCKCarePlanStore
-    private let updateOperationQueue = NSOperationQueue()
-    
+            
     required init(carePlanStore: OCKCarePlanStore) {
         self.carePlanStore = carePlanStore
     }
     
-    func reportForDate(date: NSDate)->OCKDocument {
+    func createReport(forDay day:NSDate)->OCKDocument? {
         
-        let title = "Report of the Day"
-        let subtitle = OCKDocumentElementSubtitle(subtitle: "First subtitle")
+        //create date ranges for the day (whole day date range)
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .LongStyle
+        formatter.timeStyle = .LongStyle
         
-        let paragraph = OCKDocumentElementParagraph(content: "Hello")
+        let s = formatter.stringFromDate(day.startOfDay)
+        let e = formatter.stringFromDate(day.endOfDay!)
+        debugPrint("The date range: \(s) - \(e)")
         
-        // Sample Table
-        let activityHeaders = ["Sample" , "Tube Number"]
-        //Query the store for sample types
-        let activityResults = self.getEnumaratedResultForActivities(date, activities:
-            [.Saliva, .FingerBloodSpot , .VaginalSwab, .Urine , .Stool ])
+        // The report creation starts here
+        // 1. Query for the data
+        // 2. create pdf using the result set
+        // 3. inform other VC and send it back for preview
+        
+        let activityQuery = ActivityQuery(carePlanStore: carePlanStore);
+        activityQuery.Query(day.startOfDayComponent, endDate: day.endOfDayComponent)
+        
+        let assesmentQuery = AssesmentQuery(carePlanStore: carePlanStore);
+        assesmentQuery.Query(day.startOfDayComponent, endDate: day.endOfDayComponent)
+        
+        
+        // Collecting data for sample tube entries
+        let activityHeaders = ["Sample Type" , "Tube Number"]
+        var activityResults = [[String]]()
+        for ( activityId, event ) in activityQuery.results {
+            
+            if let activity = ActivityType(rawValue: activityId) {
+                if let result = event.result {
+                    activityResults.append([ activity.localizedName, result.valueString])
+                }
+                else {
+                    activityResults.append([ activity.localizedName, ""])
+                }
+            }
+        }
         let activityTable = OCKDocumentElementTable(headers: activityHeaders, rows: activityResults)
         
-        // Symptom Table
-        let assesmentHeaders = ["Symptoms" , "", ""]
-        //Query the store for symptom types
-        let assesmentResults = getEnumaratedResultForActivities(date , activities:
-            [.Saliva ,.Stool ,.FingerBloodSpot,.Urine, .VaginalSwab ])
+        
+        // Collecting data for assesment entries
+        var assesmentResults = [[String]]()
+        let assesmentHeaders = ["Assesment", "Results"]
+        
+        for ( assesmentId, event ) in assesmentQuery.results {
+            
+            if let activity = ActivityType(rawValue: assesmentId) {
+                
+                switch activity {
+                    case .CervicalMucus:
+                        assesmentResults.append(mucusRow(activity, event: event))
+                    case .SexualActivities:
+                        assesmentResults.append(sexualRow(activity, event: event))
+                    case .Sleep:
+                        assesmentResults.append(sleepRow(activity, event: event))
+                    default:
+                        assesmentResults.append(valueRow(activity, event: event))
+                }
+            }
+        }
         let assesmentsTable = OCKDocumentElementTable(headers: assesmentHeaders, rows: assesmentResults)
         
+        // Structure the pdf document using the result's data
+        let title = "Report of the Day"
+        let paragraph = OCKDocumentElementParagraph(content: "")
         
-        let document = OCKDocument(title: title, elements: [subtitle, paragraph, activityTable, assesmentsTable])
-        
-        let userName = "Mojtab Koosej"
+        // Create PDF
+        let document = OCKDocument(title: title, elements: [paragraph, activityTable, assesmentsTable])
+        let firstName = NSUserDefaults.standardUserDefaults().stringForKey("givenName")!
+        let lastName = NSUserDefaults.standardUserDefaults().stringForKey("familyName")!
+        let userName = "\(firstName) \(lastName)"
         document.pageHeader = "Research: CycleOmics, User Name: \(userName)"
         
         return document
+        
+        // TODO: you can move it in another thread but the query should run on main thread
+        // and the user is waiting for preview anyways
+        // it makes sense to block the thread and only have an option for cancelling the operation
+      }
+
+    private func valueRow(activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
+        
+        if let result = event.result {
+            return [activity.localizedName, result.valueString]
+        }
+        else {
+            return [activity.localizedName, ""]
+        }
+    }
+
+    private func sleepRow(activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
+        
+        if let result = event.result {
+            return [activity.localizedName, result.valueString]
+        }
+        else {
+            return [activity.localizedName, ""]
+        }
+    }
+
+    private func sexualRow(activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
+        
+        if let result = event.result {
+            return [activity.localizedName, result.valueString]
+        }
+        else {
+            return [activity.localizedName, ""]
+        }
     }
     
-    private func getEnumaratedResultForActivities(date:NSDate, activities: [ActivityType]) -> [[String]]? {
+    private func mucusRow(activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
         
-        let calendar = NSCalendar.currentCalendar()
-        let start = NSDateComponents(date: date.startOfDay, calendar: calendar)
-        let end = NSDateComponents(date: date.endOfDay!, calendar: calendar)
-        
-        var results: [[String]] = []
-        for activityId in activities {
-        
-            let activity = findActivity(withIdentifer: activityId)!
-            
-            carePlanStore.enumerateEventsOfActivity(
-                activity,
-                startDate: start,
-                endDate: end,
-                handler: { event,pointer in
-                    
-                    if(event?.state == .Completed) {
-                        
-                        // if it's a sampling activity , just add the tube number
-                        if let value = event?.result?.valueString {
-                            results.append([value])
-                        }
-                        // if it's a symptom add the respected value
-                        else {
-                            
-                        }
-                    }
-                
-                }, completion: { success,error in
-                
-            })
+        if let result = event.result {
+            return [activity.localizedName, result.valueString]
         }
-        
-        return results
-    }
-    
-    private func findActivity(withIdentifer identifier:ActivityType) -> OCKCarePlanActivity? {
-        
-        /*
-         Create a semaphore to wait for the asynchronous call to `activityForIdentifier`
-         to complete.
-         */
-        let semaphore = dispatch_semaphore_create(0)
-        
-        var activity: OCKCarePlanActivity?
-        
-        dispatch_async(dispatch_get_main_queue()) { // <rdar://problem/25528295> [CK] OCKCarePlanStore query methods crash if not called on the main thread
-            self.carePlanStore.activityForIdentifier(identifier.rawValue) { success, foundActivity, error in
-                activity = foundActivity
-                if !success {
-                    print(error?.localizedDescription)
-                }
-                
-                // Use the semaphore to signal that the query is complete.
-                dispatch_semaphore_signal(semaphore)
-            }
+        else {
+            return [activity.localizedName, ""]
         }
-        
-        // Wait for the semaphore to be signalled.
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
-        
-        return activity
     }
 }

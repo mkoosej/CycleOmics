@@ -1,15 +1,18 @@
 PODS:
+  - APESuperHUD (0.5.4)
   - CareKit (1.0.2)
   - ResearchKit (1.3.1)
 
 DEPENDENCIES:
+  - APESuperHUD (~> 0.5)
   - CareKit (~> 1.0)
   - ResearchKit (~> 1.3)
 
 SPEC CHECKSUMS:
+  APESuperHUD: 16cb95a8dc9e062a082db31ab262cc9370e335e8
   CareKit: 377857f33d3795ed6d24a5df116154773265f81a
   ResearchKit: badba0340dd71d1cbab4789a0bf01b26022b8f94
 
-PODFILE CHECKSUM: 38201311f0f65525eb110c8d10c214ca67f2df3d
+PODFILE CHECKSUM: 1dfddee5665f215c8764edcacac415658c5724bd
 
 COCOAPODS: 1.0.1

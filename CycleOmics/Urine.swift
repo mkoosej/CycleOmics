@@ -17,7 +17,6 @@ struct Urine: TubeSample {
     // MARK: Activity
     
     let activityType: ActivityType = .Urine
-    let title = NSLocalizedString("Urine Sample", comment: "")
     
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
@@ -25,7 +24,6 @@ struct Urine: TubeSample {
         let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the activity.
-        let title = NSLocalizedString("Urine", comment: "")
         let summary = NSLocalizedString("Follow the intructions", comment: "")
         let text = "1) Collect first morning urine sample before eating any food. It is considered the most valuable because it is more concentrated and more likely to yield abnormalities if present. \n\n" +
         "2) It is important to clean the genitalia before collecting urine. Bacteria and cells from the surrounding skin can contaminate the sample and interfere with the interpretation of test results. With women, menstrual blood and vaginal secretions can also be a source of contamination. Women should spread the labia of the vagina and clean from front to back; men should wipe the tip of the penis.\n\n" +
@@ -35,7 +33,7 @@ struct Urine: TubeSample {
         "6) Store at freezer immediately."
 
         let instructions = NSLocalizedString(text, comment: "")
-        let imageUrl = NSBundle.mainBundle().URLForResource("UrineSample", withExtension: "png")
+//        let imageUrl = NSBundle.mainBundle().URLForResource("UrineSample", withExtension: "png")
         
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
             activityType.rawValue,
@@ -44,7 +42,7 @@ struct Urine: TubeSample {
             text: summary,
             tintColor: Colors.Yellow.color,
             instructions: instructions,
-            imageURL: imageUrl,
+            imageURL: nil,
             schedule: schedule,
             userInfo: nil
         )

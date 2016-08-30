@@ -29,13 +29,12 @@ struct Sleep: Assessment, HealthCategorySampleBuilder {
         let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the assessment.
-        let title = NSLocalizedString("Sleep Time", comment: "")
         let summary = NSLocalizedString("Log the times you were asleep after you went to bed", comment: "")
         
         let activity = OCKCarePlanActivity.assessmentWithIdentifier(
             activityType.rawValue,
             groupIdentifier: nil,
-            title: title,
+            title: self.title,
             text: summary,
             tintColor: Colors.Purple.color,
             resultResettable: false,
