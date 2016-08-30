@@ -77,7 +77,7 @@ struct Sleep: Assessment, HealthCategorySampleBuilder {
     // MARK: HealthSampleBuilder
     
     /// Builds a `HKCategorySample` from the information in the supplied `ORKTaskResult`.
-    func buildSampleWithTaskResult(result: ORKTaskResult) -> HKCategorySample {
+    func buildSampleWithTaskResult(result: ORKTaskResult, date:NSDate) -> HKCategorySample {
         
         // Get the start time and end time of the sleep event
         guard let firstResult = result.firstResult as? ORKStepResult,
@@ -95,7 +95,8 @@ struct Sleep: Assessment, HealthCategorySampleBuilder {
     
     func buildCategoricalResultForCarePlanEvent(sample: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
         
-        let categorySample = self.buildSampleWithTaskResult(taskResult)
+        let date = sample.date.date!
+        let categorySample = self.buildSampleWithTaskResult(taskResult,date: date)
         
         // Build the result should be saved.
         return OCKCarePlanEventResult(

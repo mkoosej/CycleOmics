@@ -83,10 +83,13 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
             activityType = ActivityType(rawValue: event.activity.identifier),
             sampleAssessment = sampleData.activityWithType(activityType) as? Assessment else { return }
         
+        guard let date = event.date.date else { return }
+        
         // Check assessment can be associated with a HealthKit sample.
         if let healthSampleBuilder = sampleAssessment as? HealthQuantitySampleBuilder {
             // Build the sample to save in the HealthKit store.
-            let sample = healthSampleBuilder.buildSampleWithTaskResult(taskViewController.result)
+            
+            let sample = healthSampleBuilder.buildSampleWithTaskResult(taskViewController.result, date: date)
             let sampleTypes: Set<HKSampleType> = [sample.sampleType]
             
             let carePlanResult = sampleAssessment.buildResultForCarePlanEvent(event, taskResult: taskViewController.result)
@@ -116,7 +119,7 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
                 return
             }
             
-            let sample = healthSampleBuilder.buildSampleWithTaskResult(taskViewController.result)
+            let sample = healthSampleBuilder.buildSampleWithTaskResult(taskViewController.result,date: date)
             let sampleTypes: Set<HKSampleType> = [sample.sampleType]
             let carePlanResult = sampleAssessment.buildResultForCarePlanEvent(event, taskResult: taskViewController.result)
             

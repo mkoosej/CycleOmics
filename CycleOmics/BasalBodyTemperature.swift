@@ -43,7 +43,7 @@ struct BasalBodyTemperature: Assessment, HealthQuantitySampleBuilder {
     
     func task() -> ORKTask {
         // Get the localized strings to use for the task.
-        let answerFormat = ORKHealthKitQuantityTypeAnswerFormat(quantityType: self.quantityType, unit:self.unit, style: .Integer)
+        let answerFormat = ORKHealthKitQuantityTypeAnswerFormat(quantityType: self.quantityType, unit:self.unit, style: .Decimal)
         
         // Create a question.
         let title = NSLocalizedString("Input your basal body temperature", comment: "")
@@ -60,7 +60,7 @@ struct BasalBodyTemperature: Assessment, HealthQuantitySampleBuilder {
     // MARK: HealthSampleBuilder
     
     /// Builds a `HKQuantitySample` from the information in the supplied `ORKTaskResult`.
-    func buildSampleWithTaskResult(result: ORKTaskResult) -> HKQuantitySample {
+    func buildSampleWithTaskResult(result: ORKTaskResult, date:NSDate) -> HKQuantitySample {
         // Get the first result for the first step of the task result.
         guard let firstResult = result.firstResult as? ORKStepResult, stepResult = firstResult.results?.first else { fatalError("Unexepected task results") }
         
@@ -72,13 +72,12 @@ struct BasalBodyTemperature: Assessment, HealthQuantitySampleBuilder {
             unit: unit,
             doubleValue: degreeAnswer.doubleValue
         )
-        let now = NSDate()
         
         return HKQuantitySample(
             type: quantityType,
             quantity: quantity,
-            startDate: now,
-            endDate: now
+            startDate: date,
+            endDate: date
         )
     }
     

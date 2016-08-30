@@ -84,17 +84,13 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
         let predicateRule = ORKPredicateStepNavigationRule(resultPredicates: [predicateSkippedSex], destinationStepIdentifiers: ["survey_skipped"], defaultStepIdentifier: nil, validateArrays: true)
         task.setNavigationRule(predicateRule, forTriggerStepIdentifier: "had_sex")
         
-//        // Add end direct rules to skip unneeded steps
-//        let directRule = ORKDirectStepNavigationRule(destinationStepIdentifier: ORKNullStepIdentifier)
-//        task.setNavigationRule(directRule, forTriggerStepIdentifier: "hadSexResult")
-//        
         return task
     }
     
     // MARK: HealthSampleBuilder
     
     /// Builds a `HKCategorySample` from the information in the supplied `ORKTaskResult`.
-    func buildSampleWithTaskResult(result: ORKTaskResult) -> HKCategorySample {
+    func buildSampleWithTaskResult(result: ORKTaskResult, date: NSDate) -> HKCategorySample {
         
         // Get the task result.
         guard let miniForm = result.stepResultForStepIdentifier("sex_miniform") else { fatalError("Unexepected task results") }
@@ -111,11 +107,13 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
     
     func buildCategoricalResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
     
+        let date = event.date.date!
         if(self.shouldIgnoreSample(taskResult)) {
             return OCKCarePlanEventResult(valueString: "-", unitString: nil, userInfo: ["skipped":1])
         }
         
-        let categorySample = self.buildSampleWithTaskResult(taskResult)
+        let categorySample = self.buildSampleWithTaskResult(taskResult, date: date)
+        
         // Build the result should be saved.
         return OCKCarePlanEventResult(
             categorySample: categorySample,

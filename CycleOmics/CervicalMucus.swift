@@ -65,7 +65,7 @@ struct CervicalMucus: Assessment, HealthCategorySampleBuilder {
     // MARK: HealthSampleBuilder
     
     /// Builds a `HKCategorySample` from the information in the supplied `ORKTaskResult`.
-    func buildSampleWithTaskResult(result: ORKTaskResult) -> HKCategorySample {
+    func buildSampleWithTaskResult(result: ORKTaskResult, date:NSDate) -> HKCategorySample {
         
         guard let firstResult = result.firstResult as? ORKStepResult, stepResult = firstResult.results?.first else { fatalError("Unexepected task results") }
         
@@ -73,19 +73,19 @@ struct CervicalMucus: Assessment, HealthCategorySampleBuilder {
         guard let choiceResult = stepResult as? ORKChoiceQuestionResult, numericAnswer = choiceResult.choiceAnswers!.first as? Int else { fatalError("Unable to determine result answer") }
         
         // Create a `HKQuantitySample` for the answer.
-        let now = NSDate()
         
         return HKCategorySample(
             type: categotyType,
             value: numericAnswer,
-            startDate: now,
-            endDate: now
+            startDate: date,
+            endDate: date
         )
     }
     
     func buildCategoricalResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
         
-        let categorySample = self.buildSampleWithTaskResult(taskResult)
+        let date = event.date.date!
+        let categorySample = self.buildSampleWithTaskResult(taskResult,date: date)
         
         // Build the result should be saved.
         return OCKCarePlanEventResult(
