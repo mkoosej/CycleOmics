@@ -6,7 +6,7 @@ The app icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a
 License
 =======
 
-The source in the MyHeartCounts repository is made available under the
+The source in the CycleOmics repository is made available under the
 following license unless another license is explicitly identified:
 
 ```
