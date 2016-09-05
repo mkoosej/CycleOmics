@@ -40,6 +40,19 @@ struct Stress: Assessment {
     
     let activityType: ActivityType = .Stress
     
+    let questions = [
+        "In the last day, how often have you been upset because of something that happened unexpectedly?",
+        "In the last day, how often have you felt that you were unable to control the important things in your life?",
+        "In the last day, how often have you felt nervous and “stressed”?",
+        "In the last day, how often have you felt confident about your ability to handle your personal problems?",
+        "In the last day, how often have you felt that things were going your way?",
+        "In the last day, how often have you found that you could not cope with all the things you had to do?",
+        "In the last day, how often have you been able to control irritations in your life?",
+        "In the last day, how often have you felt that you were on top of things?",
+        "In the last day, how often have you been angered because of things that were outside your control?",
+        "In the last day, how often have you felt difficulties were pilling up so high that you could not overcome them?",
+    ]
+    
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
         let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
@@ -64,27 +77,38 @@ struct Stress: Assessment {
     
     func task() -> ORKTask {
         // Get the localized strings to use for the task.
-        let question = NSLocalizedString("On a scale from 1 to 10, how much do you feel stressed today?", comment: "")
-        let maximumValueDescription = NSLocalizedString("High", comment: "")
-        let minimumValueDescription = NSLocalizedString("Low", comment: "")
         
-        // Create a question and answer format.
-        let answerFormat = ORKScaleAnswerFormat(
-            maximumValue: 10,
-            minimumValue: 1,
-            defaultValue: -1,
-            step: 1,
-            vertical: false,
-            maximumValueDescription: maximumValueDescription,
-            minimumValueDescription: minimumValueDescription
-        )
+        var steps = [ORKStep]()
         
-        let questionStep = ORKQuestionStep(identifier: activityType.rawValue, title: question, answer: answerFormat)
-        questionStep.optional = false
         
-        // Create an ordered task with a single question.
-        let task = ORKOrderedTask(identifier: activityType.rawValue, steps: [questionStep])
+            
+        // Instruction step
+        let instructionStep = ORKInstructionStep(identifier: "IntroStep")
+        instructionStep.title = "Daily Stress Survey"
+        instructionStep.text = "In this survey you've been asked about your feelings and thoughts during the “last day”. Each answer represents how often you felt or thought a certain way."
+            
+        steps += [instructionStep]
         
-        return task
+        for (index,question) in questions.enumerate() {
+            
+            // Quest question using text choice
+            let questionStepTitle = question
+            let textChoices = [
+                ORKTextChoice(text: "Never", value: 0),
+                ORKTextChoice(text: "Almost Never", value: 1),
+                ORKTextChoice(text: "Sometimes", value: 2),
+                ORKTextChoice(text: "Fairly Often", value: 3),
+                ORKTextChoice(text: "Very Often", value: 4)
+            ]
+            
+            let answerFormat: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormatWithStyle(.SingleChoice, textChoices: textChoices)
+            let questionStep = ORKQuestionStep(identifier: "SurveyQuestion \(index+1)", title: questionStepTitle, answer: answerFormat)
+            questionStep.optional = false
+            
+            steps += [questionStep]
+            
+        }
+        
+        return ORKOrderedTask(identifier: "SurveyTask", steps: steps)
     }
 }

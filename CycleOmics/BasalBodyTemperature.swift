@@ -15,6 +15,13 @@ struct BasalBodyTemperature: Assessment, HealthQuantitySampleBuilder {
     let quantityType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBasalBodyTemperature)!
     let unit = HKUnit.degreeFahrenheitUnit()
     
+    var quantityStringFormatter: NSNumberFormatter {
+        
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .DecimalStyle
+        return formatter
+    }
+    
     // MARK: Activity
 
     func carePlanActivity() -> OCKCarePlanActivity {
@@ -23,14 +30,12 @@ struct BasalBodyTemperature: Assessment, HealthQuantitySampleBuilder {
         let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the assessment.
-        let summary = NSLocalizedString("Record temperature before even sit up in bed.", comment: "")
-        
         let activity = OCKCarePlanActivity.assessmentWithIdentifier(
             activityType.rawValue,
             groupIdentifier: nil,
             title: title,
-            text: summary,
-            tintColor: Colors.Purple.color,
+            text: nil,
+            tintColor: Colors.Red.color,
             resultResettable: false,
             schedule: schedule,
             userInfo: nil
@@ -88,10 +93,12 @@ struct BasalBodyTemperature: Assessment, HealthQuantitySampleBuilder {
     func localizedUnitForSample(sample: HKQuantitySample) -> String {
         
         // TODO: find a better way to format temparature units
-        let formatter = NSNumberFormatter()
-        let value = sample.quantity.doubleValueForUnit(unit)
+        switch(unit.unitString) {
+            case "degF": return "F\u{00B0}"
+            case "degC": return "C\u{00B0}"
+            default: return unit.unitString
+        }
         
-        return formatter.stringFromNumber(value)!
     }
 
 }

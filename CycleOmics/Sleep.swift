@@ -28,15 +28,13 @@ struct Sleep: Assessment, HealthCategorySampleBuilder {
         let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
         let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
-        // Get the localized strings to use for the assessment.
-        let summary = NSLocalizedString("Log the times you were asleep after you went to bed", comment: "")
         
         let activity = OCKCarePlanActivity.assessmentWithIdentifier(
             activityType.rawValue,
             groupIdentifier: nil,
             title: self.title,
-            text: summary,
-            tintColor: Colors.Purple.color,
+            text: nil,
+            tintColor: Colors.LightBlue.color,
             resultResettable: false,
             schedule: schedule,
             userInfo: nil
@@ -95,13 +93,13 @@ struct Sleep: Assessment, HealthCategorySampleBuilder {
     
     func buildCategoricalResultForCarePlanEvent(sample: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
         
-        let date = sample.date.date!
+        let date = NSCalendar.currentCalendar().dateFromComponents(sample.date)!
         let categorySample = self.buildSampleWithTaskResult(taskResult,date: date)
         
         // Build the result should be saved.
         return OCKCarePlanEventResult(
             categorySample: categorySample,
-            categoryValueStringKeys: [ 1: "✔️" ],
+            categoryValueStringKeys: [ 1: "✓" ],
             userInfo: nil
         )
     }

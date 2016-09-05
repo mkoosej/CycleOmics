@@ -84,7 +84,7 @@ struct CervicalMucus: Assessment, HealthCategorySampleBuilder {
     
     func buildCategoricalResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
         
-        let date = event.date.date!
+        let date = NSCalendar.currentCalendar().dateFromComponents(event.date)!
         let categorySample = self.buildSampleWithTaskResult(taskResult,date: date)
         
         // Build the result should be saved.

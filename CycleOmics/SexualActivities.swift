@@ -107,7 +107,7 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
     
     func buildCategoricalResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
     
-        let date = event.date.date!
+        let date = NSCalendar.currentCalendar().dateFromComponents(event.date)!
         if(self.shouldIgnoreSample(taskResult)) {
             return OCKCarePlanEventResult(valueString: "-", unitString: nil, userInfo: ["skipped":1])
         }
@@ -137,7 +137,7 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
     private func ValueStringForCategory() -> [Int:String] {
         
         return [
-            self.value: "✔️"
+            self.value: "✓"
         ]
     }
     

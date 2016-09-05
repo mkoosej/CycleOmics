@@ -76,14 +76,23 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
         }
         
         // Make sure the reason the task controller finished is that it was completed.
-        guard reason == .Completed else { return }
+        guard reason == .Completed else {
+            debugPrint("The task with id \(taskViewController.task?.identifier) has been canceled")
+            return
+        }
         
         // Determine the event that was completed and the `SampleAssessment` it represents.
         guard let event = symptomTrackerViewController.lastSelectedAssessmentEvent,
             activityType = ActivityType(rawValue: event.activity.identifier),
-            sampleAssessment = sampleData.activityWithType(activityType) as? Assessment else { return }
+            sampleAssessment = sampleData.activityWithType(activityType) as? Assessment else {
+                debugPrint("Error in capturing even values")
+                return
+        }
         
-        guard let date = event.date.date else { return }
+        guard let date = NSCalendar.currentCalendar().dateFromComponents(event.date) else {
+            debugPrint("Error in capturing even date")
+            return
+        }
         
         // Check assessment can be associated with a HealthKit sample.
         if let healthSampleBuilder = sampleAssessment as? HealthQuantitySampleBuilder {
@@ -97,10 +106,10 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
             //Save the quantity sample to HKStore
             saveSampleHealthStore(sampleTypes, sample: sample, event: event, carePlanResult: carePlanResult, completionBlock: {
                 
-                //Save the quantity sample to CarePlanStore
+                //Save the quantity sample to CarePlanStore  
                 let healthKitAssociatedResult = OCKCarePlanEventResult(
                     quantitySample: sample,
-                    quantityStringFormatter: nil,
+                    quantityStringFormatter: healthSampleBuilder.quantityStringFormatter,
                     displayUnit: healthSampleBuilder.unit,
                     displayUnitStringKey: healthSampleBuilder.localizedUnitForSample(sample),
                     userInfo: nil

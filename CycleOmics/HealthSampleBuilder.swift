@@ -38,6 +38,7 @@ protocol HealthQuantitySampleBuilder {
     
     var quantityType: HKQuantityType { get }
     var unit: HKUnit { get }
+    var quantityStringFormatter:NSNumberFormatter { get }
     func buildSampleWithTaskResult(result: ORKTaskResult, date: NSDate) -> HKQuantitySample
     func localizedUnitForSample(sample: HKQuantitySample) -> String
 }
