@@ -28,53 +28,52 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import ResearchKit
 import CareKit
 
 /**
- Protocol that defines the properties and methods for sample activities.
+ Struct that conforms to the `Assessment` protocol to define a mood
+ assessment.
  */
-protocol Activity {
-    var activityType: ActivityType { get }
-    var title:String { get }
-    func carePlanActivity() -> OCKCarePlanActivity
-}
-
-extension Activity {
+struct Notes: Assessment {
+    // MARK: Activity
     
-    var title:String {
-        get {
-            return activityType.localizedName
-        }
-    }
-}
-
-
-/**
- Enumeration of strings used as identifiers for the `SampleActivity`s used in
- the app.
- */
-enum ActivityType: String {
+    let activityType: ActivityType = .Notes
+    
+    func carePlanActivity() -> OCKCarePlanActivity {
+        // Create a weekly schedule.
+        let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
+        let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
-    // Samples
-    case Saliva
-    case Urine
-    case FingerBloodSpot = "Finger Blood Spot"
-    case VaginalSwab = "Vaginal Swab"
-    case Stool
+        let activity = OCKCarePlanActivity.assessmentWithIdentifier(
+            activityType.rawValue,
+            groupIdentifier: nil,
+            title: self.title,
+            text: nil,
+            tintColor: Colors.Blue.color,
+            resultResettable: false,
+            schedule: schedule,
+            userInfo: nil
+        )
+        
+        return activity
+    }
     
-    // Symptom & measurement
-    case BasalBodyTemp = "Basal Body Temperature"
-    case Mood
-    case Stress
-    case Sleep
-    case SexualActivities = "Sexual Activities"
-    case CervicalMucus = "Cervical Mucus Quality"
-    case Notes = "Extra Notes"
-}
-
-extension ActivityType{
-
-    var localizedName: String {
-        return NSLocalizedString(rawValue, comment: "")
+    // MARK: Assessment
+    
+    func task() -> ORKTask {
+        // Get the localized strings to use for the task.
+        let question = NSLocalizedString("Please add any other important incidents that worth mentioning and not listed.", comment: "")
+        
+        // Create a question and answer format.
+        let answerFormat = ORKTextAnswerFormat();
+        
+        let questionStep = ORKQuestionStep(identifier: activityType.rawValue, title: question, answer: answerFormat)
+        questionStep.optional = false
+        
+        // Create an ordered task with a single question.
+        let task = ORKOrderedTask(identifier: activityType.rawValue, steps: [questionStep])
+        
+        return task
     }
 }

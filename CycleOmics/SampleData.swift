@@ -53,6 +53,7 @@ class SampleData: NSObject {
         Sleep(),
         SexualActivities(),
         CervicalMucus(),
+        Notes()
     ]
     
     /**

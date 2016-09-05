@@ -60,6 +60,10 @@ extension Assessment {
         else if let categoryBuilder = self as? HealthCategorySampleBuilder {
             return categoryBuilder.buildCategoricalResultForCarePlanEvent(event, taskResult: taskResult)
         }
+        else if let textResult = stepResult as? ORKTextQuestionResult, answer = textResult.textAnswer {
+            return OCKCarePlanEventResult(valueString: "✓", unitString:nil, userInfo: ["note":answer] )
+        }
+
         
         fatalError("Unexpected task result type")
     }
