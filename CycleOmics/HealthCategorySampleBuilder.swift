@@ -14,7 +14,7 @@ import CareKit
  */
 protocol HealthCategorySampleBuilder {
     
-    var categotyType: HKCategoryType { get }
+    var categoryType: HKCategoryType { get }
     var value: Int { get }
     func buildSampleWithTaskResult(result: ORKTaskResult, date:NSDate) -> HKCategorySample
     func buildCategoricalResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult
