@@ -20,7 +20,7 @@ class ProfileViewController: UITableViewController {
     var todayIndex:Int = 0
     var availableDates = 0
     var dates = [NSDate]()
-    var documents = [Int:OCKDocument]()
+    var URLs = [NSURL]()
     
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -33,6 +33,9 @@ class ProfileViewController: UITableViewController {
         //TODO: localize this
         nameLabel.text = "\(firstName) \(lastName)"
         self.dates = daysInThisWeek()
+        
+        //Create reports for each day
+        createReport()
         
         // Ensure the table view automatically sizes its rows.
         tableView.estimatedRowHeight = tableView.rowHeight
@@ -62,7 +65,6 @@ class ProfileViewController: UITableViewController {
         switch cellDate.compare(today) {
             case .OrderedAscending:
                 cell.sendBtn.enabled = true
-                availableDates += 1
                 cell.titleLabel.textColor = UIColor.blackColor()
             default:
                 cell.sendBtn.enabled = false
@@ -134,6 +136,15 @@ class ProfileViewController: UITableViewController {
         // we should always have 7 days
         for i in (thisWeekDateRange.length-7) ..< thisWeekDateRange.length {
             let date = calendar.dateByAddingUnit(.Day, value: i, toDate: beginningOfWeek!, options: .MatchNextTime)!
+            
+            let today = NSDate()
+            switch date.compare(today) {
+                case .OrderedAscending:
+                    availableDates += 1
+                default:
+                    break
+            }
+            
             dates.append(date)
         }
         
@@ -157,23 +168,9 @@ class ProfileViewController: UITableViewController {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.stringFromDate(date)
     }
-}
-
-extension ProfileViewController: QLPreviewControllerDataSource, UIDocumentInteractionControllerDelegate {
     
-    // MARK: QLPreviewControllerDataSource
-    func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
-        return availableDates;
-    }
-    
-    func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
-        
-        // the pdf should exist and available on the disk ast this point
-        let pdfURL = generatePdfUrl(index)
-        return pdfURL
-    }
-    
-    private func previewPdf(index:Int) {
+    //MARK: Report
+    private func createReport() {
         
         let formatter = NSDateFormatter()
         formatter.dateStyle = .LongStyle
@@ -189,21 +186,45 @@ extension ProfileViewController: QLPreviewControllerDataSource, UIDocumentIntera
             debugPrint("Creating report for date \(s)")
             
             if let doc = reportBuilder.createReport(forDay: date) {
-            
+                
                 //store the pdf in memory
                 let pdfURL = generatePdfUrl(i)
-                doc.createPDFDataWithCompletion { (data : NSData, error: NSError?) in
-                    data.writeToURL(pdfURL, atomically: false) // it's synchrous so we don't have to worry about it ( not sure :} )
+                doc.createPDFDataWithCompletion { [weak self] (data : NSData, error: NSError?) in
+                    // it's synchrous so we don't have to worry about it ( not sure :} )
+                    if data.writeToURL(pdfURL, atomically: true) {
+                        self!.URLs.append(pdfURL)
+                    }
+                    else {
+                        debugPrint("error in writing file")
+                    }
                 }
             }
         }
+    }
+}
+
+extension ProfileViewController: QLPreviewControllerDataSource {
+    
+    // MARK: QLPreviewControllerDataSource
+    func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
+        return availableDates;
+    }
+    
+    func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
         
-        // preview
-        let previewController = QLPreviewController()
-        previewController.dataSource = self;
+        // the pdf should exist and available on the disk ast this point
+        return URLs[index]
+    }
+    
+    private func previewPdf(index:Int) {
         
         // start previewing the document at the current section index
-        self.navigationController!.presentViewController(previewController, animated: true, completion: nil)
+        if QLPreviewController.canPreviewItem(URLs[index]) {
+            let previewController = QLPreviewController()
+            previewController.dataSource = self
+            previewController.currentPreviewItemIndex = index
+            self.navigationController!.presentViewController(previewController, animated: true, completion: nil)
+        }
     }
     
     private func generatePdfUrl(index:Int)->NSURL {
