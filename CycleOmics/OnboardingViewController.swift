@@ -90,6 +90,7 @@ class OnboardingViewController: UIViewController {
         components.second = 0
         
         let date = calendar.dateFromComponents(components)
+        NSUserDefaults.standardUserDefaults().setValue(date, forKey: "notification_time")
         
         // register notification settings
         UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Sound], categories: nil))
