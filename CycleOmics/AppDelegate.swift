@@ -49,6 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ORKPasscodeViewController.removePasscodeFromKeychain()
             standardDefaults.setValue("FirstRun", forKey: "FirstRun")
         }
+        else {
+            //hide the content behind he pass code modal
+            containerViewController?.contentHidden = true
+        }
         
         // Appearance customization
         let pageControlAppearance = UIPageControl.appearance()
@@ -91,7 +95,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let passcodeViewController = ORKPasscodeViewController.passcodeAuthenticationViewControllerWithText("Welcome back to CycleOmics", delegate: self) as! ORKPasscodeViewController
-        containerViewController?.presentViewController(passcodeViewController, animated: false, completion: nil)
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.containerViewController?.presentViewController(passcodeViewController, animated: false, completion: nil)
+        }
     }
     
     func handleNotification(launchOptions: [NSObject: AnyObject]?) {
