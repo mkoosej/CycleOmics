@@ -57,7 +57,7 @@ extension CarePlanQuery {
             debugPrint("Querying for \(ac.rawValue) activity")
             
             // Find the activity with the specified identifier in the store.
-            guard let activity = findActivity(ac.rawValue) else { return}
+            guard let activity = findActivity(ac.rawValue) else { return }
             
             /*
              Create a semaphore to wait for the asynchronous call to `enumerateEventsOfActivity`

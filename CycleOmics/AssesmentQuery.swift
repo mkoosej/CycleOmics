@@ -12,7 +12,7 @@ import CareKit
 class AssesmentQuery : CarePlanQuery {
     
     let store: OCKCarePlanStore
-    let activities: [ActivityType] = [.BasalBodyTemp, .Mood, .Stress, .Sleep, .SexualActivities, .CervicalMucus]
+    let activities: [ActivityType] = [.BasalBodyTemp, .Mood, .Sleep, .SexualActivities, .CervicalMucus, .Stress, .Notes]
     var results = [String:OCKCarePlanEvent]()
     
     required init(carePlanStore: OCKCarePlanStore) {

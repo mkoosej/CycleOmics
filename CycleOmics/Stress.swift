@@ -40,7 +40,7 @@ struct Stress: Assessment {
     
     let activityType: ActivityType = .Stress
     
-    let questions = [
+    static let questions = [
         "In the last day, how often have you been upset because of something that happened unexpectedly?",
         "In the last day, how often have you felt that you were unable to control the important things in your life?",
         "In the last day, how often have you felt nervous and “stressed”?",
@@ -51,6 +51,14 @@ struct Stress: Assessment {
         "In the last day, how often have you felt that you were on top of things?",
         "In the last day, how often have you been angered because of things that were outside your control?",
         "In the last day, how often have you felt difficulties were pilling up so high that you could not overcome them?",
+    ]
+    
+    static let headers = [
+        "Never",
+        "Almost Never",
+        "Sometimes",
+        "Fairly Often",
+        "Very Often",
     ]
     
     func carePlanActivity() -> OCKCarePlanActivity {
@@ -79,9 +87,7 @@ struct Stress: Assessment {
         // Get the localized strings to use for the task.
         
         var steps = [ORKStep]()
-        
-        
-            
+                    
         // Instruction step
         let instructionStep = ORKInstructionStep(identifier: "IntroStep")
         instructionStep.title = "Daily Stress Survey"
@@ -89,17 +95,16 @@ struct Stress: Assessment {
             
         steps += [instructionStep]
         
-        for (index,question) in questions.enumerate() {
+        for (index,question) in Stress.questions.enumerate() {
             
             // Quest question using text choice
             let questionStepTitle = question
-            let textChoices = [
-                ORKTextChoice(text: "Never", value: 0),
-                ORKTextChoice(text: "Almost Never", value: 1),
-                ORKTextChoice(text: "Sometimes", value: 2),
-                ORKTextChoice(text: "Fairly Often", value: 3),
-                ORKTextChoice(text: "Very Often", value: 4)
-            ]
+            
+            var textChoices = [ORKTextChoice]()
+            
+            for (index,title) in Stress.headers.enumerate() {
+                textChoices.append(ORKTextChoice(text: title, value: index))
+            }
             
             let answerFormat: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormatWithStyle(.SingleChoice, textChoices: textChoices)
             let questionStep = ORKQuestionStep(identifier: "SurveyQuestion \(index+1)", title: questionStepTitle, answer: answerFormat)

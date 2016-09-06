@@ -19,7 +19,7 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
     let activityType: ActivityType = .SexualActivities
     
     // MARK: HealthSampleBuilder Properties
-    let categotyType: HKCategoryType = HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSexualActivity)!
+    let categoryType: HKCategoryType = HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSexualActivity)!
     
     let value: Int = HKCategoryValue.NotApplicable.rawValue
     
@@ -102,7 +102,7 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
         let protectionUsed:Bool = (protectionStep.booleanAnswer?.boolValue)!
         
         let metadata = [HKMetadataKeySexualActivityProtectionUsed : protectionUsed]
-        return HKCategorySample(type: categotyType, value: self.value, startDate: startDate, endDate: endDate, metadata: metadata)
+        return HKCategorySample(type: categoryType, value: self.value, startDate: startDate, endDate: endDate, metadata: metadata)
     }
     
     func buildCategoricalResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {

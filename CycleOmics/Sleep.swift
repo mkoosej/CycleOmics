@@ -19,7 +19,7 @@ struct Sleep: Assessment, HealthCategorySampleBuilder {
     let activityType: ActivityType = .Sleep
     
     // MARK: HealthSampleBuilder Properties
-    let categotyType: HKCategoryType = HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis)!
+    let categoryType: HKCategoryType = HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis)!
     
     let value: Int = HKCategoryValueSleepAnalysis.Asleep.rawValue
     
@@ -84,7 +84,7 @@ struct Sleep: Assessment, HealthCategorySampleBuilder {
             else { fatalError("Unexepected task results") }
         
         return HKCategorySample(
-            type: self.categotyType,
+            type: self.categoryType,
             value: self.value, startDate:
             start.dateAnswer!,
             endDate: end.dateAnswer!
