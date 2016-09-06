@@ -135,7 +135,8 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
             //Save the category sample to HKStore
             saveSampleHealthStore(sampleTypes, sample: sample, event: event, carePlanResult: carePlanResult, completionBlock: {
                 
-                self.completeEvent(event, inStore: self.storeManager.store, withResult: carePlanResult)
+                let healthKitAssociatedResult = OCKCarePlanEventResult(categorySample: sample, categoryValueStringKeys: carePlanResult.categoryValueStringKeys!, userInfo: nil)
+                self.completeEvent(event, inStore: self.storeManager.store, withResult: healthKitAssociatedResult)
             })
         }
         else {
