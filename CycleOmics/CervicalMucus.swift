@@ -18,8 +18,16 @@ struct CervicalMucus: Assessment, HealthCategorySampleBuilder {
     
     let activityType: ActivityType = .CervicalMucus
     
+    static let valueStrings:[Int:String] = [
+        HKCategoryValueCervicalMucusQuality.Dry.rawValue:"Dry",
+        HKCategoryValueCervicalMucusQuality.Sticky.rawValue:"Sticky",
+        HKCategoryValueCervicalMucusQuality.Creamy.rawValue:"Creamy",
+        HKCategoryValueCervicalMucusQuality.Watery.rawValue:"Watery",
+        HKCategoryValueCervicalMucusQuality.EggWhite.rawValue:"Egg white"
+    ]
+    
     // MARK: HealthSampleBuilder Properties
-    let categotyType: HKCategoryType = HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierCervicalMucusQuality)!
+    let categoryType: HKCategoryType = HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierCervicalMucusQuality)!
     
     let value: Int = HKCategoryValue.NotApplicable.rawValue
     
@@ -72,10 +80,10 @@ struct CervicalMucus: Assessment, HealthCategorySampleBuilder {
         // Get the numeric answer for the result.
         guard let choiceResult = stepResult as? ORKChoiceQuestionResult, numericAnswer = choiceResult.choiceAnswers!.first as? Int else { fatalError("Unable to determine result answer") }
         
-        // Create a `HKQuantitySample` for the answer.
+        // Create a `HKCategorySample` for the answer.
         
         return HKCategorySample(
-            type: categotyType,
+            type: categoryType,
             value: numericAnswer,
             startDate: date,
             endDate: date
@@ -101,16 +109,10 @@ struct CervicalMucus: Assessment, HealthCategorySampleBuilder {
     private func getAnswerChoices() -> [ORKTextChoice] {
         
         var choices =  [ORKTextChoice]()
-        choices.append(ORKTextChoice(text: NSLocalizedString("Dry", comment: ""), value: HKCategoryValueCervicalMucusQuality
-            .Dry.rawValue) )
-        choices.append(ORKTextChoice(text: NSLocalizedString("Sticky", comment: ""), value: HKCategoryValueCervicalMucusQuality
-            .Sticky.rawValue) )
-        choices.append(ORKTextChoice(text: NSLocalizedString("Creamy", comment: ""), value: HKCategoryValueCervicalMucusQuality
-            .Creamy.rawValue) )
-        choices.append(ORKTextChoice(text: NSLocalizedString("Watery", comment: ""), value: HKCategoryValueCervicalMucusQuality
-            .Watery.rawValue) )
-        choices.append(ORKTextChoice(text: NSLocalizedString("Egg white", comment: ""), value: HKCategoryValueCervicalMucusQuality
-            .EggWhite.rawValue) )
+        
+        for (value,text) in CervicalMucus.valueStrings {
+            choices.append(ORKTextChoice(text: NSLocalizedString(text, comment: ""), value: value) )
+        }
         
         return choices
     }
