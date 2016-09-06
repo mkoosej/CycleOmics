@@ -28,10 +28,8 @@ class ProfileViewController: UITableViewController {
         
         // initialize properties
         applicationNameLabel.text = "CycleOmics"
-        let firstName = NSUserDefaults.standardUserDefaults().stringForKey("givenName")!
-        let lastName = NSUserDefaults.standardUserDefaults().stringForKey("familyName")!
         //TODO: localize this
-        nameLabel.text = "\(firstName) \(lastName)"
+        nameLabel.text = getUserName()
         self.dates = daysInThisWeek()
         
         //Create reports for each day
@@ -195,11 +193,17 @@ class ProfileViewController: UITableViewController {
                         self!.URLs.append(pdfURL)
                     }
                     else {
-                        debugPrint("error in writing file")
+                        debugPrint("error in writing file \(pdfURL)")
                     }
                 }
             }
         }
+    }
+    
+    private func getUserName() -> String {
+        let firstName = NSUserDefaults.standardUserDefaults().stringForKey("givenName")!
+        let lastName = NSUserDefaults.standardUserDefaults().stringForKey("familyName")!
+        return "\(firstName) \(lastName)"
     }
 }
 
@@ -223,12 +227,19 @@ extension ProfileViewController: QLPreviewControllerDataSource {
             let previewController = QLPreviewController()
             previewController.dataSource = self
             previewController.currentPreviewItemIndex = index
-            self.navigationController!.presentViewController(previewController, animated: true, completion: nil)
+            dispatch_async(dispatch_get_main_queue(), { //to prevent the unbalance call issue
+                self.navigationController!.presentViewController(previewController, animated: true, completion: nil)
+            })
         }
     }
     
     private func generatePdfUrl(index:Int)->NSURL {
-        let fileName = "Sample\(index).pdf"
-        return getPersistenceDirectoryURL().URLByAppendingPathComponent(fileName)
+
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .MediumStyle
+        let dateString = formatter.stringFromDate(dates[index])
+        let user = getUserName()
+        let fileName = "\(user)-\(dateString).pdf"
+        return NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(fileName)
     }
 }
