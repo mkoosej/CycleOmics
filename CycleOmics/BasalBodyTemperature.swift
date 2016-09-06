@@ -94,8 +94,9 @@ struct BasalBodyTemperature: Assessment, HealthQuantitySampleBuilder {
         
         // TODO: find a better way to format temparature units
         switch(unit.unitString) {
-            case "degF": return "F\u{00B0}"
-            case "degC": return "C\u{00B0}"
+            case "degF": return "\u{00B0}F"
+            case "degC": return "\u{00B0}C"
+            case "degK": return "\u{00B0}K"
             default: return unit.unitString
         }
         
