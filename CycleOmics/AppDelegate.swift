@@ -80,6 +80,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             containerViewController?.contentHidden = true
         }
     }
+    func applicationDidBecomeActive(application: UIApplication) {
+        lockApp()
+    }
     
     func applicationWillEnterForeground(application: UIApplication) {
         lockApp()
