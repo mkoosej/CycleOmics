@@ -15,12 +15,16 @@ import QuickLook
 class ProfileViewController: UITableViewController {
     
     // MARK: Properties
+    private let storeManager = CarePlanStoreManager.sharedCarePlanStoreManager
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet var applicationNameLabel: UILabel!
     var todayIndex:Int = 0
     var availableDates = 0
     var dates = [NSDate]()
     var URLs = [NSURL]()
+    
+    // MARK: Static Properties
+    static var needsUpdate:Bool = true;
     
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -30,7 +34,10 @@ class ProfileViewController: UITableViewController {
         applicationNameLabel.text = "CycleOmics"
         //TODO: localize this
         nameLabel.text = getUserName()
-        self.dates = daysInThisWeek()
+        (self.dates,self.todayIndex) = NSDate.daysInThisWeek()
+        self.availableDates = todayIndex + 1
+        
+        storeManager.delegate = self
         
         //Create reports for each day
         createReport()
@@ -38,6 +45,13 @@ class ProfileViewController: UITableViewController {
         // Ensure the table view automatically sizes its rows.
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //Create reports for each day
+        createReport()
     }
 
     // MARK: UITableViewDataSource
@@ -51,7 +65,7 @@ class ProfileViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCellWithIdentifier(ProfileStaticTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? ProfileStaticTableViewCell else { fatalError("Unable to dequeue a ProfileStaticTableViewCell") }
         
         let cellDate = dates[indexPath.row]
-        cell.titleLabel.text = getLocalizedDayofWeek(cellDate)
+        cell.titleLabel.text = cellDate.getLocalizedDayofWeek
         
         // TODO: check if it's been sent
         let hasSent = NSUserDefaults.standardUserDefaults().boolForKey(dateStringFormatter(cellDate))
@@ -109,56 +123,6 @@ class ProfileViewController: UITableViewController {
         
         return persistenceDirectoryURL
     }
-
-    private func daysInThisWeek() -> [NSDate] {
-        // create calendar
-        let calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!
-        
-        // today's date
-        let today = NSDate()
-        let todayComponent = calendar.components([.Day, .Month, .Year], fromDate: today)
-        
-        
-        // range of dates in this week
-        let thisWeekDateRange = calendar.rangeOfUnit(.Day, inUnit:.WeekOfMonth, forDate:today)
-        
-        // date interval from today to beginning of week
-        let dayInterval = thisWeekDateRange.location - todayComponent.day
-        
-        // date for beginning day of this week, ie. this week's Sunday's date
-        let beginningOfWeek = calendar.dateByAddingUnit(.Day, value: dayInterval, toDate: today, options: .MatchNextTime)
-        
-        var dates: [NSDate] = []
-        
-        // to include days of the week belongs to past month
-        // we should always have 7 days
-        for i in (thisWeekDateRange.length-7) ..< thisWeekDateRange.length {
-            let date = calendar.dateByAddingUnit(.Day, value: i, toDate: beginningOfWeek!, options: .MatchNextTime)!
-            
-            let today = NSDate()
-            switch date.compare(today) {
-                case .OrderedAscending:
-                    availableDates += 1
-                default:
-                    break
-            }
-            
-            dates.append(date)
-        }
-        
-        todayIndex = -(dayInterval + (thisWeekDateRange.length-7))
-        
-        return dates
-    }
-
-    private func getLocalizedDayofWeek(date:NSDate)->String {
-        
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        let dayOfWeekString = dateFormatter.stringFromDate(date)
-        
-        return dayOfWeekString
-    }
     
     // returns a key for saving date specefic values
     private func dateStringFormatter(date:NSDate)->String {
@@ -170,30 +134,34 @@ class ProfileViewController: UITableViewController {
     //MARK: Report
     private func createReport() {
         
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .LongStyle
-        formatter.timeStyle = .LongStyle
-        
-        let sharedManager = CarePlanStoreManager.sharedCarePlanStoreManager
-        let reportBuilder = ReportsBuilder(carePlanStore: sharedManager.store)
-        
-        for i in 0..<availableDates {
-            let date = dates[i]
+        if ProfileViewController.needsUpdate == true {
             
-            let s = formatter.stringFromDate(date)
-            debugPrint("Creating report for date \(s)")
+            ProfileViewController.needsUpdate = false
+        
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = .LongStyle
+            formatter.timeStyle = .LongStyle
             
-            if let doc = reportBuilder.createReport(forDay: date) {
+            let reportBuilder = ReportsBuilder(carePlanStore: storeManager.store)
+            
+            for i in 0..<availableDates {
+                let date = dates[i]
                 
-                //store the pdf in memory
-                let pdfURL = generatePdfUrl(i)
-                doc.createPDFDataWithCompletion { [weak self] (data : NSData, error: NSError?) in
-                    // it's synchrous so we don't have to worry about it ( not sure :} )
-                    if data.writeToURL(pdfURL, atomically: true) {
-                        self!.URLs.append(pdfURL)
-                    }
-                    else {
-                        debugPrint("error in writing file \(pdfURL)")
+                let s = formatter.stringFromDate(date)
+                debugPrint("Creating report for date \(s)")
+                
+                if let doc = reportBuilder.createReport(forDay: date) {
+                    
+                    //store the pdf in memory
+                    let pdfURL = generatePdfUrl(i)
+                    doc.createPDFDataWithCompletion { [weak self] (data : NSData, error: NSError?) in
+                        // it's synchrous so we don't have to worry about it ( not sure :} )
+                        if data.writeToURL(pdfURL, atomically: true) {
+                            self!.URLs.append(pdfURL)
+                        }
+                        else {
+                            debugPrint("error in writing file \(pdfURL)")
+                        }
                     }
                 }
             }
@@ -241,5 +209,12 @@ extension ProfileViewController: QLPreviewControllerDataSource {
         let user = getUserName()
         let fileName = "\(user)-\(dateString).pdf"
         return NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(fileName)
+    }
+}
+
+extension ProfileViewController: CarePlanStoreManagerDelegate {
+    
+    func forceUpdateReports() {
+        ProfileViewController.needsUpdate = true
     }
 }

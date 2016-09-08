@@ -38,6 +38,7 @@ class CarePlanStoreManager: NSObject {
     // MARK: Properties
     
     let store: OCKCarePlanStore
+    weak var delegate: CarePlanStoreManagerDelegate?
     
     // MARK: Initialization
     
@@ -55,5 +56,28 @@ class CarePlanStoreManager: NSObject {
         store = OCKCarePlanStore(persistenceDirectoryURL: persistenceDirectoryURL)
         
         super.init()
+        
+        store.delegate = self
     }
+    
+    func updateDocuments() {
+        debugPrint("Updating documents")
+        // it will get updated after viewing the profile tab again
+        self.delegate?.forceUpdateReports()
+    }
+}
+
+extension CarePlanStoreManager: OCKCarePlanStoreDelegate {
+    func carePlanStoreActivityListDidChange(store: OCKCarePlanStore) {
+        updateDocuments()
+    }
+    
+    func carePlanStore(store: OCKCarePlanStore, didReceiveUpdateOfEvent event: OCKCarePlanEvent) {
+        updateDocuments()
+    }
+}
+
+protocol CarePlanStoreManagerDelegate: class {
+    
+    func forceUpdateReports()
 }
