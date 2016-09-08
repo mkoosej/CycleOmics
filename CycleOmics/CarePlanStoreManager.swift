@@ -61,7 +61,6 @@ class CarePlanStoreManager: NSObject {
     }
     
     func updateDocuments() {
-        debugPrint("Updating documents")
         // it will get updated after viewing the profile tab again
         self.delegate?.forceUpdateReports()
     }
