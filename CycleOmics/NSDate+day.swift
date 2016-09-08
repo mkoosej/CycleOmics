@@ -49,14 +49,14 @@ extension NSDate {
         
         // to include days of the week belongs to past month
         // we should always have 7 days
-        for i in (thisWeekDateRange.length-7) ..< thisWeekDateRange.length {
+        for i in 0..<7 {
             let date = calendar.dateByAddingUnit(.Day, value: i, toDate: beginningOfWeek!, options: .MatchNextTime)!
             dates.append(date)
         }
         
-        let todayIndex = -(dayInterval + (thisWeekDateRange.length-7))
+        let todayIndex = abs(dayInterval)
         
-        return (dates,todayIndex)
+        return (dates, todayIndex)
     }
     
     var getLocalizedDayofWeek:String {
