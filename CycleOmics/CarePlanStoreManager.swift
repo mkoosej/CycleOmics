@@ -48,7 +48,7 @@ class CarePlanStoreManager: NSObject {
         let applicationSupportPath = searchPaths[0]
         let persistenceDirectoryURL = NSURL(fileURLWithPath: applicationSupportPath)
         
-        if !NSFileManager.defaultManager().fileExistsAtPath(persistenceDirectoryURL.absoluteString, isDirectory: nil) {
+        if !NSFileManager.defaultManager().fileExistsAtPath(persistenceDirectoryURL.absoluteString!, isDirectory: nil) {
             try! NSFileManager.defaultManager().createDirectoryAtURL(persistenceDirectoryURL, withIntermediateDirectories: true, attributes: nil)
         }
         

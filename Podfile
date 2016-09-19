@@ -9,7 +9,6 @@ target 'CycleOmics' do
 
   pod 'ResearchKit', '~> 1.3'
   pod 'CareKit', '~> 1.0'
-  pod 'APESuperHUD', '~> 0.5'
 
   target 'CycleOmicsTests' do
     inherit! :search_paths

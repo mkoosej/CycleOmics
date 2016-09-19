@@ -117,7 +117,7 @@ class ProfileViewController: UITableViewController {
         let applicationSupportPath = searchPaths[0]
         let persistenceDirectoryURL = NSURL(fileURLWithPath: applicationSupportPath)
         
-        if !NSFileManager.defaultManager().fileExistsAtPath(persistenceDirectoryURL.absoluteString, isDirectory: nil) {
+        if !NSFileManager.defaultManager().fileExistsAtPath(persistenceDirectoryURL.absoluteString!, isDirectory: nil) {
             try! NSFileManager.defaultManager().createDirectoryAtURL(persistenceDirectoryURL, withIntermediateDirectories: true, attributes: nil)
         }
         
@@ -208,7 +208,7 @@ extension ProfileViewController: QLPreviewControllerDataSource {
         let dateString = formatter.stringFromDate(dates[index])
         let user = getUserName()
         let fileName = "\(user)-\(dateString).pdf"
-        return NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(fileName)
+        return NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(fileName)!
     }
 }
 
