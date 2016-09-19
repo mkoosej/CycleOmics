@@ -1,5 +1,5 @@
-# CycleOmics
 
+# ![Cycle Omics](https://s13.postimg.org/uqt6l152f/medical_symbol.png) CycleOmics
 
 License
 =======
