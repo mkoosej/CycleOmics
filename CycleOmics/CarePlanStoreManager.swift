@@ -42,14 +42,14 @@ class CarePlanStoreManager: NSObject {
     
     // MARK: Initialization
     
-    private override init() {
+    fileprivate override init() {
         // Determine the file URL for the store.
-        let searchPaths = NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)
+        let searchPaths = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)
         let applicationSupportPath = searchPaths[0]
-        let persistenceDirectoryURL = NSURL(fileURLWithPath: applicationSupportPath)
+        let persistenceDirectoryURL = URL(fileURLWithPath: applicationSupportPath)
         
-        if !NSFileManager.defaultManager().fileExistsAtPath(persistenceDirectoryURL.absoluteString!, isDirectory: nil) {
-            try! NSFileManager.defaultManager().createDirectoryAtURL(persistenceDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+        if !FileManager.default.fileExists(atPath: persistenceDirectoryURL.absoluteString, isDirectory: nil) {
+            try! FileManager.default.createDirectory(at: persistenceDirectoryURL, withIntermediateDirectories: true, attributes: nil)
         }
         
         // Create the store.
@@ -67,11 +67,11 @@ class CarePlanStoreManager: NSObject {
 }
 
 extension CarePlanStoreManager: OCKCarePlanStoreDelegate {
-    func carePlanStoreActivityListDidChange(store: OCKCarePlanStore) {
+    func carePlanStoreActivityListDidChange(_ store: OCKCarePlanStore) {
         updateDocuments()
     }
     
-    func carePlanStore(store: OCKCarePlanStore, didReceiveUpdateOfEvent event: OCKCarePlanEvent) {
+    func carePlanStore(_ store: OCKCarePlanStore, didReceiveUpdateOf event: OCKCarePlanEvent) {
         updateDocuments()
     }
 }

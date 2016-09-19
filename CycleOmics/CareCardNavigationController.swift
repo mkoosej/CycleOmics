@@ -13,11 +13,11 @@ import CareKit
 
 class CareCardNavigationController: UINavigationController {
     
-    private let storeManager = CarePlanStoreManager.sharedCarePlanStoreManager
-    private let sampleData: SampleData
-    private var careCardViewController: OCKCareCardViewController!
-    private var shouldComplete = true
-    private var lastInterventionEvent:OCKCarePlanEvent?
+    fileprivate let storeManager = CarePlanStoreManager.sharedCarePlanStoreManager
+    fileprivate let sampleData: SampleData
+    fileprivate var careCardViewController: OCKCareCardViewController!
+    fileprivate var shouldComplete = true
+    fileprivate var lastInterventionEvent:OCKCarePlanEvent?
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -30,7 +30,7 @@ class CareCardNavigationController: UINavigationController {
         self.pushViewController(careCardViewController, animated: true)
     }
     
-    private func createCareCardViewController() -> OCKCareCardViewController {
+    fileprivate func createCareCardViewController() -> OCKCareCardViewController {
         let viewController = OCKCareCardViewController(carePlanStore: storeManager.store)
         
         // Setup the controller's title and tab bar item
@@ -46,7 +46,7 @@ extension CareCardNavigationController: OCKCareCardViewControllerDelegate {
     
     /// Called when the user taps an assessment on the `OCKSymptomTrackerViewController`.
     
-    func careCardViewController(viewController: OCKCareCardViewController, didSelectButtonWithInterventionEvent interventionEvent: OCKCarePlanEvent) {
+    func careCardViewController(_ viewController: OCKCareCardViewController, didSelectButtonWithInterventionEvent interventionEvent: OCKCarePlanEvent) {
         
         //Lookup the care plan the row represents.
         guard let activityType = ActivityType(rawValue: interventionEvent.activity.identifier) else { return }
@@ -56,20 +56,20 @@ extension CareCardNavigationController: OCKCareCardViewControllerDelegate {
          Check if we should show a task for the selected assessment event
          based on its state.
         */
-        guard interventionEvent.state == .Initial ||
-            interventionEvent.state == .NotCompleted ||
-            (interventionEvent.state == .Completed && interventionEvent.activity.resultResettable) else { return }
+        guard interventionEvent.state == .initial ||
+            interventionEvent.state == .notCompleted ||
+            (interventionEvent.state == .completed && interventionEvent.activity.resultResettable) else { return }
         
         // Show an `ORKTaskViewController` for the assessment's task.
-        let taskViewController = ORKTaskViewController(task: sampleAssessment.task(), taskRunUUID: nil)
+        let taskViewController = ORKTaskViewController(task: sampleAssessment.task(), taskRun: nil)
         taskViewController.delegate = self
         
         shouldComplete = false
         lastInterventionEvent = interventionEvent
-        presentViewController(taskViewController, animated: true, completion: nil)
+        present(taskViewController, animated: true, completion: nil)
     }
   
-    func careCardViewController(viewController: OCKCareCardViewController, shouldHandleEventCompletionForActivity interventionActivity: OCKCarePlanActivity) -> Bool {
+    func careCardViewController(_ viewController: OCKCareCardViewController, shouldHandleEventCompletionFor interventionActivity: OCKCarePlanActivity) -> Bool {
         
         return false
     }
@@ -78,14 +78,14 @@ extension CareCardNavigationController: OCKCareCardViewControllerDelegate {
 extension CareCardNavigationController: ORKTaskViewControllerDelegate {
     
     /// Called with then user completes a presented `ORKTaskViewController`.
-    func taskViewController(taskViewController: ORKTaskViewController, didFinishWithReason reason: ORKTaskViewControllerFinishReason, error: NSError?) {
+    func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
         
         defer {
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
         }
         
         // Make sure the reason the task controller finished is that it was completed.
-        guard reason == .Completed else {
+        guard reason == .completed else {
             shouldComplete = false
             return
         }
@@ -94,26 +94,26 @@ extension CareCardNavigationController: ORKTaskViewControllerDelegate {
         
         let result = taskViewController.result
         
-        guard let firstResult = result.firstResult as? ORKStepResult, formResults = firstResult.results else { fatalError("Unexepected task results") }
+        guard let firstResult = result.firstResult as? ORKStepResult, let formResults = firstResult.results else { fatalError("Unexepected task results") }
 
-        guard let textResult = formResults[0] as? ORKTextQuestionResult, tubeNumber = textResult.textAnswer else {
+        guard let textResult = formResults[0] as? ORKTextQuestionResult, let tubeNumber = textResult.textAnswer else {
             return
         }
         
-        guard let textResult2 = formResults[1] as? ORKTextQuestionResult, description = textResult2.textAnswer else {
+        guard let textResult2 = formResults[1] as? ORKTextQuestionResult, let description = textResult2.textAnswer else {
             return
         }
         
         // Build an `OCKCarePlanEventResult` that can be saved into the `OCKCarePlanStore`.
         let dict = ["description": description]
-        let carePlanResult = OCKCarePlanEventResult(valueString: tubeNumber, unitString: nil, userInfo: dict)
+        let carePlanResult = OCKCarePlanEventResult(valueString: tubeNumber, unitString: nil, userInfo: dict as [String : NSCoding]?)
         completeEvent(event, inStore: storeManager.store, withResult: carePlanResult)
     }
     
     // MARK: Convenience
 
-    private func completeEvent(event: OCKCarePlanEvent, inStore store: OCKCarePlanStore, withResult result: OCKCarePlanEventResult) {
-        store.updateEvent(event, withResult: result, state: .Completed) { success, _, error in
+    fileprivate func completeEvent(_ event: OCKCarePlanEvent, inStore store: OCKCarePlanStore, withResult result: OCKCarePlanEventResult) {
+        store.update(event, with: result, state: .completed) { success, _, error in
             if !success {
                 debugPrint(error?.localizedDescription)
             }

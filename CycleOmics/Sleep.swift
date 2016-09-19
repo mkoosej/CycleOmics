@@ -19,22 +19,22 @@ struct Sleep: Assessment, HealthCategorySampleBuilder {
     let activityType: ActivityType = .Sleep
     
     // MARK: HealthSampleBuilder Properties
-    let categoryType: HKCategoryType = HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis)!
+    let categoryType: HKCategoryType = HKCategoryType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis)!
     
-    let value: Int = HKCategoryValueSleepAnalysis.Asleep.rawValue
+    let value: Int = HKCategoryValueSleepAnalysis.asleep.rawValue
     
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
         let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
-        let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
+        let schedule = OCKCareSchedule.weeklySchedule(withStartDate: startDate as DateComponents, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         
-        let activity = OCKCarePlanActivity.assessmentWithIdentifier(
-            activityType.rawValue,
+        let activity = OCKCarePlanActivity.assessment(
+            withIdentifier: activityType.rawValue,
             groupIdentifier: nil,
             title: self.title,
             text: nil,
-            tintColor: Colors.LightBlue.color,
+            tintColor: Colors.lightBlue.color,
             resultResettable: false,
             schedule: schedule,
             userInfo: nil
@@ -52,14 +52,14 @@ struct Sleep: Assessment, HealthCategorySampleBuilder {
         let title = NSLocalizedString("Log the times you were asleep after you went to bed", comment: "")
         
         let formStep = ORKFormStep(identifier: "sleep_miniform", title: "Sleep Analysis", text: title)
-        formStep.optional = false
+        formStep.isOptional = false
         
         var steps = [ORKFormItem]()
-        let start = ORKFormItem(identifier: "sleep_starts", text: "Starts", answerFormat: ORKAnswerFormat.dateTimeAnswerFormat())
-        start.optional = false
+        let start = ORKFormItem(identifier: "sleep_starts", text: "Starts", answerFormat: ORKAnswerFormat.dateTime())
+        start.isOptional = false
         
-        let end = ORKFormItem(identifier: "sleep_end", text: "Ends", answerFormat: ORKAnswerFormat.dateTimeAnswerFormat())
-        end.optional = false
+        let end = ORKFormItem(identifier: "sleep_end", text: "Ends", answerFormat: ORKAnswerFormat.dateTime())
+        end.isOptional = false
         
         steps.append(start)
         steps.append(end)
@@ -75,25 +75,25 @@ struct Sleep: Assessment, HealthCategorySampleBuilder {
     // MARK: HealthSampleBuilder
     
     /// Builds a `HKCategorySample` from the information in the supplied `ORKTaskResult`.
-    func buildSampleWithTaskResult(result: ORKTaskResult, date:NSDate) -> HKCategorySample {
+    func buildSampleWithTaskResult(_ result: ORKTaskResult, date:Date) -> HKCategorySample {
         
         // Get the start time and end time of the sleep event
         guard let firstResult = result.firstResult as? ORKStepResult,
-            start = firstResult.results?.first as? ORKDateQuestionResult,
-            end = firstResult.results?[1] as? ORKDateQuestionResult
+            let start = firstResult.results?.first as? ORKDateQuestionResult,
+            let end = firstResult.results?[1] as? ORKDateQuestionResult
             else { fatalError("Unexepected task results") }
         
         return HKCategorySample(
             type: self.categoryType,
-            value: self.value, startDate:
+            value: self.value, start:
             start.dateAnswer!,
-            endDate: end.dateAnswer!
+            end: end.dateAnswer!
         )
     }
     
-    func buildCategoricalResultForCarePlanEvent(sample: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
+    func buildCategoricalResultForCarePlanEvent(_ sample: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
         
-        let date = NSCalendar.currentCalendar().dateFromComponents(sample.date)!
+        let date = Calendar.current.date(from: sample.date)!
         let categorySample = self.buildSampleWithTaskResult(taskResult,date: date)
         
         // Build the result should be saved.

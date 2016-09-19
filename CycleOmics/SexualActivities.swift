@@ -19,24 +19,24 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
     let activityType: ActivityType = .SexualActivities
     
     // MARK: HealthSampleBuilder Properties
-    let categoryType: HKCategoryType = HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSexualActivity)!
+    let categoryType: HKCategoryType = HKCategoryType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sexualActivity)!
     
-    let value: Int = HKCategoryValue.NotApplicable.rawValue
+    let value: Int = HKCategoryValue.notApplicable.rawValue
     
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
         let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
-        let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
+        let schedule = OCKCareSchedule.weeklySchedule(withStartDate: startDate as DateComponents, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the assessment.
         let summary = NSLocalizedString("", comment: "")
         
-        let activity = OCKCarePlanActivity.assessmentWithIdentifier(
-            activityType.rawValue,
+        let activity = OCKCarePlanActivity.assessment(
+            withIdentifier: activityType.rawValue,
             groupIdentifier: nil,
             title: self.title,
             text: summary,
-            tintColor: Colors.Purple.color,
+            tintColor: Colors.purple.color,
             resultResettable: false,
             schedule: schedule,
             userInfo: nil
@@ -51,18 +51,18 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
         
         // Create a question.
         let booleanQuestionStep = ORKQuestionStep(identifier: "had_sex", title: "Sexual Activity", text: "Did you have any sexual activity in this day?" , answer: ORKAnswerFormat.booleanAnswerFormat())
-        booleanQuestionStep.optional = false
+        booleanQuestionStep.isOptional = false
         
         
         // Form for the category sample
         let formStep = ORKFormStep(identifier: "sex_miniform", title: "Sexual Activity", text: "")
-        formStep.optional = false
+        formStep.isOptional = false
         
         var steps = [ORKFormItem]()
         let protection = ORKFormItem(identifier: "sex_protection", text: "Protection Used:", answerFormat: ORKAnswerFormat.booleanAnswerFormat())
-        protection.optional = false
-        let date = ORKFormItem(identifier: "sex_date", text: "Date:", answerFormat: ORKAnswerFormat.dateTimeAnswerFormat())
-        date.optional = false
+        protection.isOptional = false
+        let date = ORKFormItem(identifier: "sex_date", text: "Date:", answerFormat: ORKAnswerFormat.dateTime())
+        date.isOptional = false
         
         steps.append(protection)
         steps.append(date)
@@ -72,14 +72,14 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
         // A dummy skip step for navigatable form
         let skipStep = ORKInstructionStep(identifier: "survey_skipped")
         skipStep.title = "Thanks for your answer!"
-        skipStep.optional = false
+        skipStep.isOptional = false
         
         // Create an ordered task with a single question.
         let task: ORKNavigableOrderedTask = ORKNavigableOrderedTask(identifier: "sex_survey", steps: [booleanQuestionStep, formStep, skipStep])
         
         // If the user didn't have sex skip the second step and nothing needs to be logged in HKStore
         let resultSelector = ORKResultSelector.init(resultIdentifier: "had_sex");
-        let predicateSkippedSex: NSPredicate = ORKResultPredicate.predicateForBooleanQuestionResultWithResultSelector(resultSelector, expectedAnswer: false)
+        let predicateSkippedSex: NSPredicate = ORKResultPredicate.predicateForBooleanQuestionResult(with: resultSelector, expectedAnswer: false)
         
         let predicateRule = ORKPredicateStepNavigationRule(resultPredicates: [predicateSkippedSex], destinationStepIdentifiers: ["survey_skipped"], defaultStepIdentifier: nil, validateArrays: true)
         task.setNavigationRule(predicateRule, forTriggerStepIdentifier: "had_sex")
@@ -90,26 +90,26 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
     // MARK: HealthSampleBuilder
     
     /// Builds a `HKCategorySample` from the information in the supplied `ORKTaskResult`.
-    func buildSampleWithTaskResult(result: ORKTaskResult, date: NSDate) -> HKCategorySample {
+    func buildSampleWithTaskResult(_ result: ORKTaskResult, date: Date) -> HKCategorySample {
         
         // Get the task result.
-        guard let miniForm = result.stepResultForStepIdentifier("sex_miniform") else { fatalError("Unexepected task results") }
-        guard let protectionStep = miniForm.resultForIdentifier("sex_protection") as? ORKBooleanQuestionResult else { fatalError("Unexepected task results") }
-        guard let dateStep = miniForm.resultForIdentifier("sex_date") as? ORKDateQuestionResult else { fatalError("Unexepected task results") }
+        guard let miniForm = result.stepResult(forStepIdentifier: "sex_miniform") else { fatalError("Unexepected task results") }
+        guard let protectionStep = miniForm.result(forIdentifier: "sex_protection") as? ORKBooleanQuestionResult else { fatalError("Unexepected task results") }
+        guard let dateStep = miniForm.result(forIdentifier: "sex_date") as? ORKDateQuestionResult else { fatalError("Unexepected task results") }
 
         let startDate =  dateStep.dateAnswer!
         let endDate =  dateStep.dateAnswer!
         let protectionUsed:Bool = (protectionStep.booleanAnswer?.boolValue)!
         
         let metadata = [HKMetadataKeySexualActivityProtectionUsed : protectionUsed]
-        return HKCategorySample(type: categoryType, value: self.value, startDate: startDate, endDate: endDate, metadata: metadata)
+        return HKCategorySample(type: categoryType, value: self.value, start: startDate, end: endDate, metadata: metadata)
     }
     
-    func buildCategoricalResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
+    func buildCategoricalResultForCarePlanEvent(_ event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
     
-        let date = NSCalendar.currentCalendar().dateFromComponents(event.date)!
+        let date = Calendar.current.date(from: event.date)!
         if(self.shouldIgnoreSample(taskResult)) {
-            return OCKCarePlanEventResult(valueString: "-", unitString: nil, userInfo: ["skipped":1])
+            return OCKCarePlanEventResult(valueString: "-", unitString: nil, userInfo: ["skipped":1 as NSCoding])
         }
         
         let categorySample = self.buildSampleWithTaskResult(taskResult, date: date)
@@ -117,24 +117,24 @@ struct SexualActivities: Assessment, HealthCategorySampleBuilder {
         // Build the result should be saved.
         return OCKCarePlanEventResult(
             categorySample: categorySample,
-            categoryValueStringKeys: self.ValueStringForCategory(),
+            categoryValueStringKeys: self.ValueStringForCategory() as [NSNumber : String],
             userInfo: nil
         )
     }
     
-    func shouldIgnoreSample(result: ORKTaskResult?) -> Bool {
+    func shouldIgnoreSample(_ result: ORKTaskResult?) -> Bool {
         
-        guard let firstResult = result?.firstResult as? ORKStepResult, stepResult = firstResult.results?.first else {
+        guard let firstResult = result?.firstResult as? ORKStepResult, let stepResult = firstResult.results?.first else {
             return true
         }
         
         // Get the boolean answer for the result.
-        guard let booleanResult = stepResult as? ORKBooleanQuestionResult, booleanAnswer = booleanResult.booleanAnswer as? Bool else { fatalError("Unable to determine result answer") }
+        guard let booleanResult = stepResult as? ORKBooleanQuestionResult, let booleanAnswer = booleanResult.booleanAnswer as? Bool else { fatalError("Unable to determine result answer") }
         
         return !booleanAnswer
     }
     
-    private func ValueStringForCategory() -> [Int:String] {
+    fileprivate func ValueStringForCategory() -> [Int:String] {
         
         return [
             self.value: "✓"

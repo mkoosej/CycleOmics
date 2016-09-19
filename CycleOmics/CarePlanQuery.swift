@@ -19,18 +19,18 @@ protocol CarePlanQuery : class {
 
 extension CarePlanQuery {
     
-    func findActivity(activityIdentifier:String) -> OCKCarePlanActivity? {
+    func findActivity(_ activityIdentifier:String) -> OCKCarePlanActivity? {
         
         /*
          Create a semaphore to wait for the asynchronous call to `activityForIdentifier`
          to complete.
          */
-        let semaphore = dispatch_semaphore_create(0)
+        let semaphore = DispatchSemaphore(value: 0)
         
         var activity: OCKCarePlanActivity?
         
         
-        self.store.activityForIdentifier(activityIdentifier) { success, foundActivity, error in
+        self.store.activity(forIdentifier: activityIdentifier) { success, foundActivity, error in
             activity = foundActivity
             
             if !success {
@@ -38,16 +38,16 @@ extension CarePlanQuery {
             }
             
             // Use the semaphore to signal that the query is complete.
-            dispatch_semaphore_signal(semaphore)
+            semaphore.signal()
         }
         
         // Wait for the semaphore to be signalled.
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
         
         return activity
     }
     
-    func Query(startDate:NSDateComponents, endDate:NSDateComponents) {
+    func Query(_ startDate:DateComponents, endDate:DateComponents) {
         
         //Do this for each acitivy
         debugPrint("=======================================")
@@ -63,12 +63,12 @@ extension CarePlanQuery {
              Create a semaphore to wait for the asynchronous call to `enumerateEventsOfActivity`
              to complete.
              */
-            let semaphore = dispatch_semaphore_create(0)
+            let semaphore = DispatchSemaphore(value: 0)
             
             // Query for events for the activity between the requested dates.
             //            self.dailyEvents = DailyEvents()
             
-            self.store.enumerateEventsOfActivity(activity, startDate: startDate, endDate: endDate, handler: { [unowned self] event, _  in
+            self.store.enumerateEvents(of: activity, startDate: startDate, endDate: endDate, handler: { [unowned self] event, _  in
                 
                 if let event = event {
                     
@@ -84,11 +84,11 @@ extension CarePlanQuery {
                     
                 } }, completion: { _, _ in
                     // Use the semaphore to signal that the query is complete.
-                    dispatch_semaphore_signal(semaphore)
+                    semaphore.signal()
             })
             
             // Wait for the semaphore to be signalled.
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+            _ = semaphore.wait(timeout: DispatchTime.distantFuture)
         }
         
         debugPrint("=============================================")

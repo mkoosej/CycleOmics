@@ -42,10 +42,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return window?.rootViewController as? ResearchContainerViewController
     }
     
-    func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let standardDefaults = NSUserDefaults.standardUserDefaults()
-        if standardDefaults.objectForKey("FirstRun") == nil {
+        let standardDefaults = UserDefaults.standard
+        if standardDefaults.object(forKey: "FirstRun") == nil {
             ORKPasscodeViewController.removePasscodeFromKeychain()
             standardDefaults.setValue("FirstRun", forKey: "FirstRun")
         }
@@ -56,8 +56,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Appearance customization
         let pageControlAppearance = UIPageControl.appearance()
-        pageControlAppearance.pageIndicatorTintColor = UIColor.lightGrayColor()
-        pageControlAppearance.currentPageIndicatorTintColor = UIColor.blackColor()
+        pageControlAppearance.pageIndicatorTintColor = UIColor.lightGray
+        pageControlAppearance.currentPageIndicatorTintColor = UIColor.black
         
         // Dependency injection.
         containerViewController?.injectHealthStore(healthStore)
@@ -67,24 +67,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: Handling passcode states
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
                 
         handleNotification(launchOptions)
         lockApp()
         return true
     }
     
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         if ORKPasscodeViewController.isPasscodeStoredInKeychain() {
             // Hide content so it doesn't appear in the app switcher.
             containerViewController?.contentHidden = true
         }
     }
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         lockApp()
     }
     
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         lockApp()
     }
     
@@ -97,16 +97,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.makeKeyAndVisible()
         
-        let passcodeViewController = ORKPasscodeViewController.passcodeAuthenticationViewControllerWithText("Welcome back to CycleOmics", delegate: self) as! ORKPasscodeViewController
+        let passcodeViewController = ORKPasscodeViewController.passcodeAuthenticationViewController(withText: "Welcome back to CycleOmics", delegate: self) as! ORKPasscodeViewController
         
-        dispatch_async(dispatch_get_main_queue()) {
-            self.containerViewController?.presentViewController(passcodeViewController, animated: false, completion: nil)
+        DispatchQueue.main.async {
+            self.containerViewController?.present(passcodeViewController, animated: false, completion: nil)
         }
     }
     
-    func handleNotification(launchOptions: [NSObject: AnyObject]?) {
+    func handleNotification(_ launchOptions: [AnyHashable: Any]?) {
         
-        let locationNotification = launchOptions?.indexForKey(UIApplicationLaunchOptionsLocalNotificationKey)
+        let locationNotification = launchOptions?.index(forKey: UIApplicationLaunchOptionsKey.localNotification)
         
         if (locationNotification != nil) {
             
@@ -115,11 +115,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: ORKPasscodeDelegate {
-    func passcodeViewControllerDidFinishWithSuccess(viewController: UIViewController) {
+    func passcodeViewControllerDidFinish(withSuccess viewController: UIViewController) {
         containerViewController?.contentHidden = false
-        viewController.dismissViewControllerAnimated(true, completion: nil)
+        viewController.dismiss(animated: true, completion: nil)
     }
     
-    func passcodeViewControllerDidFailAuthentication(viewController: UIViewController) {}
+    func passcodeViewControllerDidFailAuthentication(_ viewController: UIViewController) {}
 }
 

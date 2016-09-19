@@ -46,7 +46,7 @@ protocol Assessment: Activity {
  `OCKCarePlanEventResult` can then be written to a `OCKCarePlanStore`.
  */
 extension Assessment {
-    func buildResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
+    func buildResultForCarePlanEvent(_ event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
         
         
         if event.activity.identifier == ActivityType.Stress.rawValue {
@@ -58,10 +58,10 @@ extension Assessment {
             
                 let stepResult = result as! ORKStepResult
             
-                if let questionResult = stepResult.results?.first as? ORKChoiceQuestionResult, answer = questionResult.choiceAnswers {
+                if let questionResult = stepResult.results?.first as? ORKChoiceQuestionResult, let answer = questionResult.choiceAnswers {
                     
                     let numericalAnwer = answer.first as! Int
-                    results[stepResult.identifier] = numericalAnwer
+                    results[stepResult.identifier] = numericalAnwer as NSCoding?
                 }
                 
                 debugPrint(stepResult)
@@ -72,20 +72,20 @@ extension Assessment {
         else {
         
             // Get the first result for the first step of the task result.
-            guard let firstResult = taskResult.firstResult as? ORKStepResult, stepResult = firstResult.results?.first else { fatalError("Unexepected task results") }
+            guard let firstResult = taskResult.firstResult as? ORKStepResult, let stepResult = firstResult.results?.first else { fatalError("Unexepected task results") }
             
             // Determine what type of result should be saved.
-            if let scaleResult = stepResult as? ORKScaleQuestionResult, answer = scaleResult.scaleAnswer {
+            if let scaleResult = stepResult as? ORKScaleQuestionResult, let answer = scaleResult.scaleAnswer {
                 return OCKCarePlanEventResult(valueString: answer.stringValue, unitString: "out of 10", userInfo: nil)
             }
-            else if let numericResult = stepResult as? ORKNumericQuestionResult, answer = numericResult.numericAnswer {
+            else if let numericResult = stepResult as? ORKNumericQuestionResult, let answer = numericResult.numericAnswer {
                 return OCKCarePlanEventResult(valueString: answer.stringValue, unitString: numericResult.unit, userInfo: nil)
             }
             else if let categoryBuilder = self as? HealthCategorySampleBuilder {
                 return categoryBuilder.buildCategoricalResultForCarePlanEvent(event, taskResult: taskResult)
             }
-            else if let textResult = stepResult as? ORKTextQuestionResult, answer = textResult.textAnswer {
-                return OCKCarePlanEventResult(valueString: "✓", unitString:nil, userInfo: ["note":answer] )
+            else if let textResult = stepResult as? ORKTextQuestionResult, let answer = textResult.textAnswer {
+                return OCKCarePlanEventResult(valueString: "✓", unitString:nil, userInfo: ["note":answer as NSCoding] )
             }
 
         

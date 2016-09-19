@@ -11,35 +11,35 @@ import CareKit
 
 class ReportsBuilder {
     
-    private let carePlanStore: OCKCarePlanStore
+    fileprivate let carePlanStore: OCKCarePlanStore
             
     required init(carePlanStore: OCKCarePlanStore) {
         self.carePlanStore = carePlanStore
     }
     
-    func createReport(forDay day:NSDate)->OCKDocument? {
+    func createReport(forDay day:Date)->OCKDocument? {
         
         var elements = [OCKDocumentElement]()
         
-        let firstName = NSUserDefaults.standardUserDefaults().stringForKey("givenName")!
-        let lastName = NSUserDefaults.standardUserDefaults().stringForKey("familyName")!
+        let firstName = UserDefaults.standard.string(forKey: "givenName")!
+        let lastName = UserDefaults.standard.string(forKey: "familyName")!
         let userName = "\(firstName) \(lastName)"
         
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .FullStyle
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
         
         // Structure the pdf document using the result's data
         var title = "Daily Report"
-        title += "\nDate: \(formatter.stringFromDate(day))"
+        title += "\nDate: \(formatter.string(from: day))"
         title += "\nParticipant: \(userName)"
         
         //create date ranges for the day (whole day date range)
-        let formatter2 = NSDateFormatter()
-        formatter2.dateStyle = .LongStyle
-        formatter2.timeStyle = .LongStyle
+        let formatter2 = DateFormatter()
+        formatter2.dateStyle = .long
+        formatter2.timeStyle = .long
         
-        let s = formatter2.stringFromDate(day.startOfDay)
-        let e = formatter2.stringFromDate(day.endOfDay!)
+        let s = formatter2.string(from: day.startOfDay)
+        let e = formatter2.string(from: day.endOfDay!)
         debugPrint("The date range: \(s) - \(e)")
         
         // The report creation starts here
@@ -126,7 +126,7 @@ class ReportsBuilder {
         
         // Create PDF
         let document = OCKDocument(title: title, elements: elements)
-        document.pageHeader = "CycleOmics, Participant: \(userName), \(formatter.stringFromDate(day))"
+        document.pageHeader = "CycleOmics, Participant: \(userName), \(formatter.string(from: day))"
         
         return document
         
@@ -137,7 +137,7 @@ class ReportsBuilder {
     
     //MARK: value results
 
-    private func valueRow(activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
+    fileprivate func valueRow(_ activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
         
         if let result = event.result {
             return [activity.localizedName, result.valueString]
@@ -150,23 +150,23 @@ class ReportsBuilder {
 
     //MARK: categorical results
 
-    private func sleepRow(activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
+    fileprivate func sleepRow(_ activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
         
         if let result = event.result {
             if let categorySample = result.sample as? HKCategorySample {
                 let startDate = categorySample.startDate
                 let endDate = categorySample.endDate
                 //calculate hours difference
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateStyle = .ShortStyle
-                dateFormatter.timeStyle = .ShortStyle
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .short
+                dateFormatter.timeStyle = .short
                 
-                let difference = endDate.timeIntervalSinceDate(startDate)
+                let difference = endDate.timeIntervalSince(startDate)
                 let hours = String(format: "%02d", Int(difference) / 3600)
                 let minutes = String(format: "%02d", (Int(difference) / 60) % 60)
                 
                 var text = "\(hours):\(minutes)\n"
-                text += "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate)) "
+                text += "\(dateFormatter.string(from: startDate)) - \(dateFormatter.string(from: endDate)) "
                 debugPrint(text)
                 
                 return [activity.localizedName, text ]
@@ -176,18 +176,18 @@ class ReportsBuilder {
         return [activity.localizedName, ""]
     }
 
-    private func sexualRow(activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
+    fileprivate func sexualRow(_ activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
         
         if let result = event.result {
             if let categorySample = result.sample as? HKCategorySample {
-                let protectionUsed = Bool(categorySample.metadata!["HKSexualActivityProtectionUsed"] as! Int)
+                let protectionUsed = (categorySample.metadata!["HKSexualActivityProtectionUsed"] as! Int) != 0
                 let date = categorySample.startDate
                 
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateStyle = .ShortStyle
-                dateFormatter.timeStyle = .ShortStyle
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .short
+                dateFormatter.timeStyle = .short
                 
-                let dateString = dateFormatter.stringFromDate(date)
+                let dateString = dateFormatter.string(from: date)
                 
                 //date_formatter + protection used
                 var text = ""
@@ -208,7 +208,7 @@ class ReportsBuilder {
         return [activity.localizedName, "-"]
     }
 
-    private func mucusRow(activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
+    fileprivate func mucusRow(_ activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
         
         if let result = event.result {
             if let categorySample = result.sample as? HKCategorySample {
@@ -221,7 +221,7 @@ class ReportsBuilder {
     
     //MARK: custom results
     
-    private func noteRow(activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
+    fileprivate func noteRow(_ activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
         
         if let result = event.result, let userInfo = result.userInfo {
             return [activity.localizedName, userInfo["note"] as! String]
@@ -231,7 +231,7 @@ class ReportsBuilder {
         }
     }
     
-    private func noteParagraph(activity:ActivityType, event:OCKCarePlanEvent) -> OCKDocumentElementParagraph? {
+    fileprivate func noteParagraph(_ activity:ActivityType, event:OCKCarePlanEvent) -> OCKDocumentElementParagraph? {
         
         if let result = event.result, let userInfo = result.userInfo {
             if var content =  userInfo["note"] as? String   {
@@ -248,13 +248,13 @@ class ReportsBuilder {
         
     }
     
-    private func stressTable(activity:ActivityType, event:OCKCarePlanEvent) -> OCKDocumentElementTable? {
+    fileprivate func stressTable(_ activity:ActivityType, event:OCKCarePlanEvent) -> OCKDocumentElementTable? {
         
         var rows = [[String]]()
         let headers = ["Question", "Answer"]
         
         guard let userInfo = event.result?.userInfo else { return nil }
-        for (index,value) in userInfo.values.enumerate() {
+        for (index,value) in userInfo.values.enumerated() {
             
             let intValue = value as! Int
             var row = [String]()

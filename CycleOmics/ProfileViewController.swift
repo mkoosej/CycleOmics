@@ -15,13 +15,13 @@ import QuickLook
 class ProfileViewController: UITableViewController {
     
     // MARK: Properties
-    private let storeManager = CarePlanStoreManager.sharedCarePlanStoreManager
+    fileprivate let storeManager = CarePlanStoreManager.sharedCarePlanStoreManager
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet var applicationNameLabel: UILabel!
     var todayIndex:Int = 0
     var availableDates = 0
-    var dates = [NSDate]()
-    var URLs = [NSURL]()
+    var dates = [Date]()
+    var URLs = [URL]()
     
     // MARK: Static Properties
     static var needsUpdate:Bool = true;
@@ -34,7 +34,7 @@ class ProfileViewController: UITableViewController {
         applicationNameLabel.text = "CycleOmics"
         //TODO: localize this
         nameLabel.text = getUserName()
-        (self.dates,self.todayIndex) = NSDate.daysInThisWeek()
+        (self.dates,self.todayIndex) = Date.daysInThisWeek()
         self.availableDates = todayIndex + 1
         
         storeManager.delegate = self
@@ -47,7 +47,7 @@ class ProfileViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         //Create reports for each day
@@ -55,55 +55,55 @@ class ProfileViewController: UITableViewController {
     }
 
     // MARK: UITableViewDataSource
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // it's always equal to numberf of days in week
         return 7
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCellWithIdentifier(ProfileStaticTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? ProfileStaticTableViewCell else { fatalError("Unable to dequeue a ProfileStaticTableViewCell") }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileStaticTableViewCell.reuseIdentifier, for: indexPath) as? ProfileStaticTableViewCell else { fatalError("Unable to dequeue a ProfileStaticTableViewCell") }
         
-        let cellDate = dates[indexPath.row]
+        let cellDate = dates[(indexPath as NSIndexPath).row]
         cell.titleLabel.text = cellDate.getLocalizedDayofWeek
         
         // TODO: check if it's been sent
-        let hasSent = NSUserDefaults.standardUserDefaults().boolForKey(dateStringFormatter(cellDate))
-        cell.valueLabel.hidden = !hasSent
-        cell.sendBtn.hidden = true
+        let hasSent = UserDefaults.standard.bool(forKey: dateStringFormatter(cellDate))
+        cell.valueLabel.isHidden = !hasSent
+        cell.sendBtn.isHidden = true
 
         // disable dates in the future
-        let today = NSDate()
+        let today = Date()
         switch cellDate.compare(today) {
-            case .OrderedAscending:
-                cell.sendBtn.enabled = true
-                cell.titleLabel.textColor = UIColor.blackColor()
+            case .orderedAscending:
+                cell.sendBtn.isEnabled = true
+                cell.titleLabel.textColor = UIColor.black
             default:
-                cell.sendBtn.enabled = false
-                cell.titleLabel.textColor = UIColor.grayColor()
+                cell.sendBtn.isEnabled = false
+                cell.titleLabel.textColor = UIColor.gray
         }
         
         // highlight today's row
-        if indexPath.row == todayIndex {
-            cell.titleLabel.textColor = UIColor.redColor()
+        if (indexPath as NSIndexPath).row == todayIndex {
+            cell.titleLabel.textColor = UIColor.red
         }
         
         return cell
     }
     
     // MARK: UITableViewDelegate
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        previewPdf(indexPath.row)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        previewPdf((indexPath as NSIndexPath).row)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         
-        let cellDate = dates[indexPath.row]
-        let today = NSDate()
+        let cellDate = dates[(indexPath as NSIndexPath).row]
+        let today = Date()
         switch cellDate.compare(today) {
-        case .OrderedAscending:
+        case .orderedAscending:
             return true
         default:
             return false
@@ -111,66 +111,66 @@ class ProfileViewController: UITableViewController {
     }
     
     // MARK: Convenience
-    private func getPersistenceDirectoryURL() -> NSURL {
+    fileprivate func getPersistenceDirectoryURL() -> URL {
         
-        let searchPaths = NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)
+        let searchPaths = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)
         let applicationSupportPath = searchPaths[0]
-        let persistenceDirectoryURL = NSURL(fileURLWithPath: applicationSupportPath)
+        let persistenceDirectoryURL = URL(fileURLWithPath: applicationSupportPath)
         
-        if !NSFileManager.defaultManager().fileExistsAtPath(persistenceDirectoryURL.absoluteString!, isDirectory: nil) {
-            try! NSFileManager.defaultManager().createDirectoryAtURL(persistenceDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+        if !FileManager.default.fileExists(atPath: persistenceDirectoryURL.absoluteString, isDirectory: nil) {
+            try! FileManager.default.createDirectory(at: persistenceDirectoryURL, withIntermediateDirectories: true, attributes: nil)
         }
         
         return persistenceDirectoryURL
     }
     
     // returns a key for saving date specefic values
-    private func dateStringFormatter(date:NSDate)->String {
-        let dateFormatter = NSDateFormatter()
+    fileprivate func dateStringFormatter(_ date:Date)->String {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
     
     //MARK: Report
-    private func createReport() {
+    fileprivate func createReport() {
         
         if ProfileViewController.needsUpdate == true {
             
             ProfileViewController.needsUpdate = false
         
-            let formatter = NSDateFormatter()
-            formatter.dateStyle = .LongStyle
-            formatter.timeStyle = .LongStyle
+            let formatter = DateFormatter()
+            formatter.dateStyle = .long
+            formatter.timeStyle = .long
             
             let reportBuilder = ReportsBuilder(carePlanStore: storeManager.store)
             
             for i in 0..<availableDates {
                 let date = dates[i]
                 
-                let s = formatter.stringFromDate(date)
+                let s = formatter.string(from: date)
                 debugPrint("Creating report for date \(s)")
                 
                 if let doc = reportBuilder.createReport(forDay: date) {
                     
                     //store the pdf in memory
                     let pdfURL = generatePdfUrl(i)
-                    doc.createPDFDataWithCompletion { [weak self] (data : NSData, error: NSError?) in
+                    doc.createPDFData(completion: { [weak self] (data : Data, error: Error?) in
                         // it's synchrous so we don't have to worry about it ( not sure :} )
-                        if data.writeToURL(pdfURL, atomically: true) {
+                        if (try? data.write(to: pdfURL, options: [.atomic])) != nil {
                             self!.URLs.append(pdfURL)
                         }
                         else {
                             debugPrint("error in writing file \(pdfURL)")
                         }
-                    }
+                    })
                 }
             }
         }
     }
     
-    private func getUserName() -> String {
-        let firstName = NSUserDefaults.standardUserDefaults().stringForKey("givenName")!
-        let lastName = NSUserDefaults.standardUserDefaults().stringForKey("familyName")!
+    fileprivate func getUserName() -> String {
+        let firstName = UserDefaults.standard.string(forKey: "givenName")!
+        let lastName = UserDefaults.standard.string(forKey: "familyName")!
         return "\(firstName) \(lastName)"
     }
 }
@@ -178,37 +178,37 @@ class ProfileViewController: UITableViewController {
 extension ProfileViewController: QLPreviewControllerDataSource {
     
     // MARK: QLPreviewControllerDataSource
-    func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
+    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
         return availableDates;
     }
     
-    func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
         
         // the pdf should exist and available on the disk ast this point
-        return URLs[index]
+        return URLs[index] as QLPreviewItem
     }
     
-    private func previewPdf(index:Int) {
+    fileprivate func previewPdf(_ index:Int) {
         
         // start previewing the document at the current section index
-        if QLPreviewController.canPreviewItem(URLs[index]) {
+        if QLPreviewController.canPreview(URLs[index] as QLPreviewItem) {
             let previewController = QLPreviewController()
             previewController.dataSource = self
             previewController.currentPreviewItemIndex = index
-            dispatch_async(dispatch_get_main_queue(), { //to prevent the unbalance call issue
-                self.navigationController!.presentViewController(previewController, animated: true, completion: nil)
+            DispatchQueue.main.async(execute: { //to prevent the unbalance call issue
+                self.navigationController!.present(previewController, animated: true, completion: nil)
             })
         }
     }
     
-    private func generatePdfUrl(index:Int)->NSURL {
+    fileprivate func generatePdfUrl(_ index:Int)->URL {
 
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .MediumStyle
-        let dateString = formatter.stringFromDate(dates[index])
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        let dateString = formatter.string(from: dates[index])
         let user = getUserName()
         let fileName = "\(user)-\(dateString).pdf"
-        return NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(fileName)!
+        return URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
     }
 }
 

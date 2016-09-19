@@ -16,13 +16,13 @@ protocol HealthCategorySampleBuilder {
     
     var categoryType: HKCategoryType { get }
     var value: Int { get }
-    func buildSampleWithTaskResult(result: ORKTaskResult, date:NSDate) -> HKCategorySample
-    func buildCategoricalResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult
+    func buildSampleWithTaskResult(_ result: ORKTaskResult, date:Date) -> HKCategorySample
+    func buildCategoricalResultForCarePlanEvent(_ event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult
 }
 
 extension HealthCategorySampleBuilder {
     
-    func shouldIgnoreSample(result:ORKTaskResult?) -> Bool {
+    func shouldIgnoreSample(_ result:ORKTaskResult?) -> Bool {
         
         if let checkType = self as? SexualActivities {
             return checkType.shouldIgnoreSample(result)

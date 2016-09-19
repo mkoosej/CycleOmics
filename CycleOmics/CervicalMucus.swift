@@ -19,32 +19,32 @@ struct CervicalMucus: Assessment, HealthCategorySampleBuilder {
     let activityType: ActivityType = .CervicalMucus
     
     static let valueStrings:[Int:String] = [
-        HKCategoryValueCervicalMucusQuality.Dry.rawValue:"Dry",
-        HKCategoryValueCervicalMucusQuality.Sticky.rawValue:"Sticky",
-        HKCategoryValueCervicalMucusQuality.Creamy.rawValue:"Creamy",
-        HKCategoryValueCervicalMucusQuality.Watery.rawValue:"Watery",
-        HKCategoryValueCervicalMucusQuality.EggWhite.rawValue:"Egg white"
+        HKCategoryValueCervicalMucusQuality.dry.rawValue:"Dry",
+        HKCategoryValueCervicalMucusQuality.sticky.rawValue:"Sticky",
+        HKCategoryValueCervicalMucusQuality.creamy.rawValue:"Creamy",
+        HKCategoryValueCervicalMucusQuality.watery.rawValue:"Watery",
+        HKCategoryValueCervicalMucusQuality.eggWhite.rawValue:"Egg white"
     ]
     
     // MARK: HealthSampleBuilder Properties
-    let categoryType: HKCategoryType = HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierCervicalMucusQuality)!
+    let categoryType: HKCategoryType = HKCategoryType.categoryType(forIdentifier: HKCategoryTypeIdentifier.cervicalMucusQuality)!
     
-    let value: Int = HKCategoryValue.NotApplicable.rawValue
+    let value: Int = HKCategoryValue.notApplicable.rawValue
     
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
         let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
-        let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
+        let schedule = OCKCareSchedule.weeklySchedule(withStartDate: startDate as DateComponents, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the assessment.
         let summary = NSLocalizedString("", comment: "")
         
-        let activity = OCKCarePlanActivity.assessmentWithIdentifier(
-            activityType.rawValue,
+        let activity = OCKCarePlanActivity.assessment(
+            withIdentifier: activityType.rawValue,
             groupIdentifier: nil,
             title: self.title,
             text: summary,
-            tintColor: Colors.Purple.color,
+            tintColor: Colors.purple.color,
             resultResettable: false,
             schedule: schedule,
             userInfo: nil
@@ -62,9 +62,9 @@ struct CervicalMucus: Assessment, HealthCategorySampleBuilder {
         let title = NSLocalizedString("Cervical Mucus Quality", comment: "")
         
         let choices = getAnswerChoices()
-        let answerFormat = ORKAnswerFormat.choiceAnswerFormatWithStyle(.SingleChoice, textChoices: choices)
+        let answerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: choices)
         let questionStep = ORKQuestionStep(identifier: "cerv_miniform", title: title, answer: answerFormat)
-        questionStep.optional = false
+        questionStep.isOptional = false
         
         let task = ORKOrderedTask(identifier: activityType.rawValue, steps: [questionStep])
         return task
@@ -73,32 +73,32 @@ struct CervicalMucus: Assessment, HealthCategorySampleBuilder {
     // MARK: HealthSampleBuilder
     
     /// Builds a `HKCategorySample` from the information in the supplied `ORKTaskResult`.
-    func buildSampleWithTaskResult(result: ORKTaskResult, date:NSDate) -> HKCategorySample {
+    func buildSampleWithTaskResult(_ result: ORKTaskResult, date:Date) -> HKCategorySample {
         
-        guard let firstResult = result.firstResult as? ORKStepResult, stepResult = firstResult.results?.first else { fatalError("Unexepected task results") }
+        guard let firstResult = result.firstResult as? ORKStepResult, let stepResult = firstResult.results?.first else { fatalError("Unexepected task results") }
         
         // Get the numeric answer for the result.
-        guard let choiceResult = stepResult as? ORKChoiceQuestionResult, numericAnswer = choiceResult.choiceAnswers!.first as? Int else { fatalError("Unable to determine result answer") }
+        guard let choiceResult = stepResult as? ORKChoiceQuestionResult, let numericAnswer = choiceResult.choiceAnswers!.first as? Int else { fatalError("Unable to determine result answer") }
         
         // Create a `HKCategorySample` for the answer.
         
         return HKCategorySample(
             type: categoryType,
             value: numericAnswer,
-            startDate: date,
-            endDate: date
+            start: date,
+            end: date
         )
     }
     
-    func buildCategoricalResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
+    func buildCategoricalResultForCarePlanEvent(_ event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
         
-        let date = NSCalendar.currentCalendar().dateFromComponents(event.date)!
+        let date = Calendar.current.date(from: event.date)!
         let categorySample = self.buildSampleWithTaskResult(taskResult,date: date)
         
         // Build the result should be saved.
         return OCKCarePlanEventResult(
             categorySample: categorySample,
-            categoryValueStringKeys: self.ValueStringForCategory(),
+            categoryValueStringKeys: self.ValueStringForCategory() as [NSNumber : String],
             userInfo: nil
         )
     }
@@ -106,25 +106,25 @@ struct CervicalMucus: Assessment, HealthCategorySampleBuilder {
     
     // MARK: Convinience
     
-    private func getAnswerChoices() -> [ORKTextChoice] {
+    fileprivate func getAnswerChoices() -> [ORKTextChoice] {
         
         var choices =  [ORKTextChoice]()
         
         for (value,text) in CervicalMucus.valueStrings {
-            choices.append(ORKTextChoice(text: NSLocalizedString(text, comment: ""), value: value) )
+            choices.append(ORKTextChoice(text: NSLocalizedString(text, comment: ""), value: value as NSCoding & NSCopying & NSObjectProtocol) )
         }
         
         return choices
     }
     
-    private func ValueStringForCategory() -> [Int:String] {
+    fileprivate func ValueStringForCategory() -> [Int:String] {
         
         return [
-            HKCategoryValueCervicalMucusQuality.Dry.rawValue : "D",
-            HKCategoryValueCervicalMucusQuality.Sticky.rawValue : "S",
-            HKCategoryValueCervicalMucusQuality.Creamy.rawValue : "C",
-            HKCategoryValueCervicalMucusQuality.Watery.rawValue : "W",
-            HKCategoryValueCervicalMucusQuality.EggWhite.rawValue : "E",
+            HKCategoryValueCervicalMucusQuality.dry.rawValue : "D",
+            HKCategoryValueCervicalMucusQuality.sticky.rawValue : "S",
+            HKCategoryValueCervicalMucusQuality.creamy.rawValue : "C",
+            HKCategoryValueCervicalMucusQuality.watery.rawValue : "W",
+            HKCategoryValueCervicalMucusQuality.eggWhite.rawValue : "E",
         ]
     }
 }

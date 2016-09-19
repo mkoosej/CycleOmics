@@ -34,7 +34,7 @@ import ResearchKit
 class OnboardingViewController: UIViewController {
     // MARK: IB actions
     
-    @IBAction func joinButtonTapped(sender: UIButton) {
+    @IBAction func joinButtonTapped(_ sender: UIButton) {
         let consentDocument = ConsentDocument()
         let consentStep = ORKVisualConsentStep(identifier: "VisualConsentStep", document: consentDocument)
         
@@ -42,7 +42,7 @@ class OnboardingViewController: UIViewController {
         
         let signature = consentDocument.signatures!.first!
         
-        let reviewConsentStep = ORKConsentReviewStep(identifier: "ConsentReviewStep", signature: signature, inDocument: consentDocument)
+        let reviewConsentStep = ORKConsentReviewStep(identifier: "ConsentReviewStep", signature: signature, in: consentDocument)
         
         reviewConsentStep.text = "Review the consent form."
         reviewConsentStep.reasonForConsent = "By agreeing you confirm that you read the consent form and that you wish to join the CycleOmics Research Study."
@@ -56,7 +56,7 @@ class OnboardingViewController: UIViewController {
         completionStep.title = "Welcome aboard."
         completionStep.text = "Thank you for joining this study."
         
-        let defaultTime = NSDateComponents()
+        var defaultTime = DateComponents()
         defaultTime.hour = 8
         defaultTime.minute = 0
 
@@ -64,36 +64,36 @@ class OnboardingViewController: UIViewController {
             identifier: "notificationStep",
             title: "Reminder",
             text: "What time do you generaly wake up? We will send you a notification to remind you of your first activity.",
-            answer: ORKAnswerFormat.timeOfDayAnswerFormatWithDefaultComponents(defaultTime)
+            answer: ORKAnswerFormat.timeOfDayAnswerFormat(withDefaultComponents: defaultTime)
         )
         
         let orderedTask = ORKOrderedTask(identifier: "Join", steps: [consentStep, reviewConsentStep, healthDataStep, passcodeStep, formStep, completionStep])
-        let taskViewController = ORKTaskViewController(task: orderedTask, taskRunUUID: nil)
+        let taskViewController = ORKTaskViewController(task: orderedTask, taskRun: nil)
         taskViewController.delegate = self
         
-        presentViewController(taskViewController, animated: true, completion: nil)
+        present(taskViewController, animated: true, completion: nil)
     }
     
-    private func setNotficationTime(results:ORKTaskResult) {
+    fileprivate func setNotficationTime(_ results:ORKTaskResult) {
         
-        let stepResult = results.stepResultForStepIdentifier("notificationStep")?.firstResult as? ORKTimeOfDayQuestionResult
+        let stepResult = results.stepResult(forStepIdentifier: "notificationStep")?.firstResult as? ORKTimeOfDayQuestionResult
         
         if(stepResult == nil)  { return }
         
-        let calendar = NSCalendar.currentCalendar()
+        let calendar = Calendar.current
         let wakeup = stepResult?.dateComponentsAnswer!
         
-        let today = NSDate()
-        let components = calendar.components([.Year , .Month, .Day, .Hour, .Minute, .Second], fromDate: today)
+        let today = Date()
+        var components = (calendar as NSCalendar).components([.year , .month, .day, .hour, .minute, .second], from: today)
         components.minute = (wakeup?.minute)!
         components.hour = (wakeup?.hour)!
         components.second = 0
         
-        let date = calendar.dateFromComponents(components)
-        NSUserDefaults.standardUserDefaults().setValue(date, forKey: "notification_time")
+        let date = calendar.date(from: components)
+        UserDefaults.standard.setValue(date, forKey: "notification_time")
         
         // register notification settings
-        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Sound], categories: nil))
+        UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .sound], categories: nil))
         
         // schedule notificaion
         let notification = UILocalNotification()
@@ -102,19 +102,19 @@ class OnboardingViewController: UIViewController {
         notification.fireDate = date
         notification.soundName = UILocalNotificationDefaultSoundName
         notification.userInfo = ["title": "reminder", "UUID": "curio.cycleomics.local"]
-        notification.repeatInterval = .Day
-        notification.timeZone = NSCalendar.currentCalendar().timeZone
+        notification.repeatInterval = .day
+        notification.timeZone = Calendar.current.timeZone
         
-        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        UIApplication.shared.scheduleLocalNotification(notification)
     }
     
-    private func saveIdentifications(results:ORKTaskResult) {
+    fileprivate func saveIdentifications(_ results:ORKTaskResult) {
         
-        let stepResult = results.stepResultForStepIdentifier("ConsentReviewStep")?.firstResult as? ORKConsentSignatureResult
+        let stepResult = results.stepResult(forStepIdentifier: "ConsentReviewStep")?.firstResult as? ORKConsentSignatureResult
         
         if(stepResult == nil)  { return }
         
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         
         if let givenName = stepResult?.signature?.givenName {
             defaults.setValue(givenName, forKey: "givenName")
@@ -125,26 +125,26 @@ class OnboardingViewController: UIViewController {
         }
     }
     
-    private func completeOnboarding(results:ORKTaskResult) {
+    fileprivate func completeOnboarding(_ results:ORKTaskResult) {
         
         saveIdentifications(results)
         setNotficationTime(results)
-        performSegueWithIdentifier("unwindToStudy", sender: nil)
+        performSegue(withIdentifier: "unwindToStudy", sender: nil)
     }
 }
 
 extension OnboardingViewController : ORKTaskViewControllerDelegate {
     
-    func taskViewController(taskViewController: ORKTaskViewController, didFinishWithReason reason: ORKTaskViewControllerFinishReason, error: NSError?) {
+    func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
         switch reason {
-            case .Completed:
+            case .completed:
                 completeOnboarding(taskViewController.result)
-            case .Discarded, .Failed, .Saved:
-                dismissViewControllerAnimated(true, completion: nil)
+            case .discarded, .failed, .saved:
+                dismiss(animated: true, completion: nil)
         }
     }
     
-    func taskViewController(taskViewController: ORKTaskViewController, viewControllerForStep step: ORKStep) -> ORKStepViewController? {
+    func taskViewController(_ taskViewController: ORKTaskViewController, viewControllerFor step: ORKStep) -> ORKStepViewController? {
         if step is HealthDataStep {
             let healthStepViewController = HealthDataStepViewController(step: step)
             return healthStepViewController

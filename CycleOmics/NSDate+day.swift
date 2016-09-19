@@ -8,49 +8,49 @@
 
 import Foundation
 
-extension NSDate {
-    var startOfDay: NSDate {
-        return NSCalendar.currentCalendar().startOfDayForDate(self)
+extension Date {
+    var startOfDay: Date {
+        return Calendar.current.startOfDay(for: self)
     }
     
-    var endOfDay: NSDate? {
-        let components = NSDateComponents()
+    var endOfDay: Date? {
+        var components = DateComponents()
         components.day = 1
         components.second = -1
-        return NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: startOfDay, options: NSCalendarOptions())
+        return (Calendar.current as NSCalendar).date(byAdding: components, to: startOfDay, options: NSCalendar.Options())
     }
     
-    var startOfDayComponent: NSDateComponents {
-        return NSDateComponents(date: startOfDay, calendar: NSCalendar.currentCalendar())
+    var startOfDayComponent: DateComponents {
+        return NSDateComponents(date: startOfDay, calendar: Calendar.current) as DateComponents
     }
     
-    var endOfDayComponent: NSDateComponents {
-        return NSDateComponents(date: endOfDay!, calendar: NSCalendar.currentCalendar())
+    var endOfDayComponent: DateComponents {
+        return NSDateComponents(date: endOfDay!, calendar: Calendar.current) as DateComponents
     }
     
-    class func daysInThisWeek() -> ([NSDate], todayIndex:Int) {
+    static func daysInThisWeek() -> ([Date], todayIndex:Int) {
         // create calendar
-        let calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         
         // today's date
-        let today = NSDate()
-        let todayComponent = calendar.components([.Day, .Month, .Year], fromDate: today)
+        let today = Date()
+        let todayComponent = (calendar as NSCalendar).components([.day, .month, .year], from: today)
         
         // range of dates in this week
-        let thisWeekDateRange = calendar.rangeOfUnit(.Day, inUnit:.WeekOfMonth, forDate:today)
+        let thisWeekDateRange = (calendar as NSCalendar).range(of: .day, in:.weekOfMonth, for:today)
         
         // date interval from today to beginning of week
-        let dayInterval = thisWeekDateRange.location - todayComponent.day
+        let dayInterval = thisWeekDateRange.location - todayComponent.day!
         
         // date for beginning day of this week, ie. this week's Sunday's date
-        let beginningOfWeek = calendar.dateByAddingUnit(.Day, value: dayInterval, toDate: today, options: .MatchNextTime)
+        let beginningOfWeek = (calendar as NSCalendar).date(byAdding: .day, value: dayInterval, to: today, options: .matchNextTime)
         
-        var dates: [NSDate] = []
+        var dates: [Date] = []
         
         // to include days of the week belongs to past month
         // we should always have 7 days
         for i in 0..<7 {
-            let date = calendar.dateByAddingUnit(.Day, value: i, toDate: beginningOfWeek!, options: .MatchNextTime)!
+            let date = (calendar as NSCalendar).date(byAdding: .day, value: i, to: beginningOfWeek!, options: .matchNextTime)!
             dates.append(date)
         }
         
@@ -61,9 +61,9 @@ extension NSDate {
     
     var getLocalizedDayofWeek:String {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
-        let dayOfWeekString = dateFormatter.stringFromDate(self)
+        let dayOfWeekString = dateFormatter.string(from: self)
         
         return dayOfWeekString
     }

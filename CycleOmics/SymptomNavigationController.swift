@@ -13,9 +13,9 @@ import CareKit
 
 class SymptomNavigationController: UINavigationController {
     
-    private let storeManager = CarePlanStoreManager.sharedCarePlanStoreManager
-    private let sampleData: SampleData
-    private var symptomTrackerViewController: OCKSymptomTrackerViewController!
+    fileprivate let storeManager = CarePlanStoreManager.sharedCarePlanStoreManager
+    fileprivate let sampleData: SampleData
+    fileprivate var symptomTrackerViewController: OCKSymptomTrackerViewController!
 
     required init?(coder aDecoder: NSCoder) {
 
@@ -27,7 +27,7 @@ class SymptomNavigationController: UINavigationController {
         self.pushViewController(symptomTrackerViewController, animated: true)        
     }
     
-    private func createSymptomTrackerViewController() -> OCKSymptomTrackerViewController {
+    fileprivate func createSymptomTrackerViewController() -> OCKSymptomTrackerViewController {
         let viewController = OCKSymptomTrackerViewController(carePlanStore: storeManager.store)
         viewController.delegate = self
         
@@ -43,7 +43,7 @@ class SymptomNavigationController: UINavigationController {
 extension SymptomNavigationController: OCKSymptomTrackerViewControllerDelegate {
     
     /// Called when the user taps an assessment on the `OCKSymptomTrackerViewController`.
-    func symptomTrackerViewController(viewController: OCKSymptomTrackerViewController, didSelectRowWithAssessmentEvent assessmentEvent: OCKCarePlanEvent) {
+    func symptomTrackerViewController(_ viewController: OCKSymptomTrackerViewController, didSelectRowWithAssessmentEvent assessmentEvent: OCKCarePlanEvent) {
         
         // Lookup the assessment the row represents.
         guard let activityType = ActivityType(rawValue: assessmentEvent.activity.identifier) else { return }
@@ -53,15 +53,15 @@ extension SymptomNavigationController: OCKSymptomTrackerViewControllerDelegate {
          Check if we should show a task for the selected assessment event
          based on its state.
          */
-        guard assessmentEvent.state == .Initial ||
-            assessmentEvent.state == .NotCompleted ||
-            (assessmentEvent.state == .Completed && assessmentEvent.activity.resultResettable) else { return }
+        guard assessmentEvent.state == .initial ||
+            assessmentEvent.state == .notCompleted ||
+            (assessmentEvent.state == .completed && assessmentEvent.activity.resultResettable) else { return }
         
         // Show an `ORKTaskViewController` for the assessment's task.
-        let taskViewController = ORKTaskViewController(task: sampleAssessment.task(), taskRunUUID: nil)
+        let taskViewController = ORKTaskViewController(task: sampleAssessment.task(), taskRun: nil)
         taskViewController.delegate = self
         
-        presentViewController(taskViewController, animated: true, completion: nil)
+        present(taskViewController, animated: true, completion: nil)
     }
 }
 
@@ -69,27 +69,27 @@ extension SymptomNavigationController: OCKSymptomTrackerViewControllerDelegate {
 extension SymptomNavigationController: ORKTaskViewControllerDelegate {
     
     /// Called with then user completes a presented `ORKTaskViewController`.
-    func taskViewController(taskViewController: ORKTaskViewController, didFinishWithReason reason: ORKTaskViewControllerFinishReason, error: NSError?) {
+    func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
         
         defer {
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
         }
         
         // Make sure the reason the task controller finished is that it was completed.
-        guard reason == .Completed else {
+        guard reason == .completed else {
             debugPrint("The task with id \(taskViewController.task?.identifier) has been canceled")
             return
         }
         
         // Determine the event that was completed and the `SampleAssessment` it represents.
         guard let event = symptomTrackerViewController.lastSelectedAssessmentEvent,
-            activityType = ActivityType(rawValue: event.activity.identifier),
-            sampleAssessment = sampleData.activityWithType(activityType) as? Assessment else {
+            let activityType = ActivityType(rawValue: event.activity.identifier),
+            let sampleAssessment = sampleData.activityWithType(activityType) as? Assessment else {
                 debugPrint("Error in capturing even values")
                 return
         }
         
-        guard let date = NSCalendar.currentCalendar().dateFromComponents(event.date) else {
+        guard let date = Calendar.current.date(from: event.date) else {
             debugPrint("Error in capturing even date")
             return
         }
@@ -110,7 +110,7 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
                 let healthKitAssociatedResult = OCKCarePlanEventResult(
                     quantitySample: sample,
                     quantityStringFormatter: healthSampleBuilder.quantityStringFormatter,
-                    displayUnit: healthSampleBuilder.unit,
+                    display: healthSampleBuilder.unit,
                     displayUnitStringKey: healthSampleBuilder.localizedUnitForSample(sample),
                     userInfo: nil
                 )
@@ -150,19 +150,19 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
     
     // MARK: Convenience
     
-    private func completeEvent(event: OCKCarePlanEvent, inStore store: OCKCarePlanStore, withResult result: OCKCarePlanEventResult) {
-        store.updateEvent(event, withResult: result, state: .Completed) { success, _, error in
+    fileprivate func completeEvent(_ event: OCKCarePlanEvent, inStore store: OCKCarePlanStore, withResult result: OCKCarePlanEventResult) {
+        store.update(event, with: result, state: .completed) { success, _, error in
             if !success {
                 debugPrint(error?.localizedDescription)
             }
         }
     }
     
-    private func saveSampleHealthStore(sampleTypes: Set<HKSampleType>, sample: HKSample, event: OCKCarePlanEvent , carePlanResult: OCKCarePlanEventResult , completionBlock: (Void)->Void ) {
+    fileprivate func saveSampleHealthStore(_ sampleTypes: Set<HKSampleType>, sample: HKSample, event: OCKCarePlanEvent , carePlanResult: OCKCarePlanEventResult , completionBlock: @escaping (Void)->Void ) {
         
         // Requst authorization to store the HealthKit sample.
         let healthStore = HKHealthStore()
-        healthStore.requestAuthorizationToShareTypes(sampleTypes, readTypes: sampleTypes, completion: { success, _ in
+        healthStore.requestAuthorization(toShare: sampleTypes, read: sampleTypes, completion: { success, _ in
             // Check if authorization was granted.
             if !success {
                 /*
@@ -174,7 +174,7 @@ extension SymptomNavigationController: ORKTaskViewControllerDelegate {
             }
             
             // Save the HealthKit sample in the HealthKit store.
-            healthStore.saveObject(sample, withCompletion: { success, _ in
+            healthStore.save(sample, withCompletion: { success, _ in
                 if success {
                     completionBlock()
                 }

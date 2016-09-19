@@ -8,7 +8,7 @@
 
 #if !arch(x86_64) && !arch(i386)
     
-    func debugPrint(items: Any..., separator: String = " ", terminator: String = "\n") {}
-    func print(items: Any..., separator: String = " ", terminator: String = "\n") {}
+    func debugPrint(_ items: Any..., separator: String = " ", terminator: String = "\n") {}
+    func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {}
     
 #endif

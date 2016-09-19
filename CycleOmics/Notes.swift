@@ -43,14 +43,14 @@ struct Notes: Assessment {
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
         let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
-        let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
+        let schedule = OCKCareSchedule.weeklySchedule(withStartDate: startDate as DateComponents, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
-        let activity = OCKCarePlanActivity.assessmentWithIdentifier(
-            activityType.rawValue,
+        let activity = OCKCarePlanActivity.assessment(
+            withIdentifier: activityType.rawValue,
             groupIdentifier: nil,
             title: self.title,
             text: nil,
-            tintColor: Colors.Blue.color,
+            tintColor: Colors.blue.color,
             resultResettable: false,
             schedule: schedule,
             userInfo: nil
@@ -69,7 +69,7 @@ struct Notes: Assessment {
         let answerFormat = ORKTextAnswerFormat();
         
         let questionStep = ORKQuestionStep(identifier: activityType.rawValue, title: question, answer: answerFormat)
-        questionStep.optional = false
+        questionStep.isOptional = false
         
         // Create an ordered task with a single question.
         let task = ORKOrderedTask(identifier: activityType.rawValue, steps: [questionStep])

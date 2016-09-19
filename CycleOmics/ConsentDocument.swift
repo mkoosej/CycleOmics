@@ -49,11 +49,11 @@ class ConsentDocument: ORKConsentDocument {
         title = NSLocalizedString("Research Health Study Consent Form", comment: "")
         
         let sectionTypes: [ORKConsentSectionType] = [
-            .Overview,
-            .Privacy,
-            .StudyTasks,
-            .StudySurvey,
-            .DataUse
+            .overview,
+            .privacy,
+            .studyTasks,
+            .studySurvey,
+            .dataUse
         ]
         
         sections = zip(sectionTypes, steps).map { sectionType, steps in
@@ -65,9 +65,9 @@ class ConsentDocument: ORKConsentDocument {
             section.summary = localizedSummary
             section.content = localizedIpsum
             
-            if(section.type == ORKConsentSectionType.Privacy) {
+            if(section.type == ORKConsentSectionType.privacy) {
                 
-                section.contentURL = NSURL(string: "https://people.stanford.edu/rkellogg/cycleomics-privacy-policy")
+                section.contentURL = URL(string: "https://people.stanford.edu/rkellogg/cycleomics-privacy-policy")
             }
             else {
                 section.customLearnMoreButtonTitle = ""
@@ -91,34 +91,34 @@ extension ORKConsentSectionType: CustomStringConvertible {
 
     public var description: String {
         switch self {
-            case .Overview:
+            case .overview:
                 return "Overview"
                 
-            case .DataGathering:
+            case .dataGathering:
                 return "DataGathering"
                 
-            case .Privacy:
+            case .privacy:
                 return "Privacy"
                 
-            case .DataUse:
+            case .dataUse:
                 return "DataUse"
                 
-            case .TimeCommitment:
+            case .timeCommitment:
                 return "TimeCommitment"
                 
-            case .StudySurvey:
+            case .studySurvey:
                 return "StudySurvey"
                 
-            case .StudyTasks:
+            case .studyTasks:
                 return "StudyTasks"
                 
-            case .Withdrawing:
+            case .withdrawing:
                 return "Withdrawing"
                 
-            case .Custom:
+            case .custom:
                 return "Custom"
                 
-            case .OnlyInDocument:
+            case .onlyInDocument:
                 return "OnlyInDocument"
         }
     }

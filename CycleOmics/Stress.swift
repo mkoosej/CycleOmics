@@ -64,15 +64,15 @@ struct Stress: Assessment {
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
         let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
-        let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
+        let schedule = OCKCareSchedule.weeklySchedule(withStartDate: startDate as DateComponents, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the assessment.
-        let activity = OCKCarePlanActivity.assessmentWithIdentifier(
-            activityType.rawValue,
+        let activity = OCKCarePlanActivity.assessment(
+            withIdentifier: activityType.rawValue,
             groupIdentifier: nil,
             title: self.title,
             text: nil,
-            tintColor: Colors.Red.color,
+            tintColor: Colors.red.color,
             resultResettable: false,
             schedule: schedule,
             userInfo: nil
@@ -95,20 +95,20 @@ struct Stress: Assessment {
             
         steps += [instructionStep]
         
-        for (index,question) in Stress.questions.enumerate() {
+        for (index,question) in Stress.questions.enumerated() {
             
             // Quest question using text choice
             let questionStepTitle = question
             
             var textChoices = [ORKTextChoice]()
             
-            for (index,title) in Stress.headers.enumerate() {
-                textChoices.append(ORKTextChoice(text: title, value: index))
+            for (index,title) in Stress.headers.enumerated() {
+                textChoices.append(ORKTextChoice(text: title, value: index as NSCoding & NSCopying & NSObjectProtocol))
             }
             
-            let answerFormat: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormatWithStyle(.SingleChoice, textChoices: textChoices)
+            let answerFormat: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices)
             let questionStep = ORKQuestionStep(identifier: "SurveyQuestion \(index+1)", title: questionStepTitle, answer: answerFormat)
-            questionStep.optional = false
+            questionStep.isOptional = false
             
             steps += [questionStep]
             

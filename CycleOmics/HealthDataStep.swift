@@ -35,21 +35,21 @@ class HealthDataStep: ORKInstructionStep {
     // MARK: Properties
     
     let healthDataItemsToRead: Set<HKObjectType> = [
-        HKObjectType.characteristicTypeForIdentifier(HKCharacteristicTypeIdentifierDateOfBirth)!,
-        HKObjectType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis)!,
-        HKObjectType.categoryTypeForIdentifier(HKCategoryTypeIdentifierCervicalMucusQuality)!,
-        HKObjectType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSexualActivity)!,
-        HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBasalBodyTemperature)!,
-        HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryWater)!,
+        HKObjectType.characteristicType(forIdentifier: HKCharacteristicTypeIdentifier.dateOfBirth)!,
+        HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis)!,
+        HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.cervicalMucusQuality)!,
+        HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sexualActivity)!,
+        HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.basalBodyTemperature)!,
+        HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryWater)!,
         HKObjectType.workoutType()
     ]
     
     let healthDataItemsToWrite: Set<HKSampleType> = [
-        HKObjectType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis)!,
-        HKObjectType.categoryTypeForIdentifier(HKCategoryTypeIdentifierCervicalMucusQuality)!,
-        HKObjectType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSexualActivity)!,
-        HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBasalBodyTemperature)!,
-        HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDietaryWater)!,
+        HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis)!,
+        HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.cervicalMucusQuality)!,
+        HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sexualActivity)!,
+        HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.basalBodyTemperature)!,
+        HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.dietaryWater)!,
         HKObjectType.workoutType()
     ]
     
@@ -66,18 +66,18 @@ class HealthDataStep: ORKInstructionStep {
     }
     
     // MARK: Convenience
-    func getHealthAuthorization(completion: (success: Bool, error: NSError?) -> Void) {
+    func getHealthAuthorization(_ completion: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         guard HKHealthStore.isHealthDataAvailable() else {
             let error = NSError(domain: "com.curio.CycleOmics", code: 2, userInfo: [NSLocalizedDescriptionKey: "Health data is not available on this device."])
             
-            completion(success: false, error:error)
+            completion(false, error)
             
             return
         }
         
         // Get authorization to access the data
-        HKHealthStore().requestAuthorizationToShareTypes(healthDataItemsToWrite, readTypes: healthDataItemsToRead) { (success, error) -> Void in
-            completion(success:success, error:error)
+        HKHealthStore().requestAuthorization(toShare: healthDataItemsToWrite, read: healthDataItemsToRead) { (success, error) -> Void in
+            completion(success, error as NSError?)
         }
     }
 }

@@ -21,7 +21,7 @@ struct FingerBloodSpot: TubeSample {
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
         let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
-        let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
+        let schedule = OCKCareSchedule.weeklySchedule(withStartDate: startDate as DateComponents, occurrencesOnEachDay: [1, 1, 1, 1, 1, 1, 1])
         
         // Get the localized strings to use for the activity.
         let summary = NSLocalizedString("Add 80ul of blood", comment: "")
@@ -41,12 +41,12 @@ struct FingerBloodSpot: TubeSample {
 //        let imageUrl = NSBundle.mainBundle().URLForResource("fingerBloodSample", withExtension: "png")
         
         // Create the intervention activity.
-        let activity = OCKCarePlanActivity.interventionWithIdentifier(
-            activityType.rawValue,
+        let activity = OCKCarePlanActivity.intervention(
+            withIdentifier: activityType.rawValue,
             groupIdentifier: nil,
             title: title,
             text: summary,
-            tintColor: Colors.Red.color,
+            tintColor: Colors.red.color,
             instructions: instructions,
             imageURL: nil,
             schedule: schedule,
