@@ -32,7 +32,6 @@ struct Saliva: TubeSample {
         "5) Store at freezer immediately."
 
         let instructions = NSLocalizedString(text, comment: "")
-//        let imageUrl = NSBundle.mainBundle().URLForResource("SalivaSample", withExtension: "png")
 
         // Create the intervention activity.
         let activity = OCKCarePlanActivity.interventionWithIdentifier(
@@ -49,18 +48,4 @@ struct Saliva: TubeSample {
         
         return activity
     }
-    
-    func task() -> ORKTask {
-        // Get the localized strings to use for the task.
-        let question = NSLocalizedString("Please enter the tube number you are using for sampling", comment: "")
-        
-        let questionStep = ORKQuestionStep(identifier: activityType.rawValue, title: title, text: question, answer: ORKAnswerFormat.integerAnswerFormatWithUnit(nil))
-        questionStep.optional = false
-        
-        // Create an ordered task with a single question.
-        let task = ORKOrderedTask(identifier: activityType.rawValue, steps: [questionStep])
-        
-        return task
-    }
-
 }

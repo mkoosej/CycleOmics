@@ -55,16 +55,22 @@ class ReportsBuilder {
         
         
         // Collecting data for sample tube entries
-        let activityHeaders = ["Sample Type" , "Tube Number"]
+        let activityHeaders = ["Sample Type" , "Tube Number", "Description"]
         var activityResults = [[String]]()
         for ( activityId, event ) in activityQuery.results {
             
             if let activity = ActivityType(rawValue: activityId) {
                 if let result = event.result {
-                    activityResults.append([ activity.localizedName, result.valueString])
+                    
+                    var description = String()
+                    if result.userInfo != nil {
+                        description = result.userInfo!["description"] as! String
+                    }
+                    
+                    activityResults.append([activity.localizedName, result.valueString , description])
                 }
                 else {
-                    activityResults.append([ activity.localizedName, ""])
+                    activityResults.append([ activity.localizedName, "", ""])
                 }
             }
         }
@@ -217,7 +223,7 @@ class ReportsBuilder {
     
     private func noteRow(activity:ActivityType, event:OCKCarePlanEvent) -> [String] {
         
-        if let result = event.result, userInfo = result.userInfo {
+        if let result = event.result, let userInfo = result.userInfo {
             return [activity.localizedName, userInfo["note"] as! String]
         }
         else {
@@ -227,7 +233,7 @@ class ReportsBuilder {
     
     private func noteParagraph(activity:ActivityType, event:OCKCarePlanEvent) -> OCKDocumentElementParagraph? {
         
-        if let result = event.result, userInfo = result.userInfo {
+        if let result = event.result, let userInfo = result.userInfo {
             if var content =  userInfo["note"] as? String   {
                
                 if(!content.isEmpty) {

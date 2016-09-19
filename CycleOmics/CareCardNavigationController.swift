@@ -94,14 +94,19 @@ extension CareCardNavigationController: ORKTaskViewControllerDelegate {
         
         let result = taskViewController.result
         
-        guard let firstResult = result.firstResult as? ORKStepResult, stepResult = firstResult.results?.first else { fatalError("Unexepected task results") }
+        guard let firstResult = result.firstResult as? ORKStepResult, formResults = firstResult.results else { fatalError("Unexepected task results") }
 
-        guard let integerResult = stepResult as? ORKNumericQuestionResult, tube_number = integerResult.numericAnswer else {
+        guard let textResult = formResults[0] as? ORKTextQuestionResult, tubeNumber = textResult.textAnswer else {
+            return
+        }
+        
+        guard let textResult2 = formResults[1] as? ORKTextQuestionResult, description = textResult2.textAnswer else {
             return
         }
         
         // Build an `OCKCarePlanEventResult` that can be saved into the `OCKCarePlanStore`.
-        let carePlanResult = OCKCarePlanEventResult(valueString: tube_number.stringValue, unitString: nil, userInfo: nil)
+        let dict = ["description": description]
+        let carePlanResult = OCKCarePlanEventResult(valueString: tubeNumber, unitString: nil, userInfo: dict)
         completeEvent(event, inStore: storeManager.store, withResult: carePlanResult)
     }
     
