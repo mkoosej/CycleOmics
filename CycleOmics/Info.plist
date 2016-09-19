@@ -46,5 +46,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To record your voice for assesments</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To add extra image to your report</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>To report the symptoms added to HealthKit</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>To record your entered symptoms to HealthKit</string>
 </dict>
 </plist>
