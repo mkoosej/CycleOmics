@@ -1,4 +1,7 @@
+
 # CycleOmics
+
+CycleOmics is CareKit and ResearchKit app. It's requested and being used by a Stanford research group to streamline the reporting process from volunteers. The research is on women's health and it requires daily sampling tasks and surveys. For more information about the research you can contact [Ryan Kellog](mailto:rkellogg@stanford.edu)
 
 
 License
