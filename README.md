@@ -1,5 +1,8 @@
 
-# ![Cycle Omics](https://s9.postimg.org/wmt0kxw5r/medical_symbol_80.png) CycleOmics
+# CycleOmics
+
+CycleOmics is CareKit and ResearchKit app. It's requested and being used by a Stanford research group to streamline the reporting process from volunteers. The research is about women's reproductive health and consists of daily sampleing task and survryas. For more information about the research you can contact [Ryan Kellog](mailto:rkellogg@stanford.edu)
+
 
 License
 =======
